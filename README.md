@@ -1,2 +1,3 @@
-hotspotizer
-===========
+# Hotspotizer
+
+Coming soon...
