@@ -1,6 +1,8 @@
 # Hotspotizer
 
-The full manuscript for the master's thesis can be found under the [Releases section of the thesis repository](https://github.com/mbaytas/thesis/releases).
+## Thesis Info
+
+See [mbaytas/thesis](https://github.com/mbaytas/thesis).
 
 ### Abstract
 
