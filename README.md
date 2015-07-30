@@ -1,8 +1,14 @@
 # Hotspotizer
 
+Hotspotizer allows users without computer programming skills to design, visualize, save and recall sets of custom full-body gestures, for use with the Microsoft Kinect. These gestures are mapped to system-wide keyboard commands which can be used to control any application.
+
+See the project page on the [Koç University Design Lab website](http://designlab.ku.edu.tr/design-thinking-research-group/hotspotizer/) for more information.
+
 ## Thesis Info
 
-See [mbaytas/thesis](https://github.com/mbaytas/thesis).
+Hotspotizer was my project for my master's thesis at the [Koç University Design Lab](http://designlab.ku.edu.tr).
+
+See [mbaytas/thesis](https://github.com/mbaytas/thesis) for the TeX source files and PDF distribution of my master's thesis on Hotspotizer.
 
 ### Abstract
 
@@ -14,14 +20,14 @@ This thesis documents the design, development, deployment and evaluation of a so
 
 Hotspotizer; gestural interaction; gesture authoring; visual programming; end-user development; interface prototyping; mid-air gestures; perceptual interaction; Kinect.
 
-### Related Links
+## Related Links
 
 - [Master's Thesis: End-User Authoring of Mid-Air Gestural Interactions (TeX source)](https://github.com/mbaytas/thesis)
 - [Koç University Design Lab](http://designlab.ku.edu.tr/)
 - [Hotspotizer Project Page](http://designlab.ku.edu.tr/design-thinking-research-group/hotspotizer/)
 - [Hotspotizer featured on Channel 9 Coding4Fun Kinect Projects blog](http://channel9.msdn.com/coding4fun/kinect/Todays-hot-project-Hotspotizer)
 
-### Related Academic Publications
+## Related Academic Publications
 
 - Mehmet Aydın Baytaş, Yücel Yemez, and Oğuzhan Özcan (2014). Hotspotizer: end-user authoring of mid-air gestural interactions. In *Proceedings of the 8th Nordic Conference on Human-Computer Interaction (NordiCHI '14)*.
 - Mehmet Aydın Baytaş, Yücel Yemez and Oğuzhan Özcan (2014). User Interface Paradigms for Visually Authoring Mid-Air Gestures: A Survey and a Provocation. In *Proceedings of the Workshop on Engineering Gestures for Multimodal Interfaces (EGMI 2014)*.
