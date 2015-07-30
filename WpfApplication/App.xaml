@@ -1,0 +1,71 @@
+﻿<Application x:Class="WpfApplication.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:WpfApplication.Converters"
+             StartupUri="MainWindow.xaml">
+  <Application.Resources>
+
+    <FontFamily x:Key="SegSym">/Resources/#Segoe UI Symbol</FontFamily>
+
+    <Style x:Key="h1" TargetType="{x:Type TextBlock}">
+      <Setter Property="FontFamily" Value="Segoe UI Light" />
+      <Setter Property="FontSize" Value="20pt" />
+      <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style x:Key="h2" TargetType="{x:Type TextBlock}">
+      <Setter Property="FontFamily" Value="Segoe UI Semibold" />
+      <Setter Property="FontSize" Value="11pt" />
+      <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+    <Style x:Key="p" TargetType="{x:Type TextBlock}">
+      <Setter Property="FontFamily" Value="Segoe UI Semilight" />
+      <Setter Property="FontSize" Value="11pt" />
+      <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="TitleBar" TargetType="{x:Type Grid}">
+      <Setter Property="Background" Value="LightGray" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}">
+      <Setter Property="FontFamily" Value="{StaticResource SegSym}" />
+      <Setter Property="FontSize" Value="11pt" />
+      <Setter Property="Margin" Value="0,10"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+      <Setter Property="BorderBrush" Value="DarkGray"/>
+    </Style>
+    <Style TargetType="{x:Type ToggleButton}">
+      <Setter Property="FontFamily" Value="{StaticResource SegSym}" />
+      <Setter Property="FontSize" Value="11pt" />
+      <Setter Property="Margin" Value="0,10"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+      <Setter Property="VerticalAlignment" Value="Center"/>
+      <Setter Property="BorderBrush" Value="DarkGray"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}">
+      <Setter Property="FontFamily" Value="Segoe UI Semilight" />
+      <Setter Property="FontSize" Value="11pt" />
+      <Setter Property="Margin" Value="10 10 10 10"/>
+      <Setter Property="Padding" Value="5 5 5 5"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style x:Key="HotspotGrid" TargetType="{x:Type UniformGrid}">
+      <Style.Resources>
+        <Style TargetType="{x:Type Border}">
+          <Setter Property="Background" Value="Transparent" />
+          <Setter Property="Margin" Value="0" />
+          <Setter Property="BorderBrush" Value="Gray" />
+        </Style>
+      </Style.Resources>
+    </Style>
+
+    <converters:CommandConverter x:Key="commandConverter"/>
+    <converters:CommandConverterWithIcon x:Key="commandConverterWithIcon"/>
+    <converters:HoldConverter x:Key="holdConverter"/>
+    <converters:EnumBooleanConverter x:Key="enumBooleanConverter"/>
+    <converters:SamenessConverter x:Key="samenessConverter"/>
+  </Application.Resources>
+</Application>
