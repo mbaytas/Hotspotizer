@@ -1,6 +1,8 @@
 [Bb]in/
 [Oo]bj/
 
+*.DS_Store
+
 *.suo
 *.user
 *.sln.docstates
