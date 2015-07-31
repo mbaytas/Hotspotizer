@@ -1,4 +1,8 @@
-﻿using Microsoft.Kinect;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: Gesture.cs
+//Version: 20150731
+
+using Microsoft.Kinect;
 using Newtonsoft.Json;
 using System;
 using System.Collections.ObjectModel;
@@ -10,6 +14,18 @@ namespace WpfApplication.Models
 
   public class Gesture : INotifyPropertyChanged
   {
+
+    #region --- Constants ---
+
+    public const string PROPERTY_NAME = "Name";
+    public const string PROPERTY_COMMAND = "Command";
+    public const string PROPERTY_HOLD = "Hold";
+    public const string PROPERTY_JOINT = "Joint";
+    public const string PROPERTY_FRAMES = "Frames";
+    public const string PROPERTY_IS_HIT = "IsHit";
+
+    #endregion
+
     #region --- Fields ---
 
     private string _name;
@@ -40,7 +56,7 @@ namespace WpfApplication.Models
       set
       {
         _name = value;
-        OnPropertyChanged("Name");
+        OnPropertyChanged(PROPERTY_NAME);
       }
     }
 
@@ -50,7 +66,7 @@ namespace WpfApplication.Models
       set
       {
         _command = value;
-        OnPropertyChanged("Command");
+        OnPropertyChanged(PROPERTY_COMMAND);
       }
     }
 
@@ -60,7 +76,7 @@ namespace WpfApplication.Models
       set
       {
         _hold = value;
-        OnPropertyChanged("Hold");
+        OnPropertyChanged(PROPERTY_HOLD);
       }
     }
 
@@ -70,7 +86,7 @@ namespace WpfApplication.Models
       set
       {
         _joint = value;
-        OnPropertyChanged("Joint");
+        OnPropertyChanged(PROPERTY_JOINT);
       }
     }
 
@@ -80,7 +96,7 @@ namespace WpfApplication.Models
       set
       {
         _frames = value;
-        OnPropertyChanged("Frames");
+        OnPropertyChanged(PROPERTY_FRAMES);
       }
     }
 
@@ -91,7 +107,7 @@ namespace WpfApplication.Models
       set
       {
         _isHit = value;
-        OnPropertyChanged("IsHit");
+        OnPropertyChanged(PROPERTY_IS_HIT);
       }
     }
 
@@ -104,9 +120,7 @@ namespace WpfApplication.Models
     void OnPropertyChanged(string propName)
     {
       if (PropertyChanged != null)
-      {
         PropertyChanged(this, new PropertyChangedEventArgs(propName));
-      }
     }
 
     #endregion

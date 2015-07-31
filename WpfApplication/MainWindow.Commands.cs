@@ -1,4 +1,8 @@
-﻿using Microsoft.Kinect;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: MainWindow.Commands.cs
+//Version: 20150731
+
+  using Microsoft.Kinect;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -48,23 +52,21 @@ namespace WpfApplication
       if (MessageBox.Show("Do you really want to discard the current gesture collection and create a new one?",
           "Create New Gesture Collection",
           MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-      {
-        while (GestureCollection.Count > 0) GestureCollection.RemoveAt(0);
-      }
+        while (GestureCollection.Count > 0)
+          GestureCollection.RemoveAt(0);
     }
 
     public void SaveGestureCollection(object parameter)
     {
       // Conjure file explorer
       SaveFileDialog saveDialog = new SaveFileDialog();
-      // Fucking around with file formats
+      // Set filename filter
       saveDialog.Filter = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
       // Write if dialog returns OK
       if (saveDialog.ShowDialog() == true)
-      {
         File.WriteAllText(saveDialog.FileName, JsonConvert.SerializeObject(GestureCollection));
-      }
     }
+
     public bool CanSaveGestureCollection(object parameter)
     {
       return (GestureCollection.Count > 0);
@@ -74,7 +76,7 @@ namespace WpfApplication
     {
       // Conjure file explorer
       OpenFileDialog openDialog = new OpenFileDialog();
-      // Fucking around with file formats
+      // Set filename filter
       openDialog.Filter = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
       // Read and load if dialog returns OK
       if (openDialog.ShowDialog() == true)

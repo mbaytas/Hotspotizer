@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: CommandConverterWithIcon.cs
+//Version: 20150731
+
+using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Data;
@@ -11,10 +15,15 @@ namespace WpfApplication.Converters
   public class CommandConverterWithIcon : IValueConverter
   {
 
+    #region --- Methods ---
+
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       ObservableCollection<Key> c = (ObservableCollection<Key>)value;
-      if (c == null || c.Count == 0) return "\uE144";
+
+      if (c == null || c.Count == 0)
+        return "\uE144";
+
       return "\uE144 " + string.Join(" + ", c);
     }
 
@@ -24,14 +33,20 @@ namespace WpfApplication.Converters
       ObservableCollection<Key> c = new ObservableCollection<Key>();
       String v = (String)value;
       string[] ss = v.Replace("\uE144", "").TrimStart().Split('+');
-      if (ss.Length == 0) return c;
+
+      if (ss.Length == 0)
+        return c;
+
       foreach (string s in ss)
       {
         s.Trim();
         c.Add((Key)kc.ConvertFromString(s));
       }
+
       return c;
     }
+
+    #endregion
 
   }
 

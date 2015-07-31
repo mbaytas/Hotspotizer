@@ -1,4 +1,8 @@
-﻿using HelixToolkit.Wpf;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: MainWindow.VisualizerUtils.cs
+//Version: 20150731
+
+using HelixToolkit.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +19,14 @@ namespace WpfApplication
 
     #region --- Methods ---
 
-    public void Play(object parameter)
+    public bool CanPlay(object parameter)
+    {
+      if (kinect == null) return false;
+      else if (GestureCollection.Count > 0 && kinect.Status == Microsoft.Kinect.KinectStatus.Connected) return true;
+      else return false;
+    }
+
+    public void Play(object parameter) //TODO: make method smaller (refactor into multiple methods)
     {
       CollisionTimes = new List<List<DateTime>>();
       CollisionStates = new List<JointCollisionStates[]>();
@@ -32,6 +43,7 @@ namespace WpfApplication
         CollisionHighlights_Side.Children.Add(new Model3DGroup());
       }
       HotspotCellsModelVisual3D_Hit_Visualizer.Content = CollisionHighlights_3D;
+
       // Mark gesture cells in 3D Grid
       Model3DGroup modelGroup = new Model3DGroup();
       foreach (Gesture g in GestureCollection)
@@ -68,12 +80,15 @@ namespace WpfApplication
         }
         HotspotCellsModelVisual3D_Visualizer.Content = modelGroup;
       }
+
       // Show visualizer
       TheEditor.Visibility = Visibility.Hidden;
       TheVisualizer.Visibility = Visibility.Visible;
       EditorOverlay.Visibility = Visibility.Hidden;
+
       // Hide Manager
       ManagerOverlay.Visibility = Visibility.Visible;
+
       // Enable Kinect
       if (kinect != null)
       {
@@ -82,15 +97,9 @@ namespace WpfApplication
         kinect.SkeletonFrameReady += SkeletonFrameReady_Detect_Visualizer;
         kinect.Start();
       }
+
       // Kill keyboard control
       EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Visualizer.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
-    }
-
-    public bool CanPlay(object parameter)
-    {
-      if (kinect == null) return false;
-      else if (GestureCollection.Count > 0 && kinect.Status == Microsoft.Kinect.KinectStatus.Connected) return true;
-      else return false;
     }
 
     public void CloseVisualizer(object parameter)

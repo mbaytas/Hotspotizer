@@ -1,4 +1,8 @@
-﻿using Microsoft.Kinect;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: MainWindow.xaml.cs
+//Version: 20150731
+
+using Microsoft.Kinect;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,8 +19,6 @@ namespace WpfApplication
 
     #region --- Fields ---
 
-    // The gesture collection and gesture we are operating on
-    public ObservableCollection<Gesture> GestureCollection { get; set; }
     // Needed for Editor's data bindings to come alive
     Gesture InitGesture = new Gesture();
 
@@ -61,14 +63,22 @@ namespace WpfApplication
 
     #endregion
 
+    #region --- Properties ---
+
+    // The gesture collection and gesture we are operating on
+    public ObservableCollection<Gesture> GestureCollection { get; set; }
+
+    #endregion
+
     #region --- Methods ---
 
     private Gesture MakeNewGesture()
     {
-      Gesture newGesture = new Gesture();
-      newGesture.Command = new ObservableCollection<Key>() { Key.None };
-      newGesture.Frames = new ObservableCollection<GestureFrame> { MakeNewGestureFrame() };
-      return newGesture;
+      return new Gesture()
+      {
+        Command = new ObservableCollection<Key>() { Key.None },
+        Frames = new ObservableCollection<GestureFrame> { MakeNewGestureFrame() }
+      };
     }
 
     private GestureFrame MakeNewGestureFrame()
@@ -82,33 +92,38 @@ namespace WpfApplication
       return newFrame;
     }
 
+    private GestureFrame DeepCopyGestureFrame(GestureFrame sourceFrame)
+    {
+      GestureFrame targetFrame = new GestureFrame();
+      for (int i = 0; i < 400; i++)
+      {
+        targetFrame.FrontCells[i] = new GestureFrameCell()
+        {
+          IndexInFrame = sourceFrame.FrontCells[i].IndexInFrame,
+          IsHotspot = sourceFrame.FrontCells[i].IsHotspot
+        };
+        targetFrame.SideCells[i] = new GestureFrameCell()
+        {
+          IndexInFrame = sourceFrame.SideCells[i].IndexInFrame,
+          IsHotspot = sourceFrame.SideCells[i].IsHotspot
+        };
+      }
+      return targetFrame;
+    }
+
     private Gesture DeepCopyGesture(Gesture source)
     {
       Gesture target = new Gesture();
-      target = new Gesture();
+
       target.Name = source.Name;
       target.Command = new ObservableCollection<Key>(source.Command);
       target.Hold = source.Hold; // Motherfucking System.Boolean is cocksucking value type
       target.Joint = source.Joint; // Enums are also value type
+
       target.Frames = new ObservableCollection<GestureFrame>();
       foreach (GestureFrame sourceFrame in source.Frames)
-      {
-        GestureFrame targetFrame = new GestureFrame();
-        for (int i = 0; i < 400; i++)
-        {
-          targetFrame.FrontCells[i] = new GestureFrameCell()
-          {
-            IndexInFrame = sourceFrame.FrontCells[i].IndexInFrame,
-            IsHotspot = sourceFrame.FrontCells[i].IsHotspot
-          };
-          targetFrame.SideCells[i] = new GestureFrameCell()
-          {
-            IndexInFrame = sourceFrame.SideCells[i].IndexInFrame,
-            IsHotspot = sourceFrame.SideCells[i].IsHotspot
-          };
-        }
-        target.Frames.Add(targetFrame);
-      }
+        target.Frames.Add(DeepCopyGestureFrame(sourceFrame));
+
       return target;
     }
 

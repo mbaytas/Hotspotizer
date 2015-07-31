@@ -1,4 +1,8 @@
-﻿using System;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: HoldConverter.cs
+//Version: 20150731
+
+using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -10,17 +14,22 @@ namespace WpfApplication.Converters
   public class HoldConverter : IValueConverter
   {
 
+    #region --- Methods ---
+
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-      bool c = (bool)value;
-      if (c) return "\uE1CD";
-      else return "\uE1CC";
+      if ((bool)value)
+        return "\uE1CD";
+      else
+        return "\uE1CC";
     }
 
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
       throw new NotImplementedException();
     }
+
+    #endregion
 
   }
 

@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: GestureFrameCell.cs
+//Version: 20150731
+
+using Newtonsoft.Json;
 using System.ComponentModel;
 
 namespace WpfApplication.Models
@@ -6,7 +10,13 @@ namespace WpfApplication.Models
 
   public class GestureFrameCell : INotifyPropertyChanged
   {
-    
+
+    #region --- Constants ---
+
+    public const string PROPERTY_IS_HOTSPOT = "IsHotspot";
+
+    #endregion
+
     #region --- Fields ---
 
     public int IndexInFrame;
@@ -32,7 +42,7 @@ namespace WpfApplication.Models
       set
       {
         _isHotspot = value;
-        OnPropertyChanged("IsHotspot");
+        OnPropertyChanged(PROPERTY_IS_HOTSPOT);
       }
     }
 
@@ -45,9 +55,7 @@ namespace WpfApplication.Models
     void OnPropertyChanged(string propName)
     {
       if (PropertyChanged != null)
-      {
         PropertyChanged(this, new PropertyChangedEventArgs(propName));
-      }
     }
 
     #endregion

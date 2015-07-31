@@ -1,5 +1,8 @@
-﻿using HelixToolkit.Wpf;
-using Microsoft.Kinect;
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: MainWindow.EditorUtils.cs
+//Version: 20150731
+
+using HelixToolkit.Wpf;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +10,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
@@ -47,9 +49,30 @@ namespace WpfApplication
         CollisionHighlights_3D.Children.Add(new Model3DGroup());
       }
       HotspotCellsModelVisual3D_Hit_Editor.Content = CollisionHighlights_3D;
+
       // Initialize variable to store the initial state of the Gesture.Command being set
       CommandBackup = new ObservableCollection<Key>();
-      // Enable Kinect
+
+      EnableKinect();
+
+      ShowEditor();
+      ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
+      FramesListBox.SelectedIndex = 0; // Reset Frame selection
+
+      // Kill keyboard control on 3D grid
+      EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Editor.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
+    }
+
+    private void KillEditor()
+    {
+      DisableKinect();
+      TheWorkspace.DataContext = InitGesture; // Clean up DataContext
+      EditorOverlay.Visibility = Visibility.Visible; // Hide Editor
+      ManagerOverlay.Visibility = Visibility.Hidden; // Show Manager
+    }
+
+    private void EnableKinect()
+    {
       if (kinect != null)
       {
         kinect.SkeletonStream.Enable();
@@ -61,20 +84,10 @@ namespace WpfApplication
         kinect.SkeletonFrameReady += SkeletonFrameReady_Detect_Editor;
         kinect.Start();
       }
-      // Show Editor
-      TheEditor.Visibility = Visibility.Visible;
-      EditorOverlay.Visibility = Visibility.Hidden;
-      // Hide Manager
-      ManagerOverlay.Visibility = Visibility.Visible;
-      // Reset Frame selection
-      FramesListBox.SelectedIndex = 0;
-      // Kill keyboard control on 3D grid
-      EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Editor.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
     }
 
-    private void KillEditor()
+    private void DisableKinect()
     {
-      // Disable Kinect
       if (kinect != null)
       {
         kinect.Stop();
@@ -85,12 +98,12 @@ namespace WpfApplication
         kinect.SkeletonFrameReady -= SkeletonFrameReady_Detect_Editor;
         kinect.SkeletonStream.Disable();
       }
-      // Clean up DataContext
-      TheWorkspace.DataContext = InitGesture;
-      // Hide Editor
-      EditorOverlay.Visibility = Visibility.Visible;
-      // Show Manager
-      ManagerOverlay.Visibility = Visibility.Hidden;
+    }
+
+    private void ShowEditor()
+    {
+      TheEditor.Visibility = Visibility.Visible;
+      EditorOverlay.Visibility = Visibility.Hidden;
     }
 
     // Enable/disable rows on SideViewGrid according to selection on FrontViewGrid

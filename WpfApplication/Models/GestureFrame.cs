@@ -1,4 +1,8 @@
-﻿namespace WpfApplication.Models
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+//File: GestureFrame.cs
+//Version: 20150731
+
+namespace WpfApplication.Models
 {
 
   public class GestureFrame
