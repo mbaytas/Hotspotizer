@@ -3,20 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:WpfApplication.Converters"
              StartupUri="MainWindow.xaml">
+  
   <Application.Resources>
-
-    <FontFamily x:Key="SegSym">/Resources/#Segoe UI Symbol</FontFamily>
 
     <Style x:Key="h1" TargetType="{x:Type TextBlock}">
       <Setter Property="FontFamily" Value="Segoe UI Light" />
       <Setter Property="FontSize" Value="20pt" />
       <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
+    
     <Style x:Key="h2" TargetType="{x:Type TextBlock}">
       <Setter Property="FontFamily" Value="Segoe UI Semibold" />
       <Setter Property="FontSize" Value="11pt" />
       <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
+    
     <Style x:Key="p" TargetType="{x:Type TextBlock}">
       <Setter Property="FontFamily" Value="Segoe UI Semilight" />
       <Setter Property="FontSize" Value="11pt" />
@@ -28,15 +29,16 @@
     </Style>
 
     <Style TargetType="{x:Type Button}">
-      <Setter Property="FontFamily" Value="{StaticResource SegSym}" />
+      <Setter Property="FontFamily" Value="Segoe UI Symbol" />
       <Setter Property="FontSize" Value="11pt" />
       <Setter Property="Margin" Value="0,10"/>
       <Setter Property="HorizontalAlignment" Value="Center"/>
       <Setter Property="VerticalAlignment" Value="Center"/>
       <Setter Property="BorderBrush" Value="DarkGray"/>
     </Style>
+    
     <Style TargetType="{x:Type ToggleButton}">
-      <Setter Property="FontFamily" Value="{StaticResource SegSym}" />
+      <Setter Property="FontFamily" Value="Segoe UI Symbol" />
       <Setter Property="FontSize" Value="11pt" />
       <Setter Property="Margin" Value="0,10"/>
       <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -67,5 +69,7 @@
     <converters:HoldConverter x:Key="holdConverter"/>
     <converters:EnumBooleanConverter x:Key="enumBooleanConverter"/>
     <converters:SamenessConverter x:Key="samenessConverter"/>
+    
   </Application.Resources>
+  
 </Application>

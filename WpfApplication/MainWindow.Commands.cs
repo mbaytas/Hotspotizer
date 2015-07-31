@@ -7,14 +7,16 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using WpfApplication.Helpers;
 using WpfApplication.Models;
 
-namespace WpfApplication {
-  public partial class MainWindow {
+namespace WpfApplication
+{
+  public partial class MainWindow
+  {
+
+    #region --- Properties ---
 
     public ICommand CreateNewGestureCollectionCommand { get; set; }
     public ICommand SaveGestureCollectionCommand { get; set; }
@@ -25,7 +27,12 @@ namespace WpfApplication {
     public ICommand PlayCommand { get; set; }
     public ICommand CloseVisualizerCommand { get; set; }
 
-    private void registerCommands() {
+    #endregion
+
+    #region --- Methods ---
+
+    private void registerCommands()
+    {
       CreateNewGestureCollectionCommand = new RelayCommand(CreateNewGestureCollection);
       SaveGestureCollectionCommand = new RelayCommand(SaveGestureCollection, CanSaveGestureCollection);
       LoadGestureCollectionCommand = new RelayCommand(LoadGestureCollection);
@@ -36,52 +43,62 @@ namespace WpfApplication {
       CloseVisualizerCommand = new RelayCommand(CloseVisualizer);
     }
 
-    public void CreateNewGestureCollection(object parameter) {
+    public void CreateNewGestureCollection(object parameter)
+    {
       if (MessageBox.Show("Do you really want to discard the current gesture collection and create a new one?",
           "Create New Gesture Collection",
-          MessageBoxButton.YesNo) == MessageBoxResult.Yes) {
+          MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+      {
         while (GestureCollection.Count > 0) GestureCollection.RemoveAt(0);
       }
     }
 
-    public void SaveGestureCollection(object parameter) {
+    public void SaveGestureCollection(object parameter)
+    {
       // Conjure file explorer
       SaveFileDialog saveDialog = new SaveFileDialog();
       // Fucking around with file formats
       saveDialog.Filter = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
       // Write if dialog returns OK
-      if (saveDialog.ShowDialog() == true) {
+      if (saveDialog.ShowDialog() == true)
+      {
         File.WriteAllText(saveDialog.FileName, JsonConvert.SerializeObject(GestureCollection));
       }
     }
-    public bool CanSaveGestureCollection(object parameter) {
+    public bool CanSaveGestureCollection(object parameter)
+    {
       return (GestureCollection.Count > 0);
     }
 
-    public void LoadGestureCollection(object parameter) {
+    public void LoadGestureCollection(object parameter)
+    {
       // Conjure file explorer
       OpenFileDialog openDialog = new OpenFileDialog();
       // Fucking around with file formats
       openDialog.Filter = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
       // Read and load if dialog returns OK
-      if (openDialog.ShowDialog() == true) {
+      if (openDialog.ShowDialog() == true)
+      {
         string json = File.ReadAllText(openDialog.FileName);
         // DeserializeObject() does not appear to correctly deserialize Gesture objects
         // Below is a kinda-dirty solution around that
         List<Gesture> sourceList = JsonConvert.DeserializeObject<List<Gesture>>(json);
         while (GestureCollection.Count > 0) GestureCollection.RemoveAt(0);
-        foreach (Gesture sourceGesture in sourceList) {
+        foreach (Gesture sourceGesture in sourceList)
+        {
           Gesture targetGesture = new Gesture();
           targetGesture.Name = sourceGesture.Name;
           targetGesture.Command = new ObservableCollection<Key>(sourceGesture.Command);
           targetGesture.Hold = sourceGesture.Hold;
           targetGesture.Joint = sourceGesture.Joint;
           while (targetGesture.Frames.Count > 0) targetGesture.Frames.RemoveAt(0);
-          foreach (GestureFrame sourceFrame in sourceGesture.Frames) {
+          foreach (GestureFrame sourceFrame in sourceGesture.Frames)
+          {
             GestureFrame targetFrame = new GestureFrame();
-            for (int i = 0; i < 400; i++) {
+            for (int i = 0; i < 400; i++)
+            {
               targetFrame.FrontCells[i] = sourceFrame.FrontCells[i];
-              targetFrame.SideCells[i] = sourceFrame.SideCells[i];  
+              targetFrame.SideCells[i] = sourceFrame.SideCells[i];
             }
             targetGesture.Frames.Add(targetFrame);
           }
@@ -90,7 +107,8 @@ namespace WpfApplication {
       }
     }
 
-    public void AddNewGesture(object parameter) {
+    public void AddNewGesture(object parameter)
+    {
       // Clear the initial state store
       ExGesture = null;
       // Make the new gesture and name it properly
@@ -105,13 +123,16 @@ namespace WpfApplication {
       LaunchEditor();
     }
 
-    public void SaveGesture(object parameter) {
+    public void SaveGesture(object parameter)
+    {
       ExGesture = null;
       KillEditor();
     }
-    public bool CanSaveGesture(object parameter) {
+    public bool CanSaveGesture(object parameter)
+    {
       // TODO
-      if (TheWorkspace != null) {
+      if (TheWorkspace != null)
+      {
         Gesture g = (Gesture)TheWorkspace.DataContext;
         return g != null &&
             !String.IsNullOrEmpty(g.Name) &&
@@ -122,7 +143,8 @@ namespace WpfApplication {
       else return false;
     }
 
-    public void DiscardGesture(object parameter) {
+    public void DiscardGesture(object parameter)
+    {
       Gesture g = (Gesture)TheWorkspace.DataContext;
       // If the gesture is a new gesture, remove that motherfucker from the Gesture Collection
       if (ExGesture == null) GestureCollection.Remove(g);
@@ -131,6 +153,8 @@ namespace WpfApplication {
       // Go go go
       KillEditor();
     }
+
+    #endregion
 
   }
 }

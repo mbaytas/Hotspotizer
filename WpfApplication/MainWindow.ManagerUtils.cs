@@ -1,10 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using WpfApplication.Models;
 
-namespace WpfApplication {
+namespace WpfApplication
+{
   public partial class MainWindow {
+
+    #region --- Events ---
 
     public void DeleteGestureButton_Click(object sender, RoutedEventArgs e) {
       Button b = (Button)sender;
@@ -24,6 +26,8 @@ namespace WpfApplication {
       TheWorkspace.DataContext = g;
       LaunchEditor();
     }
+
+    #endregion
 
   }
 }

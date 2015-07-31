@@ -2,10 +2,8 @@
 using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
@@ -13,8 +11,10 @@ using WindowsInput;
 using WindowsInput.Native;
 using WpfApplication.Models;
 
-namespace WpfApplication {
-  public partial class MainWindow : Window {
+namespace WpfApplication
+{
+  public partial class MainWindow : Window
+  {
 
     // Kinect-related members
     private KinectSensor kinect = null;
@@ -40,36 +40,48 @@ namespace WpfApplication {
     List<List<DateTime>> CollisionTimes;
     TimeSpan CollisionTimeout = TimeSpan.FromMilliseconds(500);
 
-    private void SkeletonFrameReady_Draw3D_Editor(object sender, SkeletonFrameReadyEventArgs e) {
+    private void SkeletonFrameReady_Draw3D_Editor(object sender, SkeletonFrameReadyEventArgs e)
+    {
       Draw3dSkeleton(SkeletonModelVisual3D_Editor, e);
     }
-    private void SkeletonFrameReady_Draw3D_Front_Editor(object sender, SkeletonFrameReadyEventArgs e) {
+
+    private void SkeletonFrameReady_Draw3D_Front_Editor(object sender, SkeletonFrameReadyEventArgs e)
+    {
       Draw3dSkeleton(SkeletonModelVisual3D_Editor_FrontViewPort, e);
     }
-    private void SkeletonFrameReady_Draw3D_Side_Editor(object sender, SkeletonFrameReadyEventArgs e) {
+
+    private void SkeletonFrameReady_Draw3D_Side_Editor(object sender, SkeletonFrameReadyEventArgs e)
+    {
       Draw3dSkeleton(SkeletonModelVisual3D_Editor_SideViewPort, e);
     }
-    private void SkeletonFrameReady_ToggleBackground_Editor(object sender, SkeletonFrameReadyEventArgs e) {
-      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame()) {
-        if (skeletonFrame == null) {
+
+    private void SkeletonFrameReady_ToggleBackground_Editor(object sender, SkeletonFrameReadyEventArgs e)
+    {
+      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+      {
+        if (skeletonFrame == null)
+        {
           FrontViewImage.Visibility = System.Windows.Visibility.Visible;
           SideViewImage.Visibility = System.Windows.Visibility.Visible;
           return;
         }
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
         skeletonFrame.CopySkeletonDataTo(skeletons);
-        if (skeletons == null) {
+        if (skeletons == null)
+        {
           FrontViewImage.Visibility = System.Windows.Visibility.Visible;
           SideViewImage.Visibility = System.Windows.Visibility.Visible;
           return;
         }
         Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
-        if (skeleton == null) {
+        if (skeleton == null)
+        {
           FrontViewImage.Visibility = System.Windows.Visibility.Visible;
           SideViewImage.Visibility = System.Windows.Visibility.Visible;
           return;
         }
-        else {
+        else
+        {
           FrontViewImage.Visibility = System.Windows.Visibility.Hidden;
           SideViewImage.Visibility = System.Windows.Visibility.Hidden;
           return;
@@ -77,25 +89,31 @@ namespace WpfApplication {
       }
     }
 
-    private void SkeletonFrameReady_Draw3D_Visualizer(object sender, SkeletonFrameReadyEventArgs e) {
+    private void SkeletonFrameReady_Draw3D_Visualizer(object sender, SkeletonFrameReadyEventArgs e)
+    {
       Draw3dSkeleton(SkeletonModelVisual3D_Visualizer, e);
     }
 
-    private void Draw3dSkeleton(ModelVisual3D modelVisual3D, SkeletonFrameReadyEventArgs e) {
-      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame()) {
+    private void Draw3dSkeleton(ModelVisual3D modelVisual3D, SkeletonFrameReadyEventArgs e)
+    {
+      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+      {
         // Get tracked skeleton data from stream, return if no data
-        if (skeletonFrame == null) {
+        if (skeletonFrame == null)
+        {
           modelVisual3D.Content = null;
           return;
         }
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
         skeletonFrame.CopySkeletonDataTo(skeletons);
-        if (skeletons == null) {
+        if (skeletons == null)
+        {
           modelVisual3D.Content = null;
           return;
         }
         Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
-        if (skeleton == null) {
+        if (skeleton == null)
+        {
           modelVisual3D.Content = null;
           return;
         }
@@ -107,7 +125,8 @@ namespace WpfApplication {
         // Init dict to tidy up code
         Dictionary<JointType, Point3D> jd = new Dictionary<JointType, Point3D>();
         // Add joints to mesh while populating the dict
-        foreach (Joint j in skeleton.Joints) {
+        foreach (Joint j in skeleton.Joints)
+        {
           // Helix3D has a different coordinate system
           int y = (int)((j.Position.X - centroid.X) * 100);
           int z = (int)((j.Position.Y - centroid.Y) * 100);
@@ -146,8 +165,10 @@ namespace WpfApplication {
       }
     }
 
-    private void SkeletonFrameReady_Detect_Editor(object sender, SkeletonFrameReadyEventArgs e) {
-      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame()) {
+    private void SkeletonFrameReady_Detect_Editor(object sender, SkeletonFrameReadyEventArgs e)
+    {
+      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+      {
         // Get data from stream, kill if no data
         if (skeletonFrame == null) return;
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
@@ -160,7 +181,8 @@ namespace WpfApplication {
         SkeletonPoint centroid = skeleton.Joints[JointType.HipCenter].Position;
         // Get the data
         // Check each gesture in collection
-        for (int gi = 0; gi < GestureCollection.Count; gi++) {
+        for (int gi = 0; gi < GestureCollection.Count; gi++)
+        {
           Gesture g = GestureCollection[gi];
           // Get coordinates of tracked joint
           // SkeletonPoint structure contains X. Y, Z values in meters, relative to the sensor
@@ -172,19 +194,24 @@ namespace WpfApplication {
           // Check each frame in gesture for collision
           CollisionStates[gi][0] = CollisionStates[gi][1];
           CollisionStates[gi][1] = JointCollisionStates.OutThere;
-          for (int fi = 0; fi < g.Frames.Count; fi++) {
+          for (int fi = 0; fi < g.Frames.Count; fi++)
+          {
             GestureFrame f = g.Frames[fi];
             // Check for collision
-            foreach (GestureFrameCell fc in f.FrontCells.Where(c => c.IsHotspot)) {
+            foreach (GestureFrameCell fc in f.FrontCells.Where(c => c.IsHotspot))
+            {
               if (jX <= fc.RightCM &&
                   jX >= fc.LeftCM &&
                   jY <= fc.TopCM &&
-                  jY >= fc.BottomCM) {
-                foreach (GestureFrameCell sc in f.SideCells.Where(c => c.IsHotspot)) {
+                  jY >= fc.BottomCM)
+              {
+                foreach (GestureFrameCell sc in f.SideCells.Where(c => c.IsHotspot))
+                {
                   if (jZ <= sc.RightCM &&
                       jZ >= sc.LeftCM &&
                       jY <= sc.TopCM &&
-                      jY >= sc.BottomCM) {
+                      jY >= sc.BottomCM)
+                  {
                     // Record collision
                     CollisionTimes[gi][fi] = DateTime.Now;
                     CollisionStates[gi][1] = JointCollisionStates.InHotspot;
@@ -197,24 +224,30 @@ namespace WpfApplication {
 
           // Handle 1-frame gestures
           // List highlight and 3D highlights
-          if (g.Frames.Count == 1) {
-            if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) {
+          if (g.Frames.Count == 1)
+          {
+            if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
+            {
               HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
               HighlightGestureOnList(g);
             }
-            else if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere) {
+            else if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere)
+            {
               DeHighlightFrames_Editor(g);
               DeHighlightGestureOnList(g);
             }
           }
 
           // Handle multi-frame gestures
-          else {
+          else
+          {
             // List highlight
             if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && !(CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot))
               DeHighlightGestureOnList(g);
-            else if (!(CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot) && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) {
-              for (int i = 1; i < CollisionTimes[gi].Count; i++) {
+            else if (!(CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot) && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
+            {
+              for (int i = 1; i < CollisionTimes[gi].Count; i++)
+              {
                 if (CollisionTimes[gi][i] - CollisionTimes[gi][i - 1] > CollisionTimeout) break;
                 if (i + 1 == CollisionTimes[gi].Count) HighlightGestureOnList(g);
               }
@@ -224,7 +257,8 @@ namespace WpfApplication {
             List<GestureFrame> FramesToHighlight = new List<GestureFrame>();
             if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.OutThere)
               DeHighlightFrames_Editor(g);
-            else if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InHotspot) {
+            else if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
+            {
               if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
               else DeHighlightFrames_Editor(g);
             }
@@ -234,13 +268,16 @@ namespace WpfApplication {
               DeHighlightFrames_Editor(g);
             else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
               if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
-              else {
+              else
+              {
                 FramesToHighlight = new List<GestureFrame>();
                 FramesToHighlight.Add(g.Frames[0]);
-                for (int i = 1; i < CollisionTimes[gi].Count; i++) {
+                for (int i = 1; i < CollisionTimes[gi].Count; i++)
+                {
                   TimeSpan ts = CollisionTimes[gi][i] - CollisionTimes[gi][i - 1];
                   if (ts.Ticks < 0) break;
-                  else if (ts > CollisionTimeout) {
+                  else if (ts > CollisionTimeout)
+                  {
                     DeHighlightFrames_Editor(g);
                     FramesToHighlight = new List<GestureFrame>();
                     break;
@@ -249,11 +286,14 @@ namespace WpfApplication {
                 }
                 HighLightFrames_Editor(g, FramesToHighlight);
               }
-            else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) {
+            else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
+            {
               FramesToHighlight = new List<GestureFrame>();
-              for (int i = 0; i < CollisionTimes[gi].Count - 1; i++) {
+              for (int i = 0; i < CollisionTimes[gi].Count - 1; i++)
+              {
                 TimeSpan ts = CollisionTimes[gi][i + 1] - CollisionTimes[gi][i];
-                if (CollisionTimes[gi][i] > CollisionTimes[gi][i + 1] || ts > CollisionTimeout) {
+                if (CollisionTimes[gi][i] > CollisionTimes[gi][i + 1] || ts > CollisionTimeout)
+                {
                   FramesToHighlight = new List<GestureFrame>();
                   break;
                 }
@@ -269,8 +309,10 @@ namespace WpfApplication {
       } // using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
     } //private void kinect_SkeletonFrameReady_Detect(object sender, SkeletonFrameReadyEventArgs e)
 
-    private void SkeletonFrameReady_Detect_Visualizer(object sender, SkeletonFrameReadyEventArgs e) {
-      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame()) {
+    private void SkeletonFrameReady_Detect_Visualizer(object sender, SkeletonFrameReadyEventArgs e)
+    {
+      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+      {
         // Get data from stream, kill if no data
         if (skeletonFrame == null) return;
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
@@ -283,7 +325,8 @@ namespace WpfApplication {
         SkeletonPoint centroid = skeleton.Joints[JointType.HipCenter].Position;
         // Get the data
         // Check each gesture in collection
-        for (int gi = 0; gi < GestureCollection.Count; gi++) {
+        for (int gi = 0; gi < GestureCollection.Count; gi++)
+        {
           Gesture g = GestureCollection[gi];
           // Get coordinates of tracked joint
           // SkeletonPoint structure contains X. Y, Z values in meters, relative to the sensor
@@ -295,19 +338,24 @@ namespace WpfApplication {
           // Check each frame in gesture for collision
           CollisionStates[gi][0] = CollisionStates[gi][1];
           CollisionStates[gi][1] = JointCollisionStates.OutThere;
-          for (int fi = 0; fi < g.Frames.Count; fi++) {
-            GestureFrame f  = g.Frames[fi];
+          for (int fi = 0; fi < g.Frames.Count; fi++)
+          {
+            GestureFrame f = g.Frames[fi];
             // Check for collision
-            foreach (GestureFrameCell fc in f.FrontCells.Where(c => c.IsHotspot)) {
+            foreach (GestureFrameCell fc in f.FrontCells.Where(c => c.IsHotspot))
+            {
               if (jX <= fc.RightCM &&
                   jX >= fc.LeftCM &&
                   jY <= fc.TopCM &&
-                  jY >= fc.BottomCM) {
-                foreach (GestureFrameCell sc in f.SideCells.Where(c => c.IsHotspot)) {
+                  jY >= fc.BottomCM)
+              {
+                foreach (GestureFrameCell sc in f.SideCells.Where(c => c.IsHotspot))
+                {
                   if (jZ <= sc.RightCM &&
                       jZ >= sc.LeftCM &&
                       jY <= sc.TopCM &&
-                      jY >= sc.BottomCM) {
+                      jY >= sc.BottomCM)
+                  {
                     // Record collision
                     CollisionTimes[gi][fi] = DateTime.Now;
                     if (fi + 1 == g.Frames.Count) CollisionStates[gi][1] = JointCollisionStates.InUltimateHotspot;
@@ -320,13 +368,16 @@ namespace WpfApplication {
 
           // Handle 1-frame gestures
           // Keyboard emulation, list highlight and 3D highlights
-          if (g.Frames.Count == 1) {
-            if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) {
-                HitKey(g);
-                HighlightGestureOnList(g);
-                HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
+          if (g.Frames.Count == 1)
+          {
+            if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
+            {
+              HitKey(g);
+              HighlightGestureOnList(g);
+              HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
             }
-            else if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere) {
+            else if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere)
+            {
               ReleaseKey(g);
               DeHighlightGestureOnList(g);
               DeHighlightFrames_Visualizer(g);
@@ -334,16 +385,21 @@ namespace WpfApplication {
           }
 
           // Handle multi-frame gestures
-          else {
+          else
+          {
             // Keyboard emulation and list highlight
-            if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && !(CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)) {
+            if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && !(CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot))
+            {
               ReleaseKey(g);
               DeHighlightGestureOnList(g);
             }
-            else if (!(CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot) && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) {
-              for (int i = 1; i < CollisionTimes[gi].Count; i++) {
+            else if (!(CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot) && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
+            {
+              for (int i = 1; i < CollisionTimes[gi].Count; i++)
+              {
                 if (CollisionTimes[gi][i] - CollisionTimes[gi][i - 1] > CollisionTimeout) break;
-                if (i + 1 == CollisionTimes[gi].Count) {
+                if (i + 1 == CollisionTimes[gi].Count)
+                {
                   HitKey(g);
                   HighlightGestureOnList(g);
                 }
@@ -354,7 +410,8 @@ namespace WpfApplication {
             List<GestureFrame> FramesToHighlight = new List<GestureFrame>();
             if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.OutThere)
               DeHighlightFrames_Visualizer(g);
-            else if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InHotspot) {
+            else if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
+            {
               if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
               else DeHighlightFrames_Visualizer(g);
             }
@@ -363,13 +420,16 @@ namespace WpfApplication {
               DeHighlightFrames_Visualizer(g);
             else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
               if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
-              else {
+              else
+              {
                 FramesToHighlight = new List<GestureFrame>();
                 FramesToHighlight.Add(g.Frames[0]);
-                for (int i = 1; i < CollisionTimes[gi].Count; i++) {
+                for (int i = 1; i < CollisionTimes[gi].Count; i++)
+                {
                   TimeSpan ts = CollisionTimes[gi][i] - CollisionTimes[gi][i - 1];
                   if (ts.Ticks < 0) break;
-                  else if (ts > CollisionTimeout) {
+                  else if (ts > CollisionTimeout)
+                  {
                     DeHighlightFrames_Visualizer(g);
                     FramesToHighlight = new List<GestureFrame>();
                     break;
@@ -378,11 +438,14 @@ namespace WpfApplication {
                 }
                 HighlightFrames_Visualizer(g, FramesToHighlight);
               }
-            else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) {
+            else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
+            {
               FramesToHighlight = new List<GestureFrame>();
-              for (int i = 0; i < CollisionTimes[gi].Count - 1; i++) {
+              for (int i = 0; i < CollisionTimes[gi].Count - 1; i++)
+              {
                 TimeSpan ts = CollisionTimes[gi][i + 1] - CollisionTimes[gi][i];
-                if (CollisionTimes[gi][i] > CollisionTimes[gi][i + 1] || ts > CollisionTimeout) {
+                if (CollisionTimes[gi][i] > CollisionTimes[gi][i + 1] || ts > CollisionTimeout)
+                {
                   FramesToHighlight = new List<GestureFrame>();
                   break;
                 }
@@ -398,39 +461,51 @@ namespace WpfApplication {
       } // using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
     } //private void kinect_SkeletonFrameReady_Detect(object sender, SkeletonFrameReadyEventArgs e)
 
-    private void HitKey(Gesture g) {
-      if (g.Hold) {
+    private void HitKey(Gesture g)
+    {
+      if (g.Hold)
+      {
         foreach (Key k in g.Command) inputSimulator.Keyboard.KeyDown((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
       }
-      else {
+      else
+      {
         foreach (Key k in g.Command) inputSimulator.Keyboard.KeyDown((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
         foreach (Key k in g.Command) inputSimulator.Keyboard.KeyUp((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
-      }  
+      }
     }
-    private void ReleaseKey(Gesture g) {
+
+    private void ReleaseKey(Gesture g)
+    {
       foreach (Key k in g.Command) inputSimulator.Keyboard.KeyUp((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
     }
 
-    private void HighlightGestureOnList(Gesture g) {
+    private void HighlightGestureOnList(Gesture g)
+    {
       g.IsHit = true;
     }
-    private void DeHighlightGestureOnList(Gesture g) {
+    private void DeHighlightGestureOnList(Gesture g)
+    {
       g.IsHit = false;
     }
 
-    private void HighlightFrames_Visualizer(Gesture g, List<GestureFrame> fs) {
+    private void HighlightFrames_Visualizer(Gesture g, List<GestureFrame> fs)
+    {
       Model3DGroup modelGroup = new Model3DGroup();
       // Create material
-      SolidColorBrush materialBrush = new SolidColorBrush() {
+      SolidColorBrush materialBrush = new SolidColorBrush()
+      {
         Color = Colors.White,
         Opacity = 0.3
       };
       EmissiveMaterial material = new EmissiveMaterial(materialBrush);
-      foreach (GestureFrame f in fs) {
-        foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true)) {
+      foreach (GestureFrame f in fs)
+      {
+        foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true))
+        {
           int fcIndex = Array.IndexOf(f.FrontCells, fc);
           foreach (GestureFrameCell sc in f.SideCells.Where(
-              sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20))) {
+              sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20)))
+          {
             // Init mesh
             MeshBuilder meshBuilder = new MeshBuilder(false, false);
             // Make cube and add to mesh
@@ -444,13 +519,15 @@ namespace WpfApplication {
             // Create models
             modelGroup.Children.Add(new GeometryModel3D(mesh, material));
           }
-        } 
+        }
       }
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
       CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = modelGroup;
       CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = modelGroup;
     }
-    private void DeHighlightFrames_Visualizer(Gesture g) {
+
+    private void DeHighlightFrames_Visualizer(Gesture g)
+    {
       // De-highlight frame on grids
       Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content;
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
@@ -458,19 +535,24 @@ namespace WpfApplication {
       CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
     }
 
-    private void HighLightFrames_Editor(Gesture g, List<GestureFrame> fs) {
+    private void HighLightFrames_Editor(Gesture g, List<GestureFrame> fs)
+    {
       Model3DGroup modelGroup = new Model3DGroup();
       // Create material
-      SolidColorBrush materialBrush = new SolidColorBrush() {
+      SolidColorBrush materialBrush = new SolidColorBrush()
+      {
         Color = Colors.White,
         Opacity = 0.3
       };
       EmissiveMaterial material = new EmissiveMaterial(materialBrush);
-      foreach (GestureFrame f in fs) {
-        foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true)) {
+      foreach (GestureFrame f in fs)
+      {
+        foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true))
+        {
           int fcIndex = Array.IndexOf(f.FrontCells, fc);
           foreach (GestureFrameCell sc in f.SideCells.Where(
-              sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20))) {
+              sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20)))
+          {
             // Init mesh
             MeshBuilder meshBuilder = new MeshBuilder(false, false);
             // Make cube and add to mesh
@@ -488,13 +570,13 @@ namespace WpfApplication {
       }
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
     }
-    private void DeHighlightFrames_Editor(Gesture g) {
+
+    private void DeHighlightFrames_Editor(Gesture g)
+    {
       // De-highlight frame on grids
       Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content;
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
     }
-
-
 
   }
 }

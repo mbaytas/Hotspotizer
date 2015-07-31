@@ -121,7 +121,4 @@
   <data name="Logo___Round___Trans" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Logo - Round - Trans.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="seguisym" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\seguisym.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
 </root>

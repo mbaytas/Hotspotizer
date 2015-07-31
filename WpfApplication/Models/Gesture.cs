@@ -5,116 +5,112 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace WpfApplication.Models {
+namespace WpfApplication.Models
+{
 
-  public class Gesture : INotifyPropertyChanged {
+  public class Gesture : INotifyPropertyChanged
+  {
+    #region --- Fields ---
 
     private string _name;
-    public string Name {
+    private ObservableCollection<Key> _command;
+    private bool _hold;
+    private JointType _joint;
+    private ObservableCollection<GestureFrame> _frames;
+
+    [JsonIgnore] //TODO: is JsonIgnore even needed at a private field?
+    private Boolean _isHit = false; //TODO: should the JsonIgnore be at the respective property instead?
+
+    #endregion
+
+    #region --- Initialization ---
+
+    public Gesture()
+    {
+      Frames = new ObservableCollection<GestureFrame>();
+    }
+
+    #endregion
+
+    #region --- Properties ---
+
+    public string Name
+    {
       get { return _name; }
-      set {
+      set
+      {
         _name = value;
         OnPropertyChanged("Name");
       }
     }
 
-    private ObservableCollection<Key> _command;
-    public ObservableCollection<Key> Command {
+    public ObservableCollection<Key> Command
+    {
       get { return _command; }
-      set {
+      set
+      {
         _command = value;
         OnPropertyChanged("Command");
       }
     }
 
-    private bool _hold;
-    public bool Hold {
+    public bool Hold
+    {
       get { return _hold; }
-      set {
+      set
+      {
         _hold = value;
         OnPropertyChanged("Hold");
       }
     }
 
-    private JointType _joint;
-    public JointType Joint {
+    public JointType Joint
+    {
       get { return _joint; }
-      set {
+      set
+      {
         _joint = value;
         OnPropertyChanged("Joint");
       }
     }
 
-    private ObservableCollection<GestureFrame> _frames;
-    public ObservableCollection<GestureFrame> Frames {
+    public ObservableCollection<GestureFrame> Frames
+    {
       get { return _frames; }
-      set {
+      set
+      {
         _frames = value;
         OnPropertyChanged("Frames");
       }
     }
 
     // This really should not be in this class but whatevs
-    [JsonIgnore]
-    private Boolean _isHit = false;
-    public Boolean IsHit {
+    public Boolean IsHit
+    {
       get { return _isHit; }
-      set {
+      set
+      {
         _isHit = value;
         OnPropertyChanged("IsHit");
       }
     }
 
-    public Gesture() {
-      Frames = new ObservableCollection<GestureFrame>();
-    }
+    #endregion
+
+    #region --- Events ---
 
     public event PropertyChangedEventHandler PropertyChanged;
-    void OnPropertyChanged(string propName) {
-      if (PropertyChanged != null) {
+
+    void OnPropertyChanged(string propName)
+    {
+      if (PropertyChanged != null)
+      {
         PropertyChanged(this, new PropertyChangedEventArgs(propName));
       }
     }
 
-  }
+    #endregion
 
-  public class GestureFrame {
-
-    public GestureFrameCell[] FrontCells { get; set; }
-    public GestureFrameCell[] SideCells { get; set; }
-
-    public GestureFrame() {
-      FrontCells = new GestureFrameCell[400];
-      SideCells = new GestureFrameCell[400];
-    }
-  }
-
-  public class GestureFrameCell : INotifyPropertyChanged {
-    public int IndexInFrame;
-    [JsonIgnore]
-    public int TopCM { get { return 150 - 15 * (int)(IndexInFrame / 20); } }
-    [JsonIgnore]
-    public int BottomCM { get { return 135 - 15 * (int)(IndexInFrame / 20); } }
-    [JsonIgnore]
-    public int RightCM { get { return -135 + 15 * (int)(IndexInFrame % 20); } }
-    [JsonIgnore]
-    public int LeftCM { get { return -150 + 15 * (int)(IndexInFrame % 20); } }
-
-    private bool _isHotspot = false;
-    public bool IsHotspot {
-      get { return _isHotspot; }
-      set {
-        _isHotspot = value;
-        OnPropertyChanged("IsHotspot");
-      }
-    }
-
-    public event PropertyChangedEventHandler PropertyChanged;
-    void OnPropertyChanged(string propName) {
-      if (PropertyChanged != null) {
-        PropertyChanged(this, new PropertyChangedEventArgs(propName));
-      }
-    }
   }
 
 }
