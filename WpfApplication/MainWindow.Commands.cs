@@ -20,6 +20,12 @@ namespace WpfApplication
   public partial class MainWindow
   {
 
+    #region --- Constants ---
+
+    public const string FILE_FILTER_HSJSON = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
+
+    #endregion
+
     #region --- Properties ---
 
     public ICommand CreateNewGestureCollectionCommand { get; set; }
@@ -58,10 +64,8 @@ namespace WpfApplication
 
     public void SaveGestureCollection(object parameter)
     {
-      // Conjure file explorer
-      SaveFileDialog saveDialog = new SaveFileDialog();
-      // Set filename filter
-      saveDialog.Filter = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
+      SaveFileDialog saveDialog = new SaveFileDialog() { Filter = FILE_FILTER_HSJSON };
+
       // Write if dialog returns OK
       if (saveDialog.ShowDialog() == true)
         File.WriteAllText(saveDialog.FileName, JsonConvert.SerializeObject(GestureCollection));
@@ -74,10 +78,8 @@ namespace WpfApplication
 
     public void LoadGestureCollection(object parameter)
     {
-      // Conjure file explorer
-      OpenFileDialog openDialog = new OpenFileDialog();
-      // Set filename filter
-      openDialog.Filter = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
+      OpenFileDialog openDialog = new OpenFileDialog() { Filter = FILE_FILTER_HSJSON };
+
       // Read and load if dialog returns OK
       if (openDialog.ShowDialog() == true)
       {
@@ -113,13 +115,16 @@ namespace WpfApplication
     {
       // Clear the initial state store
       ExGesture = null;
+
       // Make the new gesture and name it properly
       Gesture g = MakeNewGesture();
       g.Name = "New Gesture";
       while (GestureCollection.Where(x => x.Name.StartsWith(g.Name)).Count() > 0)
         g.Name += " " + Convert.ToString(GestureCollection.Where(x => x.Name.StartsWith(g.Name)).Count() + 1);
+      
       // Add the new gesture to the Gesture Collection
       GestureCollection.Add(g);
+      
       // Go go go
       TheWorkspace.DataContext = g;
       LaunchEditor();
@@ -130,19 +135,19 @@ namespace WpfApplication
       ExGesture = null;
       KillEditor();
     }
+
     public bool CanSaveGesture(object parameter)
     {
       // TODO
-      if (TheWorkspace != null)
-      {
-        Gesture g = (Gesture)TheWorkspace.DataContext;
-        return g != null &&
-            !String.IsNullOrEmpty(g.Name) &&
-            g.Command != null && g.Command.Count != 0 && !g.Command.Contains(Key.None) &&
-            g.Joint != JointType.HipCenter &&
-            !g.Frames.Any(f => f.SideCells.Count(c => c.IsHotspot) == 0);
-      }
-      else return false;
+      if (TheWorkspace == null)
+        return false;
+
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+      return (g != null) &&
+             !String.IsNullOrEmpty(g.Name) &&
+             (g.Command != null) && (g.Command.Count != 0) && !g.Command.Contains(Key.None) &&
+             (g.Joint != JointType.HipCenter) &&
+             !g.Frames.Any(f => f.SideCells.Count(c => c.IsHotspot) == 0);
     }
 
     public void DiscardGesture(object parameter)

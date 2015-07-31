@@ -319,6 +319,7 @@ namespace WpfApplication
         if (skeleton == null) return;
         // Init stuff
         SkeletonPoint centroid = skeleton.Joints[JointType.HipCenter].Position;
+
         // Get the data
         // Check each gesture in collection
         for (int gi = 0; gi < GestureCollection.Count; gi++)
@@ -449,6 +450,7 @@ namespace WpfApplication
       } // using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
     } //private void kinect_SkeletonFrameReady_Detect(object sender, SkeletonFrameReadyEventArgs e)
 
+    //TODO: compare this with previous method, if very similar have both Editor and Visualizer implement an interface that gets passed to a 3d utility method that both of these call with Editor and Visualizer as param respectively
     private void SkeletonFrameReady_Detect_Visualizer(object sender, SkeletonFrameReadyEventArgs e)
     {
       using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
@@ -463,6 +465,7 @@ namespace WpfApplication
         if (skeleton == null) return;
         // Init stuff
         SkeletonPoint centroid = skeleton.Joints[JointType.HipCenter].Position;
+
         // Get the data
         // Check each gesture in collection
         for (int gi = 0; gi < GestureCollection.Count; gi++)
