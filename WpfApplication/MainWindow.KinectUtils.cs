@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.KinectUtils.cs
-//Version: 20150731
+//Version: 20150801
 
 using HelixToolkit.Wpf;
 using Microsoft.Kinect;
@@ -40,7 +40,7 @@ namespace WpfApplication
     Model3DGroup CollisionHighlights_Front;
     Model3DGroup CollisionHighlights_Side;
 
-    // Fucking gesture recognition shit
+    // Gesture recognition stuff
     enum JointCollisionStates { InHotspot, InUltimateHotspot, OutThere };
     List<JointCollisionStates[]> CollisionStates;
     List<List<DateTime>> CollisionTimes;

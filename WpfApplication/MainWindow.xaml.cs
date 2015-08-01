@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150731
+//Version: 20150801
 
 using Microsoft.Kinect;
 using System;
@@ -117,7 +117,7 @@ namespace WpfApplication
 
       target.Name = source.Name;
       target.Command = new ObservableCollection<Key>(source.Command);
-      target.Hold = source.Hold; // Motherfucking System.Boolean is cocksucking value type
+      target.Hold = source.Hold; // System.Boolean's value type is bool
       target.Joint = source.Joint; // Enums are also value type
 
       target.Frames = new ObservableCollection<GestureFrame>();

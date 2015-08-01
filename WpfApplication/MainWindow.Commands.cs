@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.Commands.cs
-//Version: 20150731
+//Version: 20150801
 
   using Microsoft.Kinect;
 using Microsoft.Win32;
@@ -153,9 +153,9 @@ namespace WpfApplication
     public void DiscardGesture(object parameter)
     {
       Gesture g = (Gesture)TheWorkspace.DataContext;
-      // If the gesture is a new gesture, remove that motherfucker from the Gesture Collection
+      // If the gesture is a new gesture, remove it from the Gesture Collection
       if (ExGesture == null) GestureCollection.Remove(g);
-      // If the gesture is an existing gesture being edited, restore the motherfucker to its initial state
+      // If the gesture is an existing gesture being edited, restore it to its initial state
       else GestureCollection[GestureCollection.IndexOf(g)] = ExGesture;
       // Go go go
       KillEditor();
