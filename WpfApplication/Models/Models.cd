@@ -6,7 +6,7 @@
       <HashCode>AAgAIAAAAgBAAAAAIAAEBQQAkAgAAgAAABACABgAAAE=</HashCode>
       <FileName>Models\Gesture.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="WpfApplication.Models.GestureFrame">
     <Position X="4.25" Y="0.5" Width="2.5" />
@@ -16,12 +16,12 @@
     </TypeIdentifier>
   </Class>
   <Class Name="WpfApplication.Models.GestureFrameCell" BaseTypeListCollapsed="true">
-    <Position X="4.25" Y="2.5" Width="3.5" />
+    <Position X="4.25" Y="2.75" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAAAQAAIAAAAEAQgAAACAAAAAAQAAAEAAA=</HashCode>
       <FileName>Models\GestureFrameCell.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
