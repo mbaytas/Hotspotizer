@@ -72,6 +72,7 @@ namespace WpfApplication
     {
       g.IsHit = true;
     }
+
     private void DeHighlightGestureOnList(Gesture g)
     {
       g.IsHit = false;
@@ -355,8 +356,10 @@ namespace WpfApplication
                   {
                     // Record collision
                     CollisionTimes[gi][fi] = DateTime.Now;
-                    CollisionStates[gi][1] = JointCollisionStates.InHotspot;
-                    if (fi + 1 == g.Frames.Count) CollisionStates[gi][1] = JointCollisionStates.InUltimateHotspot;
+                    if (fi + 1 == g.Frames.Count)
+                      CollisionStates[gi][1] = JointCollisionStates.InUltimateHotspot;
+                    else
+                      CollisionStates[gi][1] = JointCollisionStates.InHotspot;
                   }
                 }
               }
@@ -369,13 +372,13 @@ namespace WpfApplication
           {
             if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
             {
-              HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
               HighlightGestureOnList(g);
+              HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
             }
             else if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere)
             {
-              DeHighlightFrames_Editor(g);
               DeHighlightGestureOnList(g);
+              DeHighlightFrames_Editor(g);
             }
           }
 
@@ -384,13 +387,18 @@ namespace WpfApplication
           {
             // List highlight
             if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && !(CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot))
+            {
               DeHighlightGestureOnList(g);
+            }
             else if (!(CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot) && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
             {
               for (int i = 1; i < CollisionTimes[gi].Count; i++)
               {
                 if (CollisionTimes[gi][i] - CollisionTimes[gi][i - 1] > CollisionTimeout) break;
-                if (i + 1 == CollisionTimes[gi].Count) HighlightGestureOnList(g);
+                if (i + 1 == CollisionTimes[gi].Count)
+                {
+                  HighlightGestureOnList(g);
+                }
               }
             }
 
@@ -400,15 +408,17 @@ namespace WpfApplication
               DeHighlightFrames_Editor(g);
             else if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
             {
-              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
-              else DeHighlightFrames_Editor(g);
+              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0)
+                HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
+              else
+                DeHighlightFrames_Editor(g);
             }
-            else if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
-              DeHighlightFrames_Editor(g);
-            else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere)
+            else if ((CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) ||
+                     (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere))
               DeHighlightFrames_Editor(g);
             else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
-              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
+              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0)
+                HighLightFrames_Editor(g, new List<GestureFrame>() { g.Frames[0] });
               else
               {
                 FramesToHighlight = new List<GestureFrame>();
@@ -501,8 +511,10 @@ namespace WpfApplication
                   {
                     // Record collision
                     CollisionTimes[gi][fi] = DateTime.Now;
-                    if (fi + 1 == g.Frames.Count) CollisionStates[gi][1] = JointCollisionStates.InUltimateHotspot;
-                    else CollisionStates[gi][1] = JointCollisionStates.InHotspot;
+                    if (fi + 1 == g.Frames.Count)
+                      CollisionStates[gi][1] = JointCollisionStates.InUltimateHotspot;
+                    else
+                      CollisionStates[gi][1] = JointCollisionStates.InHotspot;
                   }
                 }
               }
@@ -510,7 +522,7 @@ namespace WpfApplication
           }
 
           // Handle 1-frame gestures
-          // Keyboard emulation, list highlight and 3D highlights
+          // Keyboard emulation, List highlight and 3D highlights
           if (g.Frames.Count == 1)
           {
             if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
@@ -530,7 +542,7 @@ namespace WpfApplication
           // Handle multi-frame gestures
           else
           {
-            // Keyboard emulation and list highlight
+            // Keyboard emulation and List highlight
             if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && !(CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot))
             {
               ReleaseKey(g);
@@ -555,14 +567,17 @@ namespace WpfApplication
               DeHighlightFrames_Visualizer(g);
             else if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
             {
-              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
-              else DeHighlightFrames_Visualizer(g);
+              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0)
+                HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
+              else
+                DeHighlightFrames_Visualizer(g);
             }
             else if ((CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot) ||
                      (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere))
               DeHighlightFrames_Visualizer(g);
             else if (CollisionStates[gi][0] == JointCollisionStates.InHotspot && CollisionStates[gi][1] == JointCollisionStates.InHotspot)
-              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0) HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
+              if (CollisionTimes[gi].IndexOf(CollisionTimes[gi].Max()) == 0)
+                HighlightFrames_Visualizer(g, new List<GestureFrame>() { g.Frames[0] });
               else
               {
                 FramesToHighlight = new List<GestureFrame>();
