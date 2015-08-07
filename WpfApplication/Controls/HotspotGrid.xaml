@@ -1,19 +1,30 @@
-﻿<ListBox x:Class="WpfApplication.Controls.HotspotGrid"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-    mc:Ignorable="d" 
-    d:DesignHeight="300" d:DesignWidth="300"
-    BorderBrush="LightGray"
-    Background="{x:Null}"
-    SelectionMode="Multiple"
-    HorizontalContentAlignment="Stretch"
-    VerticalContentAlignment="Stretch"
-    BorderThickness="0.5"
-    Padding="0"
-    PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
-    PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp">
+﻿<!--
+Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+File: HotspotGrid.xaml
+Version: 20150807
+-->
+  
+<ListBox x:Class="WpfApplication.Controls.HotspotGrid"
+
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  
+  mc:Ignorable="d" 
+  d:DesignHeight="300" d:DesignWidth="300"
+
+  BorderBrush="LightGray"
+  Background="{x:Null}"
+  SelectionMode="Multiple"
+  HorizontalContentAlignment="Stretch"
+  VerticalContentAlignment="Stretch"
+  BorderThickness="0.5"
+  Padding="0"
+  
+  PreviewMouseLeftButtonDown="ListBox_PreviewMouseLeftButtonDown"
+  PreviewMouseLeftButtonUp="ListBox_PreviewMouseLeftButtonUp"
+  >
 
   <ListBox.ItemTemplate>
     <DataTemplate>

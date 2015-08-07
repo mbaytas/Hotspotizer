@@ -1,16 +1,28 @@
-﻿<Window
+﻿<!--
+Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+File: MainWindow.xaml
+Version: 20150807
+-->
+  
+<Window x:Class="WpfApplication.MainWindow"
+
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:local="clr-namespace:WpfApplication"
   xmlns:controls="clr-namespace:WpfApplication.Controls"
   xmlns:converters="clr-namespace:WpfApplication.Converters"
   xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="WpfApplication.MainWindow"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  
+  mc:Ignorable="d"
+    
+  Icon="Images/Logo - Round - Trans.ico"
   Title="Hotspotizer"
   Height="700" Width="1400"
   MinHeight="700" MinWidth="1000"
+
   DataContext="{Binding RelativeSource={RelativeSource Self}}"
-  Icon="Images/Logo - Round - Trans.ico"
   >
 
   <Grid SizeChanged="OuterMostGrid_SizeChanged">
