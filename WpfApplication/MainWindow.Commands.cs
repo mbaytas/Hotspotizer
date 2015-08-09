@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.Commands.cs
-//Version: 20150801
+//Version: 20150809
 
   using Microsoft.Kinect;
 using Microsoft.Win32;
@@ -56,8 +56,8 @@ namespace WpfApplication
     public void CreateNewGestureCollection(object parameter)
     {
       if (MessageBox.Show("Do you really want to discard the current gesture collection and create a new one?",
-          "Create New Gesture Collection",
-          MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                          "Create New Gesture Collection", MessageBoxButton.YesNo) 
+          == MessageBoxResult.Yes)
         while (GestureCollection.Count > 0)
           GestureCollection.RemoveAt(0);
     }
@@ -87,15 +87,22 @@ namespace WpfApplication
         // DeserializeObject() does not appear to correctly deserialize Gesture objects
         // Below is a kinda-dirty solution around that
         List<Gesture> sourceList = JsonConvert.DeserializeObject<List<Gesture>>(json);
-        while (GestureCollection.Count > 0) GestureCollection.RemoveAt(0);
+        while (GestureCollection.Count > 0)
+          GestureCollection.RemoveAt(0);
+
         foreach (Gesture sourceGesture in sourceList)
         {
-          Gesture targetGesture = new Gesture();
-          targetGesture.Name = sourceGesture.Name;
-          targetGesture.Command = new ObservableCollection<Key>(sourceGesture.Command);
-          targetGesture.Hold = sourceGesture.Hold;
-          targetGesture.Joint = sourceGesture.Joint;
-          while (targetGesture.Frames.Count > 0) targetGesture.Frames.RemoveAt(0);
+          Gesture targetGesture = new Gesture()
+          {
+            Name = sourceGesture.Name,
+            Command = new ObservableCollection<Key>(sourceGesture.Command),
+            Hold = sourceGesture.Hold,
+            Joint = sourceGesture.Joint
+          };
+
+          while (targetGesture.Frames.Count > 0)
+            targetGesture.Frames.RemoveAt(0);
+
           foreach (GestureFrame sourceFrame in sourceGesture.Frames)
           {
             GestureFrame targetFrame = new GestureFrame();
@@ -153,12 +160,12 @@ namespace WpfApplication
     public void DiscardGesture(object parameter)
     {
       Gesture g = (Gesture)TheWorkspace.DataContext;
-      // If the gesture is a new gesture, remove it from the Gesture Collection
-      if (ExGesture == null) GestureCollection.Remove(g);
-      // If the gesture is an existing gesture being edited, restore it to its initial state
-      else GestureCollection[GestureCollection.IndexOf(g)] = ExGesture;
-      // Go go go
-      KillEditor();
+      if (ExGesture == null)                                         // If the gesture is a new gesture... 
+        GestureCollection.Remove(g);                                 //...remove it from the Gesture Collection
+      else                                                           // else if the gesture is an existing gesture being edited...
+        GestureCollection[GestureCollection.IndexOf(g)] = ExGesture; //...restore it to its initial state
+
+      KillEditor(); // Go go go
     }
 
     #endregion
