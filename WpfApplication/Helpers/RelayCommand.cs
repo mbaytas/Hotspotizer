@@ -1,12 +1,15 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: RelayCommand.cs
-//Version: 20150731
+//Version: 20150809
 
 using System;
 using System.Windows.Input;
 
 namespace WpfApplication.Helpers
 {
+  /// <summary>
+  /// Relay Command
+  /// </summary>
   public class RelayCommand : ICommand
   {
 
@@ -35,11 +38,20 @@ namespace WpfApplication.Helpers
 
     #region --- Methods ---
 
+    /// <summary>
+    /// Determines whether the command can execute.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
+    /// <returns></returns>
     public bool CanExecute(object parameter)
     {
       return _canExecute.Invoke(parameter);
     }
 
+    /// <summary>
+    /// Executes the command.
+    /// </summary>
+    /// <param name="parameter">The parameter.</param>
     public void Execute(object parameter)
     {
       _execute.Invoke(parameter);

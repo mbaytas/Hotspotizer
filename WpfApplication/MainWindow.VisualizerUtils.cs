@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20150731
+//Version: 20150809
 
 using HelixToolkit.Wpf;
 using System;
@@ -57,11 +57,12 @@ namespace WpfApplication
             Opacity = 0.1 + ((double)(g.Frames.IndexOf(f) + 1) / (double)g.Frames.Count) * 0.6
           };
           DiffuseMaterial material = new DiffuseMaterial(materialBrush);
+
           foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true))
           {
             int fcIndex = Array.IndexOf(f.FrontCells, fc);
             foreach (GestureFrameCell sc in f.SideCells.Where(
-                sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20)))
+                     sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20)))
             {
               // Init mesh
               MeshBuilder meshBuilder = new MeshBuilder(false, false);
@@ -81,15 +82,35 @@ namespace WpfApplication
         HotspotCellsModelVisual3D_Visualizer.Content = modelGroup;
       }
 
-      // Show visualizer
+      ShowVisualizer();
+      EnableKinect_Visualizer();
+      DisableKeyboardControl_Visualizer(); //we don't want to consume emulated keyboard events
+    }
+
+    public void CloseVisualizer(object parameter)
+    {
+      DisableKinect_Visualizer();
+      HideVisualizer();
+    }
+
+    private void ShowVisualizer()
+    {
       TheEditor.Visibility = Visibility.Hidden;
       TheVisualizer.Visibility = Visibility.Visible;
       EditorOverlay.Visibility = Visibility.Hidden;
+      ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
+    }
 
-      // Hide Manager
-      ManagerOverlay.Visibility = Visibility.Visible;
+    private void HideVisualizer()
+    {
+      EditorOverlay.Visibility = Visibility.Visible;
+      TheEditor.Visibility = Visibility.Hidden;
+      TheVisualizer.Visibility = Visibility.Hidden;
+      ManagerOverlay.Visibility = Visibility.Hidden; // Show Manager
+    }
 
-      // Enable Kinect
+    private void EnableKinect_Visualizer()
+    {
       if (kinect != null)
       {
         kinect.SkeletonStream.Enable();
@@ -97,14 +118,10 @@ namespace WpfApplication
         kinect.SkeletonFrameReady += SkeletonFrameReady_Detect_Visualizer;
         kinect.Start();
       }
-
-      // Kill keyboard control
-      EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Visualizer.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
     }
 
-    public void CloseVisualizer(object parameter)
+    private void DisableKinect_Visualizer()
     {
-      // Disable Kinect
       if (kinect != null)
       {
         kinect.Stop();
@@ -112,12 +129,11 @@ namespace WpfApplication
         kinect.SkeletonFrameReady -= SkeletonFrameReady_Detect_Visualizer;
         kinect.SkeletonStream.Disable();
       }
-      // Hide Visualizer
-      EditorOverlay.Visibility = Visibility.Visible;
-      TheEditor.Visibility = Visibility.Hidden;
-      TheVisualizer.Visibility = Visibility.Hidden;
-      // Show Manager
-      ManagerOverlay.Visibility = Visibility.Hidden;
+    }
+
+    private void DisableKeyboardControl_Visualizer()
+    {
+      EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Visualizer.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
     }
 
     #endregion

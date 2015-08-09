@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.ManagerUtils.cs
-//Version: 20150731
+//Version: 20150809
 
 using System.Windows;
 using System.Windows.Controls;
@@ -17,9 +17,9 @@ namespace WpfApplication
     {
       Button b = (Button)sender;
       Gesture g = (Gesture)b.DataContext;
-      if (MessageBox.Show("Do you really want to delete the gesture \"" + g.Name + "\" from the collection?",
-          "Delete Gesture from Collection",
-          MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+      if (MessageBox.Show(string.Format("Do you really want to delete the gesture \"%s\" from the collection?", g.Name),
+                          "Delete Gesture from Collection", MessageBoxButton.YesNo) 
+          == MessageBoxResult.Yes)
         GestureCollection.Remove(g);
     }
 

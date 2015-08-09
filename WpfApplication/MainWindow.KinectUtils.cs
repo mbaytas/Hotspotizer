@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.KinectUtils.cs
-//Version: 20150808
+//Version: 20150809
 
 using HelixToolkit.Wpf;
 using Microsoft.Kinect;
@@ -55,9 +55,7 @@ namespace WpfApplication
     private void HitKey(Gesture g)
     {
       if (g.Hold)
-      {
         foreach (Key k in g.Command) inputSimulator.Keyboard.KeyDown((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
-      }
       else
       {
         foreach (Key k in g.Command) inputSimulator.Keyboard.KeyDown((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
@@ -77,18 +75,12 @@ namespace WpfApplication
     private delegate void HighlightFramesDelegate(Gesture g, List<GestureFrame> fs);
     private delegate void DeHighlightFramesDelegate(Gesture g);
 
-    #region Editor
-
-    private void HighlightFrames_Editor(Gesture g, List<GestureFrame> fs)
+    private Model3DGroup GetHighlightModel3D(Gesture g, List<GestureFrame> fs)
     {
-      Model3DGroup modelGroup = new Model3DGroup();
       // Create material
-      SolidColorBrush materialBrush = new SolidColorBrush()
-      {
-        Color = Colors.White,
-        Opacity = 0.3
-      };
-      EmissiveMaterial material = new EmissiveMaterial(materialBrush);
+      EmissiveMaterial material = new EmissiveMaterial(new SolidColorBrush() { Color = Colors.White, Opacity = 0.3 });
+
+      Model3DGroup modelGroup = new Model3DGroup();
       foreach (GestureFrame f in fs)
       {
         foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true))
@@ -112,12 +104,28 @@ namespace WpfApplication
           }
         }
       }
+      return modelGroup;
+    }
+
+    #region Editor
+
+     /// <summary>
+    /// Highlight frames on editor grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
+    /// <param name="fs">Gesture Frames</param>
+    private void HighlightFrames_Editor(Gesture g, List<GestureFrame> fs)
+    {
+      Model3DGroup modelGroup = GetHighlightModel3D(g, fs);
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
     }
 
+    /// <summary>
+    /// De-highlight frames on editor grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
     private void DeHighlightFrames_Editor(Gesture g)
     {
-      // De-highlight frame on grids
       Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content;
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
     }
@@ -126,47 +134,25 @@ namespace WpfApplication
 
     #region Visualizer
 
+    /// <summary>
+    /// Highlight frames on visualizer grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
+    /// <param name="fs">Gesture Frames</param>
     private void HighlightFrames_Visualizer(Gesture g, List<GestureFrame> fs)
     {
-      Model3DGroup modelGroup = new Model3DGroup();
-      // Create material
-      SolidColorBrush materialBrush = new SolidColorBrush()
-      {
-        Color = Colors.White,
-        Opacity = 0.3
-      };
-      EmissiveMaterial material = new EmissiveMaterial(materialBrush);
-      foreach (GestureFrame f in fs)
-      {
-        foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true))
-        {
-          int fcIndex = Array.IndexOf(f.FrontCells, fc);
-          foreach (GestureFrameCell sc in f.SideCells.Where(
-              sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20)))
-          {
-            // Init mesh
-            MeshBuilder meshBuilder = new MeshBuilder(false, false);
-            // Make cube and add to mesh
-            double y = (fc.LeftCM + fc.RightCM) / 2;
-            double z = (fc.TopCM + fc.BottomCM) / 2;
-            double x = (sc.LeftCM + sc.RightCM) / 2;
-            Point3D cubeCenter = new Point3D(x, y, z);
-            meshBuilder.AddBox(cubeCenter, 15, 15, 15);
-            // Create and freeze mesh
-            var mesh = meshBuilder.ToMesh(true);
-            // Create models
-            modelGroup.Children.Add(new GeometryModel3D(mesh, material));
-          }
-        }
-      }
+      Model3DGroup modelGroup = GetHighlightModel3D(g, fs);
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
       CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = modelGroup;
       CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = modelGroup;
     }
 
+    /// <summary>
+    /// De-highlight frames on visualizer grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
     private void DeHighlightFrames_Visualizer(Gesture g)
     {
-      // De-highlight frame on grids
       Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content;
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
       CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();

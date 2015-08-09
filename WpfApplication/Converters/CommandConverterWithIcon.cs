@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: CommandConverterWithIcon.cs
-//Version: 20150731
+//Version: 20150809
 
 using System;
 using System.Collections.ObjectModel;
@@ -17,6 +17,14 @@ namespace WpfApplication.Converters
 
     #region --- Methods ---
 
+    /// <summary>
+    /// Converts the specified value.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="parameter">The parameter.</param>
+    /// <param name="culture">The culture.</param>
+    /// <returns>object</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
       ObservableCollection<Key> c = (ObservableCollection<Key>)value;
@@ -27,6 +35,14 @@ namespace WpfApplication.Converters
       return "\uE144 " + string.Join(" + ", c);
     }
 
+    /// <summary>
+    /// Converts back.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="parameter">The parameter.</param>
+    /// <param name="culture">The culture.</param>
+    /// <returns>object</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
       KeyConverter kc = new KeyConverter();

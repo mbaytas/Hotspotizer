@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: EnumBooleanConverter.cs
-//Version: 20150731
+//Version: 20150809
 
 using System;
 using System.Windows;
@@ -14,6 +14,14 @@ namespace WpfApplication.Converters
 
     #region --- Methods ---
 
+    /// <summary>
+    /// Converts the specified value.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="parameter">The parameter.</param>
+    /// <param name="culture">The culture.</param>
+    /// <returns>object</returns>
     public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
       string parameterString = parameter as string;
@@ -24,6 +32,14 @@ namespace WpfApplication.Converters
       return parameterValue.Equals(value);
     }
 
+    /// <summary>
+    /// Converts back.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="parameter">The parameter.</param>
+    /// <param name="culture">The culture.</param>
+    /// <returns>object</returns>
     public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
       string parameterString = parameter as string;
