@@ -126,7 +126,7 @@ namespace WpfApplication
     /// <param name="g">Gesture</param>
     private void DeHighlightFrames_Editor(Gesture g)
     {
-      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content;
+      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
       CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
     }
 
@@ -153,8 +153,8 @@ namespace WpfApplication
     /// <param name="g">Gesture</param>
     private void DeHighlightFrames_Visualizer(Gesture g)
     {
-      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content;
-      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
+      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
+      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup(); //TODO: reuse the "new Model3DGroup()" below instead of creating 3 of those?
       CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
       CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
     }
@@ -245,13 +245,15 @@ namespace WpfApplication
           modelVisual3D.Content = null;
           return;
         }
+
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
-        skeletonFrame.CopySkeletonDataTo(skeletons);
+        skeletonFrame.CopySkeletonDataTo(skeletons); //TODO: should we call this even when skeletons==null?
         if (skeletons == null)
         {
           modelVisual3D.Content = null;
           return;
         }
+
         Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
         if (skeleton == null)
         {
@@ -276,8 +278,9 @@ namespace WpfApplication
           int y = (int)((j.Position.X - centroid.X) * 100);
           int z = (int)((j.Position.Y - centroid.Y) * 100);
           int x = (int)((centroid.Z - j.Position.Z) * 100);
-          jd[j.JointType] = new Point3D() { X = x, Y = y, Z = z };
-          meshBuilder.AddSphere(new Point3D(x, y, z), 5);
+          Point3D center = new Point3D { X = x, Y = y, Z = z };
+          jd[j.JointType] = center;
+          meshBuilder.AddSphere(center, 5);
         }
 
         // Add bones to mesh
@@ -301,15 +304,10 @@ namespace WpfApplication
         meshBuilder.AddCylinder(jd[JointType.ElbowRight], jd[JointType.WristRight], 6, 10);
         meshBuilder.AddCylinder(jd[JointType.WristRight], jd[JointType.HandRight], 6, 10);
 
-        // Create and freeze mesh
-        var mesh = meshBuilder.ToMesh(true);
-
-        // Create material
-        Material blueMaterial = MaterialHelper.CreateMaterial(Colors.SteelBlue);
-
-        // Create model
-        modelGroup.Children.Add(new GeometryModel3D(mesh, blueMaterial));
-
+        var mesh = meshBuilder.ToMesh(true); // Create and freeze mesh
+        Material blueMaterial = MaterialHelper.CreateMaterial(Colors.SteelBlue); // Create material
+        modelGroup.Children.Add(new GeometryModel3D(mesh, blueMaterial)); // Create model
+        
         // Draw
         modelVisual3D.Content = modelGroup;
       }
