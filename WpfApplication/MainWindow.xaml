@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150807
+Version: 20150810
 -->
   
 <Window x:Class="WpfApplication.MainWindow"
@@ -24,6 +24,10 @@ Version: 20150807
 
   DataContext="{Binding RelativeSource={RelativeSource Self}}"
   >
+
+  <Window.Resources>
+    <ResourceDictionary Source="Themes/Generic.xaml" />
+  </Window.Resources>
 
   <Grid SizeChanged="OuterMostGrid_SizeChanged">
 
