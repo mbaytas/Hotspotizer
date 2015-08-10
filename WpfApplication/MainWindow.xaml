@@ -17,7 +17,7 @@ Version: 20150810
   
   mc:Ignorable="d"
     
-  Icon="Images/Logo - Round - Trans.ico"
+  Icon="Images/Logo.ico"
   Title="Hotspotizer"
   Height="700" Width="1400"
   MinHeight="700" MinWidth="1000"

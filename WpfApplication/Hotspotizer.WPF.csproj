@@ -73,7 +73,10 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\Logo - Round - Trans.ico</ApplicationIcon>
+    <ApplicationIcon>Images\Logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>WpfApplication.App</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="HelixToolkit.Wpf">
@@ -211,7 +214,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Logo - Round - Trans.ico" />
+    <Resource Include="Images\Logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
