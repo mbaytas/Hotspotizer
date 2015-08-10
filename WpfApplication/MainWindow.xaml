@@ -27,6 +27,7 @@ Version: 20150810
 
   <Window.Resources>
     <ResourceDictionary Source="Themes/Generic.xaml" />
+    <!-- TODO: also look into using DefaultStyleKey to load this instead of mentioning the resource file directly in the XAML (checkout how it is done in ClipFlair's FloatingWindowZUI.WPF for example) -->
   </Window.Resources>
 
   <Grid SizeChanged="OuterMostGrid_SizeChanged">
