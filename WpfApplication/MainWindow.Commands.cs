@@ -1,8 +1,8 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.Commands.cs
-//Version: 20150809
+//Version: 20150817
 
-  using Microsoft.Kinect;
+using Microsoft.Kinect;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using System;
@@ -14,17 +14,12 @@ using System.Windows;
 using System.Windows.Input;
 using WpfApplication.Helpers;
 using WpfApplication.Models;
+using GlblRes = WpfApplication.Properties.Resources;
 
 namespace WpfApplication
 {
   public partial class MainWindow
   {
-
-    #region --- Constants ---
-
-    public const string FILE_FILTER_HSJSON = "Hotspotizer Gesture files (*.hsjson)|*.hsjson";
-
-    #endregion
 
     #region --- Properties ---
 
@@ -55,8 +50,8 @@ namespace WpfApplication
 
     public void CreateNewGestureCollection(object parameter)
     {
-      if (MessageBox.Show("Do you really want to discard the current gesture collection and create a new one?",
-                          "Create New Gesture Collection", MessageBoxButton.YesNo) 
+      if (MessageBox.Show(GlblRes.DiscardGestureCollectionConfirmation,
+                          GlblRes.CreateNewGestureCollection, MessageBoxButton.YesNo) 
           == MessageBoxResult.Yes)
         while (GestureCollection.Count > 0)
           GestureCollection.RemoveAt(0);
@@ -64,7 +59,7 @@ namespace WpfApplication
 
     public void SaveGestureCollection(object parameter)
     {
-      SaveFileDialog saveDialog = new SaveFileDialog() { Filter = FILE_FILTER_HSJSON };
+      SaveFileDialog saveDialog = new SaveFileDialog() { Filter = GlblRes.HotspotizerFileFilter };
 
       // Write if dialog returns OK
       if (saveDialog.ShowDialog() == true)
@@ -78,7 +73,7 @@ namespace WpfApplication
 
     public void LoadGestureCollection(object parameter)
     {
-      OpenFileDialog openDialog = new OpenFileDialog() { Filter = FILE_FILTER_HSJSON };
+      OpenFileDialog openDialog = new OpenFileDialog() { Filter = GlblRes.HotspotizerFileFilter };
 
       // Read and load if dialog returns OK
       if (openDialog.ShowDialog() == true)
@@ -125,7 +120,7 @@ namespace WpfApplication
 
       // Make the new gesture and name it properly
       Gesture g = MakeNewGesture();
-      g.Name = "New Gesture";
+      g.Name = GlblRes.NewGesture;
       while (GestureCollection.Where(x => x.Name.StartsWith(g.Name)).Count() > 0)
         g.Name += " " + Convert.ToString(GestureCollection.Where(x => x.Name.StartsWith(g.Name)).Count() + 1);
       

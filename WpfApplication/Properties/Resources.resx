@@ -121,4 +121,25 @@
   <data name="Logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="NewGesture" xml:space="preserve">
+    <value>New Gesture</value>
+  </data>
+  <data name="CreateNewGestureCollection" xml:space="preserve">
+    <value>Create New Gesture Collection</value>
+  </data>
+  <data name="DiscardGestureCollectionConfirmation" xml:space="preserve">
+    <value>Do you really want to discard the current gesture collection and create a new one?</value>
+  </data>
+  <data name="HotspotizerFileFilter" xml:space="preserve">
+    <value>Hotspotizer Gesture files (*.hsjson)|*.hsjson</value>
+  </data>
+  <data name="DeleteGesture" xml:space="preserve">
+    <value>Delete Gesture from Collection</value>
+  </data>
+  <data name="DeleteGestureConfirmation" xml:space="preserve">
+    <value>Do you really want to delete the gesture "%s" from the collection?</value>
+  </data>
+  <data name="URL_DownloadKinectSDK" xml:space="preserve">
+    <value>http://www.microsoft.com/en-us/download/details.aspx?id=40278</value>
+  </data>
 </root>

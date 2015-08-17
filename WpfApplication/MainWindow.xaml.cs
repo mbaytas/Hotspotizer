@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using WpfApplication.Models;
+using GlblRes = WpfApplication.Properties.Resources;
 
 namespace WpfApplication
 {
@@ -128,7 +129,7 @@ namespace WpfApplication
 
     void sdkDownloadLink_MouseDown(object sender, MouseButtonEventArgs e)
     {
-      System.Diagnostics.Process.Start("http://www.microsoft.com/en-us/download/details.aspx?id=40278");
+      System.Diagnostics.Process.Start(GlblRes.URL_DownloadKinectSDK);
     }
 
     private void OuterMostGrid_SizeChanged(object sender, SizeChangedEventArgs e)
