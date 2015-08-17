@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150801
+//Version: 20150817
 
 using Microsoft.Kinect;
 using System;
@@ -19,8 +19,7 @@ namespace WpfApplication
 
     #region --- Fields ---
 
-    // Needed for Editor's data bindings to come alive
-    Gesture InitGesture = new Gesture();
+    Gesture InitGesture = new Gesture(); // Needed for Editor's data bindings to come alive
 
     #endregion
 
@@ -38,18 +37,14 @@ namespace WpfApplication
         AddValueChanged(FVGrid, (s, e) =>
         {
           if (SVGrid.ItemsSource != null && FVGrid.ItemsSource != null)
-          {
             SyncEditorGrids();
-          }
         });
 
       DependencyPropertyDescriptor.FromProperty(Controls.HotspotGrid.ItemsSourceProperty, typeof(Controls.HotspotGrid)).
         AddValueChanged(SVGrid, (s, e) =>
         {
           if (SVGrid.ItemsSource != null && FVGrid.ItemsSource != null)
-          {
             SyncEditorGrids();
-          }
         });
 
       //EditorTipsOverlay.Visibility = Visibility.Visible;
@@ -57,16 +52,16 @@ namespace WpfApplication
 
       // Holla Kinect
       kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
-      // Hide KinectErrorStackPanel that displays errors & warnings if Kinect is connected
-      if (kinect == null) KinectErrorStackPanel.Visibility = Visibility.Visible;
+
+      // KinectErrorStackPanel that displays errors & warnings is shown if Kinect isn't connected
+      KinectErrorStackPanel.Visibility = (kinect == null)? Visibility.Visible : Visibility.Hidden;
     }
 
     #endregion
 
     #region --- Properties ---
 
-    // The gesture collection and gesture we are operating on
-    public ObservableCollection<Gesture> GestureCollection { get; set; }
+    public ObservableCollection<Gesture> GestureCollection { get; set; } // The gesture collection and gesture we are operating on
 
     #endregion
 

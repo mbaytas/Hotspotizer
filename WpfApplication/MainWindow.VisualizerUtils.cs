@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20150809
+//Version: 20150817
 
 using HelixToolkit.Wpf;
 using System;
@@ -21,9 +21,10 @@ namespace WpfApplication
 
     public bool CanPlay(object parameter)
     {
-      if (kinect == null) return false;
-      else if (GestureCollection.Count > 0 && kinect.Status == Microsoft.Kinect.KinectStatus.Connected) return true;
-      else return false;
+      if ((kinect != null) && (GestureCollection.Count > 0) && (kinect.Status == Microsoft.Kinect.KinectStatus.Connected))
+        return true;
+      else
+        return false;
     }
 
     public void Play(object parameter) //TODO: make method smaller (refactor into multiple methods)
@@ -33,15 +34,18 @@ namespace WpfApplication
       CollisionHighlights_3D = new Model3DGroup();
       CollisionHighlights_Front = new Model3DGroup();
       CollisionHighlights_Side = new Model3DGroup();
+
       foreach (Gesture g in GestureCollection)
       {
         CollisionTimes.Add(new List<DateTime>());
-        foreach (GestureFrame f in g.Frames) CollisionTimes.Last().Add(new DateTime());
+        foreach (GestureFrame f in g.Frames)
+          CollisionTimes.Last().Add(new DateTime());
         CollisionStates.Add(new JointCollisionStates[2] { JointCollisionStates.OutThere, JointCollisionStates.OutThere });
         CollisionHighlights_3D.Children.Add(new Model3DGroup());
         CollisionHighlights_Front.Children.Add(new Model3DGroup());
         CollisionHighlights_Side.Children.Add(new Model3DGroup());
       }
+
       HotspotCellsModelVisual3D_Hit_Visualizer.Content = CollisionHighlights_3D;
 
       // Mark gesture cells in 3D Grid

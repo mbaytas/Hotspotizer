@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150816
+Version: 20150817
 -->
   
 <Window x:Class="WpfApplication.MainWindow"
@@ -46,46 +46,67 @@ Version: 20150816
         <RowDefinition />
       </Grid.RowDefinitions>
 
-      <Grid Style="{StaticResource TitleBar}" Grid.Row="0">
-        <TextBlock Style="{StaticResource h1}" Margin="10,0,0,0" HorizontalAlignment="Left"><Run Text="Manager"/></TextBlock>
+      <Grid
+        Style="{StaticResource TitleBar}"
+        Grid.Row="0"
+        >
+        <TextBlock
+          Style="{StaticResource h1}"
+          Margin="10,0,0,0"
+          HorizontalAlignment="Left"
+          Text="Manager"
+          />
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-          <Button Command="{Binding CreateNewGestureCollectionCommand}"
+        <StackPanel
+          Orientation="Horizontal"
+          HorizontalAlignment="Right"
+          >
+          <Button
+            Command="{Binding CreateNewGestureCollectionCommand}"
 						ToolTip="New Gesture Collection"
 						Margin="0,10,10,10"
 						Width="40" Height="40"
 						FontSize="18"
-						Content="&#xE130;"/>
-        
-          <Button Command="{Binding SaveGestureCollectionCommand}"
+						Content="&#xE130;"
+            />        
+          <Button
+            Command="{Binding SaveGestureCollectionCommand}"
 						ToolTip="Save Gesture Collection"
 						Margin="0,10,10,10"
 						Width="40" Height="40"
 						FontSize="18"
-						Content="&#xE105;"/>
-          
-          <Button Command="{Binding LoadGestureCollectionCommand}"
+						Content="&#xE105;"
+            />          
+          <Button
+            Command="{Binding LoadGestureCollectionCommand}"
 						ToolTip="Load Gesture Collection"
 						Margin="0,10,10,10"
 						Width="40" Height="40"
 						FontSize="18"
-						Content="&#xE1A5;"/>
+						Content="&#xE1A5;"
+            />
         </StackPanel>
       </Grid>
 
-      <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+      <ScrollViewer
+        Grid.Row="1"
+        HorizontalScrollBarVisibility="Disabled"
+        >
         <StackPanel>
    
           <StackPanel>
             <StackPanel.Style>
               <Style TargetType="StackPanel">
-                <Setter Property="Visibility"
-                        Value="Collapsed"/>
+                <Setter
+                  Property="Visibility"
+                  Value="Collapsed"
+                  />
                 <Style.Triggers>
-                  <DataTrigger Binding="{Binding GestureCollection.Count}"
-                               Value="0">
-                    <Setter Property="Visibility"
-                            Value="Visible"/>
+                  <DataTrigger Binding="{Binding GestureCollection.Count}" Value="0">
+                    <Setter
+                      Property="Visibility"
+                      Value="Visible"
+                      />
                   </DataTrigger>
                 </Style.Triggers>
               </Style>
@@ -250,10 +271,9 @@ Version: 20150816
           Style="{StaticResource h1}"
           Margin="10,0,0,0"
           HorizontalAlignment="Left"
-          >
-          <Run Text="Editor"/>
-        </TextBlock>
-       
+          Text="Editor"
+          />
+
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
           <Button Command="{Binding SaveGestureCommand}"
 						ToolTip="Save Gesture"
@@ -311,10 +331,8 @@ Version: 20150816
                 Click="SetCommandButton_Click"
                 >
                 <TextBlock>
-                  <Run
-                    x:Name="SetCommandButtonText"
-                    Text="{Binding Command, Converter={StaticResource commandConverterWithIcon}, Mode=OneWay}"
-                    />
+                  <Run x:Name="SetCommandButtonText"
+                       Text="{Binding Command, Converter={StaticResource commandConverterWithIcon}, Mode=OneWay}" />
                 </TextBlock>
               </Button>
               <ToggleButton
@@ -328,7 +346,7 @@ Version: 20150816
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Top"
                 >
-                <TextBlock><Run Text="&#xE1CD;"/></TextBlock>
+                <TextBlock Text="&#xE1CD;"/>
               </ToggleButton>
             </StackPanel>
           </Grid>
@@ -884,10 +902,9 @@ Version: 20150816
           Style="{StaticResource h1}"
           Margin="10,0,0,0"
           HorizontalAlignment="Left"
-          >
-          <Run Text="Visualizer"/>
-        </TextBlock>
-        
+          Text="Visualizer"
+          />
+
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
           <Button
             Command="{Binding CloseVisualizerCommand}"
@@ -1003,9 +1020,8 @@ Version: 20150816
             Style="{StaticResource h1}"
             Margin="10,0,0,0"
             HorizontalAlignment="Left"
-            >
-            <Run Text="All Gestures"/>
-          </TextBlock>
+            Text="All Gestures"
+            />
         </Grid>
 
         <ScrollViewer
@@ -1057,7 +1073,7 @@ Version: 20150816
                         TextTrimming="CharacterEllipsis"
                         >
                         <Run Text="{Binding Hold, Converter={StaticResource holdConverter}, Mode=OneWay}" />
-                        <Run Text="{Binding Command, Converter={StaticResource commandConverter}, Mode=OneWay}"/>
+                        <Run Text="{Binding Command, Converter={StaticResource commandConverter}, Mode=OneWay}" />
                       </TextBlock>
                     </Border>
 
@@ -1199,10 +1215,9 @@ Version: 20150816
         FontFamily="Segoe UI Light"
         FontSize="20"
         TextAlignment="Center"
-        >
-        <Run Text="Press key(s) on the keyboard to set the command for this gesture..."/>
-      </TextBlock>
-      
+        Text="Press key(s) on the keyboard to set the command for this gesture..."
+        />
+
       <TextBlock 
         Grid.Row="2"
         VerticalAlignment="Center"
@@ -1214,7 +1229,7 @@ Version: 20150816
         HorizontalAlignment="Center"
         >
         <Run x:Name="EditorSetCommandOverlayKeyText"
-             Text="{Binding Command, Converter={StaticResource commandConverterWithIcon}, Mode=OneWay}"/>
+             Text="{Binding Command, Converter={StaticResource commandConverterWithIcon}, Mode=OneWay}" />
       </TextBlock>
       
       <StackPanel
