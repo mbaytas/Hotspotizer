@@ -59,7 +59,7 @@
     <ManifestCertificateThumbprint>47A4ECE0D589F149E2FB9D725D41C03217D769A4</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>WpfApplication_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Hotspotizer_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
