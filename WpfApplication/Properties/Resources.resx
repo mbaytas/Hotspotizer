@@ -133,13 +133,127 @@
   <data name="HotspotizerFileFilter" xml:space="preserve">
     <value>Hotspotizer Gesture files (*.hsjson)|*.hsjson</value>
   </data>
-  <data name="DeleteGesture" xml:space="preserve">
+  <data name="DeleteGestureFromCollection" xml:space="preserve">
     <value>Delete Gesture from Collection</value>
   </data>
-  <data name="DeleteGestureConfirmation" xml:space="preserve">
+  <data name="DeleteGestureFromCollectionConfirmation" xml:space="preserve">
     <value>Do you really want to delete the gesture "%s" from the collection?</value>
   </data>
   <data name="URL_DownloadKinectSDK" xml:space="preserve">
     <value>http://www.microsoft.com/en-us/download/details.aspx?id=40278</value>
+  </data>
+  <data name="AddNewFrame" xml:space="preserve">
+    <value>Add New Frame</value>
+  </data>
+  <data name="AddNewGesture" xml:space="preserve">
+    <value>Add New Gesture</value>
+  </data>
+  <data name="AllGestures" xml:space="preserve">
+    <value>All Gestures</value>
+  </data>
+  <data name="BeginEmulation" xml:space="preserve">
+    <value>Begin Emulation</value>
+  </data>
+  <data name="CheckKinectPowerAndUSB" xml:space="preserve">
+    <value>Please check the power and USB connections and restart the application for full functionality.</value>
+  </data>
+  <data name="CreateGestureOrLoadGestureCollection" xml:space="preserve">
+    <value>Create a new gesture or load a gesture collection to begin.</value>
+  </data>
+  <data name="DeleteFrame" xml:space="preserve">
+    <value>Delete Frame</value>
+  </data>
+  <data name="DeleteGesture" xml:space="preserve">
+    <value>Delete Gesture</value>
+  </data>
+  <data name="DiscardChanges" xml:space="preserve">
+    <value>Discard Changes</value>
+  </data>
+  <data name="DownloadKinectSDK" xml:space="preserve">
+    <value>Click here to download Microsoft Kinect for Windows SDK 1.8 from Microsoft's website.</value>
+  </data>
+  <data name="EditGesture" xml:space="preserve">
+    <value>Edit Gesture</value>
+  </data>
+  <data name="Editor" xml:space="preserve">
+    <value>Editor</value>
+  </data>
+  <data name="FrontView" xml:space="preserve">
+    <value>Front View</value>
+  </data>
+  <data name="Head" xml:space="preserve">
+    <value>Head</value>
+  </data>
+  <data name="KeyboardCommand" xml:space="preserve">
+    <value>Keyboard Command</value>
+  </data>
+  <data name="KinectNotDetected" xml:space="preserve">
+    <value>Could not detect a Kinect sensor connected to your computer.</value>
+  </data>
+  <data name="LeftElbow" xml:space="preserve">
+    <value>Left Elbow</value>
+  </data>
+  <data name="LeftFoot" xml:space="preserve">
+    <value>Left Foot</value>
+  </data>
+  <data name="LeftHand" xml:space="preserve">
+    <value>Left Hand</value>
+  </data>
+  <data name="LeftKnee" xml:space="preserve">
+    <value>Left Knee</value>
+  </data>
+  <data name="LimbSelection" xml:space="preserve">
+    <value>Limb Selection</value>
+  </data>
+  <data name="LoadGestureCollection" xml:space="preserve">
+    <value>Load Gesture Collection</value>
+  </data>
+  <data name="Manager" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="MoveFrameBackward" xml:space="preserve">
+    <value>Move Frame Backward</value>
+  </data>
+  <data name="MoveFrameForward" xml:space="preserve">
+    <value>Move Frame Forward</value>
+  </data>
+  <data name="NewGestureCollection" xml:space="preserve">
+    <value>New Gesture Collection</value>
+  </data>
+  <data name="NoGestures" xml:space="preserve">
+    <value>There are no gestures in the current gesture collection.</value>
+  </data>
+  <data name="PressKeyCombinationForGesture" xml:space="preserve">
+    <value>Press key(s) on the keyboard to set the command for this gesture...</value>
+  </data>
+  <data name="PressOrHold" xml:space="preserve">
+    <value>Press/Hold</value>
+  </data>
+  <data name="RequiredKinectSDK" xml:space="preserve">
+    <value>Using a 'Kinect for Xbox 360' sensor requires the full Microsoft Kinect for Windows SDK 1.8 to be installed on your computer.</value>
+  </data>
+  <data name="RightElbow" xml:space="preserve">
+    <value>Right Elbow</value>
+  </data>
+  <data name="RightFoot" xml:space="preserve">
+    <value>Right Foot</value>
+  </data>
+  <data name="RightHand" xml:space="preserve">
+    <value>Right Hand</value>
+  </data>
+  <data name="RightKnee" xml:space="preserve">
+    <value>Right Knee</value>
+  </data>
+  <data name="SaveGesture" xml:space="preserve">
+    <value>Save Gesture</value>
+  </data>
+  <data name="SaveGestureCollection" xml:space="preserve">
+    <value>Save Gesture Collection</value>
+  </data>
+  <data name="SideView" xml:space="preserve">
+    <value>Side View</value>
+  </data>
+  <data name="Visualizer" xml:space="preserve">
+    <value>Visualizer</value>
   </data>
 </root>

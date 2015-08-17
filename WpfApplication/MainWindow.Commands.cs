@@ -12,11 +12,11 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using WpfApplication.Helpers;
-using WpfApplication.Models;
-using GlblRes = WpfApplication.Properties.Resources;
+using Hotspotizer.Helpers;
+using Hotspotizer.Models;
+using GlblRes = Hotspotizer.Properties.Resources;
 
-namespace WpfApplication
+namespace Hotspotizer
 {
   public partial class MainWindow
   {

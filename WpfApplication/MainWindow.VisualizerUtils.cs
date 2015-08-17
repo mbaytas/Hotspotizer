@@ -9,10 +9,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using WpfApplication.Helpers;
-using WpfApplication.Models;
+using Hotspotizer.Helpers;
+using Hotspotizer.Models;
 
-namespace WpfApplication
+namespace Hotspotizer
 {
   public partial class MainWindow : Window
   {

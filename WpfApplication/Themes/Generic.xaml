@@ -1,7 +1,7 @@
 ﻿<!--
-Project: ClipFlair (http://ClipFlair.codeplex.com)
+Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 Filename: Generic.xaml
-Version: 20150810
+Version: 20150817
 -->
 
 <ResourceDictionary
@@ -9,7 +9,7 @@ Version: 20150810
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:converters="clr-namespace:WpfApplication.Converters"
+  xmlns:converters="clr-namespace:Hotspotizer.Converters"
   mc:Ignorable="d"
   >
 

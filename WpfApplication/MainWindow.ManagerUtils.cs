@@ -4,10 +4,10 @@
 
 using System.Windows;
 using System.Windows.Controls;
-using WpfApplication.Models;
-using GlblRes = WpfApplication.Properties.Resources;
+using Hotspotizer.Models;
+using GlblRes = Hotspotizer.Properties.Resources;
 
-namespace WpfApplication
+namespace Hotspotizer
 {
   public partial class MainWindow
   {
@@ -18,8 +18,8 @@ namespace WpfApplication
     {
       Button b = (Button)sender;
       Gesture g = (Gesture)b.DataContext;
-      if (MessageBox.Show(string.Format(GlblRes.DeleteGestureConfirmation, g.Name),
-                          GlblRes.DeleteGesture, MessageBoxButton.YesNo) 
+      if (MessageBox.Show(string.Format(GlblRes.DeleteGestureFromCollectionConfirmation, g.Name),
+                          GlblRes.DeleteGestureFromCollection, MessageBoxButton.YesNo) 
           == MessageBoxResult.Yes)
         GestureCollection.Remove(g);
     }

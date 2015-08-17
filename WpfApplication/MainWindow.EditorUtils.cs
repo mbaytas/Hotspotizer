@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.EditorUtils.cs
-//Version: 20150809
+//Version: 20150817
 
 using HelixToolkit.Wpf;
 using System;
@@ -13,10 +13,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using WpfApplication.Helpers;
-using WpfApplication.Models;
+using Hotspotizer.Helpers;
+using Hotspotizer.Models;
 
-namespace WpfApplication
+namespace Hotspotizer
 {
   public partial class MainWindow
   {

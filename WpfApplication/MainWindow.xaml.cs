@@ -10,10 +10,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using WpfApplication.Models;
-using GlblRes = WpfApplication.Properties.Resources;
+using Hotspotizer.Models;
+using GlblRes = Hotspotizer.Properties.Resources;
 
-namespace WpfApplication
+namespace Hotspotizer
 {
   public partial class MainWindow : Window
   {

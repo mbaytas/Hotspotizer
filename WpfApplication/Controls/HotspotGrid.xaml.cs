@@ -1,12 +1,12 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: HotspotGrid.cs
-//Version: 20150731
+//Version: 20150817
 
 using System.Windows.Controls;
 using System.Windows.Input;
-using WpfApplication.Models;
+using Hotspotizer.Models;
 
-namespace WpfApplication.Controls
+namespace Hotspotizer.Controls
 {
   public partial class HotspotGrid : ListBox
   {

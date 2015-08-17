@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Gesture.cs
-//Version: 20150731
+//Version: 20150817
 
 using Microsoft.Kinect;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
 
-namespace WpfApplication.Models
+namespace Hotspotizer.Models
 {
 
   public class Gesture : INotifyPropertyChanged

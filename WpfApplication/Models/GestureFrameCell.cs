@@ -1,11 +1,11 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: GestureFrameCell.cs
-//Version: 20150731
+//Version: 20150817
 
 using Newtonsoft.Json;
 using System.ComponentModel;
 
-namespace WpfApplication.Models
+namespace Hotspotizer.Models
 {
 
   public class GestureFrameCell : INotifyPropertyChanged

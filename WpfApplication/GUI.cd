@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
-  <Class Name="WpfApplication.MainWindow">
+  <Class Name="Hotspotizer.MainWindow">
     <Position X="0.5" Y="0.5" Width="3.75" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
     <NestedTypes>
-      <Enum Name="WpfApplication.MainWindow.JointCollisionStates">
+      <Enum Name="Hotspotizer.MainWindow.JointCollisionStates">
         <TypeIdentifier>
           <NewMemberFileName>MainWindow.KinectUtils.cs</NewMemberFileName>
         </TypeIdentifier>
@@ -18,7 +18,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="WpfApplication.Controls.HotspotGrid">
+  <Class Name="Hotspotizer.Controls.HotspotGrid">
     <Position X="4.75" Y="0.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAIAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAA=</HashCode>

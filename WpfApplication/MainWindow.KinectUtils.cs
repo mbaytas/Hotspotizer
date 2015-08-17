@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.KinectUtils.cs
-//Version: 20150809
+//Version: 20150817
 
 using HelixToolkit.Wpf;
 using Microsoft.Kinect;
@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using WindowsInput;
 using WindowsInput.Native;
-using WpfApplication.Models;
+using Hotspotizer.Models;
 
-namespace WpfApplication
+namespace Hotspotizer
 {
   public partial class MainWindow : Window
   {

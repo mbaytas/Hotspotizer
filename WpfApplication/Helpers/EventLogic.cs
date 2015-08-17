@@ -1,11 +1,11 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: EventLogic.cs
-//Version: 20150731
+//Version: 20150817
 
 using System.Reflection;
 using System.Windows;
 
-namespace WpfApplication.Helpers
+namespace Hotspotizer.Helpers
 {
   class EventLogic
   {

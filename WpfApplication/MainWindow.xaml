@@ -4,18 +4,24 @@ File: MainWindow.xaml
 Version: 20150817
 -->
   
-<Window x:Class="WpfApplication.MainWindow"
+<Window x:Class="Hotspotizer.MainWindow"
 
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:local="clr-namespace:WpfApplication"
-  xmlns:controls="clr-namespace:WpfApplication.Controls"
-  xmlns:converters="clr-namespace:WpfApplication.Converters"
-  xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  
+
+  xmlns:local="clr-namespace:Hotspotizer"
+  xmlns:controls="clr-namespace:Hotspotizer.Controls"
+  xmlns:converters="clr-namespace:Hotspotizer.Converters"
+  xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
+  xmlns:lex="http://wpflocalizeextension.codeplex.com"
+        
   mc:Ignorable="d"
+
+  lex:LocalizeDictionary.DesignCulture="en"
+  lex:ResxLocalizationProvider.DefaultAssembly="Hotspotizer"
+  lex:ResxLocalizationProvider.DefaultDictionary="Resources"
     
   Icon="Images/Logo.ico"
   Title="Hotspotizer"
@@ -55,7 +61,7 @@ Version: 20150817
           Style="{StaticResource h1}"
           Margin="10,0,0,0"
           HorizontalAlignment="Left"
-          Text="Manager"
+          Text="{lex:Loc Manager}"
           />
 
         <StackPanel
@@ -64,27 +70,27 @@ Version: 20150817
           >
           <Button
             Command="{Binding CreateNewGestureCollectionCommand}"
-						ToolTip="New Gesture Collection"
+						ToolTip="{lex:Loc NewGestureCollection}"
 						Margin="0,10,10,10"
 						Width="40" Height="40"
 						FontSize="18"
 						Content="&#xE130;"
-            />        
-          <Button
-            Command="{Binding SaveGestureCollectionCommand}"
-						ToolTip="Save Gesture Collection"
-						Margin="0,10,10,10"
-						Width="40" Height="40"
-						FontSize="18"
-						Content="&#xE105;"
-            />          
+            />
           <Button
             Command="{Binding LoadGestureCollectionCommand}"
-						ToolTip="Load Gesture Collection"
+						ToolTip="{lex:Loc LoadGestureCollection}"
 						Margin="0,10,10,10"
 						Width="40" Height="40"
 						FontSize="18"
 						Content="&#xE1A5;"
+            />
+          <Button
+            Command="{Binding SaveGestureCollectionCommand}"
+						ToolTip="{lex:Loc SaveGestureCollection}"
+						Margin="0,10,10,10"
+						Width="40" Height="40"
+						FontSize="18"
+						Content="&#xE105;"
             />
         </StackPanel>
       </Grid>
@@ -119,7 +125,7 @@ Version: 20150817
               VerticalAlignment="Center"
               Style="{StaticResource p}"
               Foreground="Gray"
-              Text="There are no gestures in the current gesture collection."
+              Text="{lex:Loc NoGestures}"
               />
             
             <TextBlock
@@ -128,7 +134,7 @@ Version: 20150817
               VerticalAlignment="Center"
               Style="{StaticResource p}"
               Foreground="Gray"
-              Text="Create a new gesture or load a gesture collection to begin."
+              Text="{lex:Loc CreateGestureOrLoadGestureCollection}"
               />
           </StackPanel>
           
@@ -176,7 +182,7 @@ Version: 20150817
                   
                   <Button
                     Grid.Column="2"
-                    ToolTip="Edit Gesture"
+                    ToolTip="{lex:Loc EditGesture}"
                     Click="EditGestureButton_Click"
                     Width="20"
                     FontSize="12"
@@ -188,7 +194,7 @@ Version: 20150817
                   
                   <Button
                     Grid.Column="3"
-                    ToolTip="Delete Gesture"
+                    ToolTip="{lex:Loc DeleteGesture}"
                     Click="DeleteGestureButton_Click"
                     Width="20"
                     FontSize="12"
@@ -204,7 +210,7 @@ Version: 20150817
     
           <Button 
             Command="{Binding AddNewGestureCommand}"
-						ToolTip="Add New Gesture"
+						ToolTip="{lex:Loc AddNewGesture}"
 						Height="40"
 						HorizontalAlignment="Stretch"
 						Margin="10"
@@ -222,7 +228,7 @@ Version: 20150817
               VerticalAlignment="Center"
               Style="{StaticResource p}"
               Foreground="Firebrick"
-              Text="Hotspotizer could not detect a Kinect sensor connected to your computer."
+              Text="{lex:Loc KinectNotDetected}"
               />
             <TextBlock 
               Margin="15,15,15,0"
@@ -230,7 +236,7 @@ Version: 20150817
               VerticalAlignment="Center"
               Style="{StaticResource p}"
               Foreground="Firebrick"
-              Text="Please check the power and USB connections and restart Hotspotizer for full functionality."
+              Text="{lex:Loc CheckKinectPowerAndUSB}"
               />
             <TextBlock 
               Margin="15,10,15,0"
@@ -238,7 +244,7 @@ Version: 20150817
               VerticalAlignment="Center"
               Style="{StaticResource p}"
               Foreground="Goldenrod"
-              Text="Using Hotspotizer with a 'Kinect for Xbox 360' sensor requires the full Microsoft Kinect for Windows SDK 1.8 to be installed on your computer."
+              Text="{lex:Loc RequiredKinectSDK}"
               />
             <TextBlock 
               Margin="15,10,15,0"
@@ -248,7 +254,7 @@ Version: 20150817
               Foreground="Goldenrod"
               Cursor="Hand"
               MouseDown="sdkDownloadLink_MouseDown"
-              Text="Click here to download Microsoft Kinect for Windows SDK 1.8 from Microsoft's website."
+              Text="{lex:Loc DownloadKinectSDK}"
               />
           </StackPanel>
         </StackPanel>
@@ -272,19 +278,19 @@ Version: 20150817
           Style="{StaticResource h1}"
           Margin="10,0,0,0"
           HorizontalAlignment="Left"
-          Text="Editor"
+          Text="{lex:Loc Editor}"
           />
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
           <Button Command="{Binding SaveGestureCommand}"
-						ToolTip="Save Gesture"
+						ToolTip="{lex:Loc SaveGesture}"
 						Margin="0,10,10,10"
 						Width="40" Height="40"
 						FontSize="18"
 						Content="&#xE105;"
             />
           <Button Command="{Binding DiscardGestureCommand}"
-						ToolTip="Discard Changes"
+						ToolTip="{lex:Loc DiscardChanges}"
 						Margin="0,10,10,10"
 						Height="40" Width="40"
 						FontSize="18"
@@ -321,7 +327,7 @@ Version: 20150817
             
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
               <Button
-                ToolTip="Keyboard Command"
+                ToolTip="{lex:Loc KeyboardCommand}"
                 Margin="0,10,10,0"
                 Padding="5"
                 FontSize="14"
@@ -337,7 +343,7 @@ Version: 20150817
                 </TextBlock>
               </Button>
               <ToggleButton
-                ToolTip="Press/Hold"
+                ToolTip="{lex:Loc PressOrHold}"
                 IsChecked="{Binding Hold, UpdateSourceTrigger=PropertyChanged}"
                 Margin="0,10,10,0"
                 Padding="5"
@@ -347,7 +353,7 @@ Version: 20150817
                 HorizontalContentAlignment="Center"
                 VerticalAlignment="Top"
                 >
-                <TextBlock Text="&#xE1CD;"/>
+                <TextBlock Text="&#xE1CD;"/> <!-- Keyboard symbol -->
               </ToggleButton>
             </StackPanel>
           </Grid>
@@ -378,12 +384,16 @@ Version: 20150817
               Grid.Row="2"
               Style="{StaticResource h1}"
               Foreground="LightGray"
-              Text="Front View"
+              Text="{lex:Loc FrontView}"
               HorizontalAlignment="Center"
               />
           </Grid>
           
-          <HelixToolkit:HelixViewport3D Grid.Column="0" CameraMode="FixedPosition" ShowViewCube="False" >
+          <HelixToolkit:HelixViewport3D
+            Grid.Column="0"
+            CameraMode="FixedPosition"
+            ShowViewCube="False"
+            >
             <HelixToolkit:HelixViewport3D.Camera>
               <OrthographicCamera
                 Width="300"
@@ -429,7 +439,7 @@ Version: 20150817
               Grid.Row="2"
               Style="{StaticResource h1}"
               Foreground="LightGray"
-              Text="Side View"
+              Text="{lex:Loc SideView}"
               HorizontalAlignment="Center"
               />
           </Grid>
@@ -587,7 +597,11 @@ Version: 20150817
                         <Setter.Value>
                           <ControlTemplate TargetType="{x:Type RadioButton}">
                             
-                            <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Grid
+                              x:Name="templateRoot"
+                              Background="Transparent"
+                              SnapsToDevicePixels="True"
+                              >
                               <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
@@ -662,63 +676,63 @@ Version: 20150817
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Center"
-                    ToolTip="Head"
+                    ToolTip="{lex:Loc Head}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Head}"
                     />
                   <RadioButton 
                     GroupName="Joint"
                     Grid.Row="1"
                     Grid.Column="0"
-                    ToolTip="Left Elbow"
+                    ToolTip="{lex:Loc LeftElbow}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowLeft}"
                     />
                   <RadioButton 
                     GroupName="Joint"
                     Grid.Row="1"
                     Grid.Column="1"
-                    ToolTip="Right Elbow"
+                    ToolTip="{lex:Loc RightElbow}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowRight}"
                     />
                   <RadioButton 
                     GroupName="Joint"
                     Grid.Row="2"
                     Grid.Column="0"
-                    ToolTip="Left Hand"
+                    ToolTip="{lex:Loc LeftHand}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandLeft}"
                     />
                   <RadioButton 
                     GroupName="Joint"
                     Grid.Row="2"
                     Grid.Column="1"
-                    ToolTip="Right Hand"
+                    ToolTip="{lex:Loc RightHand}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandRight}"
                     />
                   <RadioButton
                     GroupName="Joint"
                     Grid.Row="3"
                     Grid.Column="0"
-                    ToolTip="Left Knee"
+                    ToolTip="{lex:Loc LeftKnee}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeLeft}"
                     />
                   <RadioButton 
                     GroupName="Joint"
                     Grid.Row="3"
                     Grid.Column="1"
-                    ToolTip="Right Knee"
+                    ToolTip="{lex:Loc RightKnee}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeRight}"
                     />
                   <RadioButton 
                     GroupName="Joint"
                     Grid.Row="4"
                     Grid.Column="0"
-                    ToolTip="Left Foot"
+                    ToolTip="{lex:Loc LeftFoot}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootLeft}"
                     />
                   <RadioButton 
                     GroupName="Joint"
                     Grid.Row="4"
                     Grid.Column="1"
-                    ToolTip="Right Foot"
+                    ToolTip="{lex:Loc RightFoot}"
                     IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootRight}"
                     />
                 </Grid>
@@ -728,7 +742,7 @@ Version: 20150817
                 Grid.Row="1"
                 Style="{StaticResource h2}"
                 Foreground="LightGray"
-                Text="Limb Selection"
+                Text="{lex:Loc LimbSelection}"
                 HorizontalAlignment="Center"
                 Margin="10,0"
                 FontFamily="Segoe UI Light"
@@ -838,7 +852,7 @@ Version: 20150817
                       >
                       <Button 
                         Click="DeleteFrameButton_Click"
-    			              ToolTip="Delete Frame"
+    			              ToolTip="{lex:Loc DeleteFrame}"
     			              Width="20"
                         Height="20"
     			              FontSize="12"
@@ -849,7 +863,7 @@ Version: 20150817
                         />
                       <Button 
                         Click="MoveFrameBackwardButton_Click"
-     			              ToolTip="Move Frame Backward"
+     			              ToolTip="{lex:Loc MoveFrameBackward}"
     			              Width="20" Height="20"
     			              FontSize="12"
     			              Content="&#xE112;"
@@ -859,7 +873,7 @@ Version: 20150817
                         />
                       <Button
                         Click="MoveFrameForwardButton_Click"
-    			              ToolTip="Move Frame Forward"
+    			              ToolTip="{lex:Loc MoveFrameForward}"
     			              Width="20" Height="20"
     			              FontSize="12"
     			              Content="&#xE111;"
@@ -874,7 +888,7 @@ Version: 20150817
             </ListBox>
             
             <Button 
-              ToolTip="Add New Frame"
+              ToolTip="{lex:Loc AddNewFrame}"
 							FontSize="18"
 							Content="&#xE109;"
 							Width="40"
@@ -892,18 +906,26 @@ Version: 20150817
 
     <!-- #Region VISUALIZER -->
     
-    <Grid x:Name="TheVisualizer" Grid.Column="1" Visibility="Hidden">
+    <Grid
+      x:Name="TheVisualizer"
+      Grid.Column="1"
+      Visibility="Hidden"
+      >
       <Grid.RowDefinitions>
         <RowDefinition Height="60"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
 
-      <Grid Style="{StaticResource TitleBar}" x:Name="VisualizerTitle" Grid.Row="0">
+      <Grid
+        x:Name="VisualizerTitle"
+        Style="{StaticResource TitleBar}"
+        Grid.Row="0"
+        >
         <TextBlock
           Style="{StaticResource h1}"
           Margin="10,0,0,0"
           HorizontalAlignment="Left"
-          Text="Visualizer"
+          Text="{lex:Loc Visualizer}"
           />
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -951,7 +973,7 @@ Version: 20150817
           Normal="0 0 1"
           >
           <HelixToolkit:GridLinesVisual3D.Fill>
-            <SolidColorBrush Color="LightGray" Opacity="0.5"/>
+            <SolidColorBrush Color="LightGray" Opacity="0.5" />
           </HelixToolkit:GridLinesVisual3D.Fill>
         </HelixToolkit:GridLinesVisual3D>
         
@@ -965,10 +987,7 @@ Version: 20150817
           Normal="0 1 0"
           >
           <HelixToolkit:GridLinesVisual3D.Fill>
-            <SolidColorBrush
-              Color="LightGray"
-              Opacity="0.5"
-              />
+            <SolidColorBrush Color="LightGray" Opacity="0.5" />
           </HelixToolkit:GridLinesVisual3D.Fill>
         </HelixToolkit:GridLinesVisual3D>
         
@@ -982,10 +1001,7 @@ Version: 20150817
           LengthDirection="0.00000000001 0 1"
           >
           <HelixToolkit:GridLinesVisual3D.Fill>
-            <SolidColorBrush
-              Color="LightGray"
-              Opacity="0.5"
-              />
+            <SolidColorBrush Color="LightGray" Opacity="0.5" />
           </HelixToolkit:GridLinesVisual3D.Fill>
         </HelixToolkit:GridLinesVisual3D>
         
@@ -1021,7 +1037,7 @@ Version: 20150817
             Style="{StaticResource h1}"
             Margin="10,0,0,0"
             HorizontalAlignment="Left"
-            Text="All Gestures"
+            Text="{lex:Loc AllGestures}"
             />
         </Grid>
 
@@ -1098,7 +1114,7 @@ Version: 20150817
                       Foreground="DarkSlateBlue"
                       Visibility="Hidden"
                       Style="{StaticResource h1}"
-                      />
+                      /> <!-- Pen symbol -->
                   </Grid>
                   
                   <DataTemplate.Triggers>
@@ -1187,7 +1203,7 @@ Version: 20150817
       <Button
         Command="{Binding PlayCommand}"
 				Grid.Row="3"
-				ToolTip="Begin Emulation"
+				ToolTip="{lex:Loc BeginEmulation}"
 				HorizontalAlignment="Center"
 				Margin="10"
         Padding="20,10"
@@ -1216,7 +1232,7 @@ Version: 20150817
         FontFamily="Segoe UI Light"
         FontSize="20"
         TextAlignment="Center"
-        Text="Press key(s) on the keyboard to set the command for this gesture..."
+        Text="{lex:Loc PressKeyCombinationForGesture}"
         />
 
       <TextBlock 

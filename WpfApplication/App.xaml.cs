@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Windows;
 
-namespace WpfApplication {
+namespace Hotspotizer {
   public partial class App : Application {
     // http://channel9.msdn.com/coding4fun/kinect/When-deploying-Kinect-apps-ensure-the-runtime-components-and-device-are-ready
     protected override void OnStartup(StartupEventArgs e) {

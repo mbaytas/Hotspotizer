@@ -1,13 +1,13 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: SamenessConverter.cs
-//Version: 20150809
+//Version: 20150817
 
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 
-namespace WpfApplication.Converters
+namespace Hotspotizer.Converters
 {
 
   public class SamenessConverter : IMultiValueConverter

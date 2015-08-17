@@ -1,12 +1,12 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: EnumBooleanConverter.cs
-//Version: 20150809
+//Version: 20150817
 
 using System;
 using System.Windows;
 using System.Windows.Data;
 
-namespace WpfApplication.Converters
+namespace Hotspotizer.Converters
 {
 
   public class EnumBooleanConverter : IValueConverter //see http://stackoverflow.com/questions/397556/how-to-bind-radiobuttons-to-an-enum

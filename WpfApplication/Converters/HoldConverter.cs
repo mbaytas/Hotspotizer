@@ -1,13 +1,13 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: HoldConverter.cs
-//Version: 20150809
+//Version: 20150817
 
 using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace WpfApplication.Converters
+namespace Hotspotizer.Converters
 {
 
   [ValueConversion(typeof(Key), typeof(string))]

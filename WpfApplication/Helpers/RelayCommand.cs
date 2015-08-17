@@ -1,11 +1,11 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: RelayCommand.cs
-//Version: 20150809
+//Version: 20150817
 
 using System;
 using System.Windows.Input;
 
-namespace WpfApplication.Helpers
+namespace Hotspotizer.Helpers
 {
   /// <summary>
   /// Relay Command

@@ -4,7 +4,7 @@ File: App.xaml
 Version: 20150810
 -->
   
-<Application x:Class="WpfApplication.App"
+<Application x:Class="Hotspotizer.App"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 
