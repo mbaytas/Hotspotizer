@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150817
+//Version: 20150818
 
 using Microsoft.Kinect;
 using System;
@@ -12,6 +12,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Hotspotizer.Models;
 using GlblRes = Hotspotizer.Properties.Resources;
+using WPFLocalizeExtension.Engine;
+using System.Globalization;
+using System.Threading;
 
 namespace Hotspotizer
 {
@@ -28,6 +31,14 @@ namespace Hotspotizer
 
     public MainWindow()
     {
+      LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
+
+      //To force a specific culture can use the following (also see LocalizeDictionary.Instance.MergedAvailableCultures, probably useful for populating a dropdown UI control to switch language at runtime):
+      /*
+      LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
+      LocalizeDictionary.Instance.Culture = new CultureInfo("el");
+      */
+
       registerCommands();
 
       GestureCollection = new ObservableCollection<Gesture>();

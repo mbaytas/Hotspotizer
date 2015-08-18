@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150817
+Version: 20150818
 -->
   
 <Window x:Class="Hotspotizer.MainWindow"
@@ -40,7 +40,7 @@ Version: 20150817
   <Grid SizeChanged="OuterMostGrid_SizeChanged">
 
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="300" MinWidth="280"/>
+      <ColumnDefinition Width="340" MinWidth="320" />
       <ColumnDefinition Width="*" MinWidth="400"/>
     </Grid.ColumnDefinitions>
 
