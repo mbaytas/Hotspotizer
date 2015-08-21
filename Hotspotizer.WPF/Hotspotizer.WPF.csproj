@@ -91,13 +91,8 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -134,6 +129,7 @@
     <Compile Include="MainWindow.Commands.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="MainWindow.EditorUtils.cs" />
+    <Compile Include="Helpers\KeyboardUtils.cs" />
     <Compile Include="MainWindow.ManagerUtils.cs" />
     <Compile Include="MainWindow.VisualizerUtils.cs" />
     <Page Include="Controls\HotspotGrid.xaml">

@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.Commands.cs
-//Version: 20150817
+//Version: 20150821
 
 using Microsoft.Kinect;
 using Microsoft.Win32;
@@ -36,7 +36,7 @@ namespace Hotspotizer
 
     #region --- Methods ---
 
-    private void registerCommands()
+    private void RegisterCommands()
     {
       CreateNewGestureCollectionCommand = new RelayCommand(CreateNewGestureCollection);
       SaveGestureCollectionCommand = new RelayCommand(SaveGestureCollection, CanSaveGestureCollection);

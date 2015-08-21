@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Gesture.cs
-//Version: 20150817
+//Version: 20150821
 
 using Microsoft.Kinect;
 using Newtonsoft.Json;
@@ -43,7 +43,7 @@ namespace Hotspotizer.Models
 
     public Gesture()
     {
-      Frames = new ObservableCollection<GestureFrame>();
+      Frames = new ObservableCollection<GestureFrame>(); //TODO: why just initialize Frames to empty collection and to this for Command property too? Maybe other code checks it for null somewhere?
     }
 
     #endregion

@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.KinectUtils.cs
-//Version: 20150817
+//Version: 20150821
 
 using HelixToolkit.Wpf;
 using Microsoft.Kinect;
@@ -8,11 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
-using WindowsInput;
-using WindowsInput.Native;
 using Hotspotizer.Models;
 
 namespace Hotspotizer
@@ -24,8 +21,6 @@ namespace Hotspotizer
 
     // Kinect-related members
     private KinectSensor kinect = null;
-    // Init input simulator
-    private InputSimulator inputSimulator = new InputSimulator();
 
     // Visuals
     SolidColorBrush[] Visualizer_GestureColors = {
@@ -50,25 +45,10 @@ namespace Hotspotizer
 
     #region --- Methods ---
 
-    #region Keyboard emulation
-
-    private void HitKey(Gesture g)
+    public KinectSensor GetKinectSensor()
     {
-      if (g.Hold)
-        foreach (Key k in g.Command) inputSimulator.Keyboard.KeyDown((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
-      else
-      {
-        foreach (Key k in g.Command) inputSimulator.Keyboard.KeyDown((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
-        foreach (Key k in g.Command) inputSimulator.Keyboard.KeyUp((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
-      }
+      return KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
     }
-
-    private void ReleaseKey(Gesture g)
-    {
-      foreach (Key k in g.Command) inputSimulator.Keyboard.KeyUp((VirtualKeyCode)KeyInterop.VirtualKeyFromKey(k));
-    }
-
-    #endregion
 
     #region Highlighting
 
@@ -389,13 +369,15 @@ namespace Hotspotizer
           {
             if (CollisionStates[gi][0] == JointCollisionStates.OutThere && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
             {
-              if (keyboardEmulation) HitKey(g);
+              if (keyboardEmulation)
+                KeyboardUtils.HitKey(g);
               HighlightGestureOnList(g);
               highlightFrames(g, new List<GestureFrame>() { g.Frames[0] });
             }
             else if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && CollisionStates[gi][1] == JointCollisionStates.OutThere)
             {
-              if (keyboardEmulation) ReleaseKey(g);
+              if (keyboardEmulation)
+                KeyboardUtils.ReleaseKey(g);
               DeHighlightGestureOnList(g);
               deHighlightFrames(g);
             }
@@ -407,7 +389,8 @@ namespace Hotspotizer
             // Keyboard emulation and List highlight
             if (CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot && !(CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot))
             {
-              if (keyboardEmulation) ReleaseKey(g);
+              if (keyboardEmulation)
+                KeyboardUtils.ReleaseKey(g);
               DeHighlightGestureOnList(g);
             }
             else if (!(CollisionStates[gi][0] == JointCollisionStates.InUltimateHotspot) && CollisionStates[gi][1] == JointCollisionStates.InUltimateHotspot)
@@ -417,7 +400,8 @@ namespace Hotspotizer
                 if (CollisionTimes[gi][i] - CollisionTimes[gi][i - 1] > CollisionTimeout) break;
                 if (i + 1 == CollisionTimes[gi].Count)
                 {
-                  if (keyboardEmulation) HitKey(g);
+                  if (keyboardEmulation)
+                    KeyboardUtils.HitKey(g);
                   HighlightGestureOnList(g);
                 }
               }

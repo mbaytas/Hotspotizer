@@ -31,15 +31,9 @@ namespace Hotspotizer
 
     public MainWindow()
     {
-      LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
+      Localize();
 
-      //To force a specific culture can use the following (also see LocalizeDictionary.Instance.MergedAvailableCultures, probably useful for populating a dropdown UI control to switch language at runtime):
-      /*
-      LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
-      LocalizeDictionary.Instance.Culture = new CultureInfo("el");
-      */
-
-      registerCommands();
+      RegisterCommands();
 
       GestureCollection = new ObservableCollection<Gesture>();
 
@@ -63,7 +57,7 @@ namespace Hotspotizer
       EditorOverlay.Visibility = Visibility.Visible;
 
       // Holla Kinect
-      kinect = KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
+      kinect = GetKinectSensor();
 
       // KinectErrorStackPanel that displays errors & warnings is shown if Kinect isn't connected
       KinectErrorStackPanel.Visibility = (kinect == null)? Visibility.Visible : Visibility.Hidden;
@@ -78,6 +72,17 @@ namespace Hotspotizer
     #endregion
 
     #region --- Methods ---
+
+    private void Localize()
+    {
+      LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
+
+      //To force a specific culture can use the following (also see LocalizeDictionary.Instance.MergedAvailableCultures, probably useful for populating a dropdown UI control to switch language at runtime):
+      /*
+      LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
+      LocalizeDictionary.Instance.Culture = new CultureInfo("el");
+      */
+    }
 
     private Gesture MakeNewGesture()
     {
