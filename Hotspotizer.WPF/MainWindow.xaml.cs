@@ -77,7 +77,7 @@ namespace Hotspotizer
     {
       LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
 
-      //To force a specific culture can use the following (also see LocalizeDictionary.Instance.MergedAvailableCultures, probably useful for populating a dropdown UI control to switch language at runtime):
+      //To force a specific culture can use the following:
       /*
       LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
       LocalizeDictionary.Instance.Culture = new CultureInfo("el");

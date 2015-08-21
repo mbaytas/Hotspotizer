@@ -17,8 +17,8 @@
     <PublishUrl>C:\Users\mbaytas\Desktop\Hotspotizer_1\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Background</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
@@ -54,6 +54,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>47A4ECE0D589F149E2FB9D725D41C03217D769A4</ManifestCertificateThumbprint>
