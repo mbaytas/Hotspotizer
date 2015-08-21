@@ -416,8 +416,8 @@ namespace Hotspotizer
     /// <param name="g">Gesture</param>
     private void DeHighlightFrames_Editor(Gesture g)
     {
-      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
-      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
+      //Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //this seems to be unused
+      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup(); //TODO: maybe there is a bug here and wanted to use modelGroup_3D instead?
     }
 
     #endregion
@@ -443,9 +443,9 @@ namespace Hotspotizer
     /// <param name="g">Gesture</param>
     private void DeHighlightFrames_Visualizer(Gesture g)
     {
-      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
-      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup(); //TODO: reuse the "new Model3DGroup()" below instead of creating 3 of those?
-      CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
+      //Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //this seems to be unused
+      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup(); //TODO: maybe there is a bug here and wanted to use modelGroup_3D instead?
+      CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = new Model3DGroup(); //TODO: maybe reuse the "new Model3DGroup()" instead of creating 3 of those?
       CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
     }
 
