@@ -1,9 +1,11 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150818
+Version: 20150821
 -->
   
+<!-- TODO: maybe add a [+] sign after each frame to allow adding intermediate frames to an existing list (to finetune the movement). Can use move left-right action though to reorder a new frame added to the end already -->
+
 <Window x:Class="Hotspotizer.MainWindow"
 
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -98,6 +100,7 @@ Version: 20150818
       <ScrollViewer
         Grid.Row="1"
         HorizontalScrollBarVisibility="Disabled"
+        VerticalScrollBarVisibility="Auto"
         >
         <StackPanel>
    
@@ -573,7 +576,7 @@ Version: 20150818
 
         <ScrollViewer
           Grid.Row="3"
-          HorizontalScrollBarVisibility="Visible"
+          HorizontalScrollBarVisibility="Auto"
           VerticalScrollBarVisibility="Hidden"
           >
           <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True">
@@ -1043,8 +1046,9 @@ Version: 20150818
 
         <ScrollViewer
           Grid.Row="1"
-          VerticalScrollBarVisibility="Visible"
-          >
+          HorizontalScrollBarVisibility="Auto"
+          VerticalScrollBarVisibility="Auto"
+          > <!-- TODO: should HorizontalScrollBarVisibility be set to "Disabled" here? -->
           <StackPanel>
             <ItemsControl 
               x:Name="AllGesturesItemsControl"
