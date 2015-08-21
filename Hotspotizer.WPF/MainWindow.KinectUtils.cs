@@ -50,170 +50,7 @@ namespace Hotspotizer
       return KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
     }
 
-    #region Highlighting
-
-    private delegate void HighlightFramesDelegate(Gesture g, List<GestureFrame> fs);
-    private delegate void DeHighlightFramesDelegate(Gesture g);
-
-    private Model3DGroup GetHighlightModel3D(Gesture g, List<GestureFrame> fs)
-    {
-      // Create material
-      EmissiveMaterial material = new EmissiveMaterial(new SolidColorBrush() { Color = Colors.White, Opacity = 0.3 });
-
-      Model3DGroup modelGroup = new Model3DGroup();
-      foreach (GestureFrame f in fs)
-      {
-        foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true))
-        {
-          int fcIndex = Array.IndexOf(f.FrontCells, fc);
-          foreach (GestureFrameCell sc in f.SideCells.Where(
-              sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20)))
-          {
-            // Init mesh
-            MeshBuilder meshBuilder = new MeshBuilder(false, false);
-            // Make cube and add to mesh
-            double y = (fc.LeftCM + fc.RightCM) / 2;
-            double z = (fc.TopCM + fc.BottomCM) / 2;
-            double x = (sc.LeftCM + sc.RightCM) / 2;
-            Point3D cubeCenter = new Point3D(x, y, z);
-            meshBuilder.AddBox(cubeCenter, 15, 15, 15);
-            // Create and freeze mesh
-            var mesh = meshBuilder.ToMesh(true);
-            // Create models
-            modelGroup.Children.Add(new GeometryModel3D(mesh, material));
-          }
-        }
-      }
-      return modelGroup;
-    }
-
-    #region Editor
-
-     /// <summary>
-    /// Highlight frames on editor grids
-    /// </summary>
-    /// <param name="g">Gesture</param>
-    /// <param name="fs">Gesture Frames</param>
-    private void HighlightFrames_Editor(Gesture g, List<GestureFrame> fs)
-    {
-      Model3DGroup modelGroup = GetHighlightModel3D(g, fs);
-      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
-    }
-
-    /// <summary>
-    /// De-highlight frames on editor grids
-    /// </summary>
-    /// <param name="g">Gesture</param>
-    private void DeHighlightFrames_Editor(Gesture g)
-    {
-      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
-      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
-    }
-
-    #endregion
-
-    #region Visualizer
-
-    /// <summary>
-    /// Highlight frames on visualizer grids
-    /// </summary>
-    /// <param name="g">Gesture</param>
-    /// <param name="fs">Gesture Frames</param>
-    private void HighlightFrames_Visualizer(Gesture g, List<GestureFrame> fs)
-    {
-      Model3DGroup modelGroup = GetHighlightModel3D(g, fs);
-      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
-      CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = modelGroup;
-      CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = modelGroup;
-    }
-
-    /// <summary>
-    /// De-highlight frames on visualizer grids
-    /// </summary>
-    /// <param name="g">Gesture</param>
-    private void DeHighlightFrames_Visualizer(Gesture g)
-    {
-      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
-      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup(); //TODO: reuse the "new Model3DGroup()" below instead of creating 3 of those?
-      CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
-      CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
-    }
-
-    #endregion
-
-    #region List
-
-    private void HighlightGestureOnList(Gesture g)
-    {
-      g.IsHit = true;
-    }
-
-    private void DeHighlightGestureOnList(Gesture g)
-    {
-      g.IsHit = false;
-    }
-
-    #endregion
-
-    #endregion Highlighting
-
-    #endregion Methods
-
-    #region --- Events ---
-
-    private void SkeletonFrameReady_Draw3D_Editor(object sender, SkeletonFrameReadyEventArgs e)
-    {
-      Draw3dSkeleton(SkeletonModelVisual3D_Editor, e);
-    }
-
-    private void SkeletonFrameReady_Draw3D_Front_Editor(object sender, SkeletonFrameReadyEventArgs e)
-    {
-      Draw3dSkeleton(SkeletonModelVisual3D_Editor_FrontViewPort, e);
-    }
-
-    private void SkeletonFrameReady_Draw3D_Side_Editor(object sender, SkeletonFrameReadyEventArgs e)
-    {
-      Draw3dSkeleton(SkeletonModelVisual3D_Editor_SideViewPort, e);
-    }
-
-    private void SkeletonFrameReady_ToggleBackground_Editor(object sender, SkeletonFrameReadyEventArgs e)
-    {
-      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
-      {
-        if (skeletonFrame == null)
-        {
-          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
-          SideViewImage.Visibility = System.Windows.Visibility.Visible;
-          return;
-        }
-        Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
-        skeletonFrame.CopySkeletonDataTo(skeletons);
-        if (skeletons == null)
-        {
-          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
-          SideViewImage.Visibility = System.Windows.Visibility.Visible;
-          return;
-        }
-        Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
-        if (skeleton == null)
-        {
-          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
-          SideViewImage.Visibility = System.Windows.Visibility.Visible;
-          return;
-        }
-        else
-        {
-          FrontViewImage.Visibility = System.Windows.Visibility.Hidden;
-          SideViewImage.Visibility = System.Windows.Visibility.Hidden;
-          return;
-        }
-      }
-    }
-
-    private void SkeletonFrameReady_Draw3D_Visualizer(object sender, SkeletonFrameReadyEventArgs e)
-    {
-      Draw3dSkeleton(SkeletonModelVisual3D_Visualizer, e);
-    }
+    #region SkeletonFrameReady
 
     private void Draw3dSkeleton(ModelVisual3D modelVisual3D, SkeletonFrameReadyEventArgs e) //TODO: refactor into more methods
     {
@@ -287,20 +124,10 @@ namespace Hotspotizer
         var mesh = meshBuilder.ToMesh(true); // Create and freeze mesh
         Material blueMaterial = MaterialHelper.CreateMaterial(Colors.SteelBlue); // Create material
         modelGroup.Children.Add(new GeometryModel3D(mesh, blueMaterial)); // Create model
-        
+
         // Draw
         modelVisual3D.Content = modelGroup;
       }
-    }
-
-    private void SkeletonFrameReady_Detect_Editor(object sender, SkeletonFrameReadyEventArgs e)
-    {
-      SkeletonFrameReady_Detect(e, HighlightFrames_Editor, DeHighlightFrames_Editor, keyboardEmulation:false);
-    }
-
-    private void SkeletonFrameReady_Detect_Visualizer(object sender, SkeletonFrameReadyEventArgs e)
-    {
-      SkeletonFrameReady_Detect(e, HighlightFrames_Visualizer, DeHighlightFrames_Visualizer, keyboardEmulation:true);
     }
 
     private void SkeletonFrameReady_Detect(SkeletonFrameReadyEventArgs e, HighlightFramesDelegate highlightFrames, DeHighlightFramesDelegate deHighlightFrames, bool keyboardEmulation) //TODO: refactor into smaller methods
@@ -465,7 +292,190 @@ namespace Hotspotizer
       } // using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
     } // SkeletonFrameReady_Detect method
 
+    #region Editor
+
+    private void SkeletonFrameReady_Draw3D_Editor(SkeletonFrameReadyEventArgs e)
+    {
+      Draw3dSkeleton(SkeletonModelVisual3D_Editor, e);
+    }
+
+    private void SkeletonFrameReady_Draw3D_Front_Editor(SkeletonFrameReadyEventArgs e)
+    {
+      Draw3dSkeleton(SkeletonModelVisual3D_Editor_FrontViewPort, e);
+    }
+
+    private void SkeletonFrameReady_Draw3D_Side_Editor(SkeletonFrameReadyEventArgs e)
+    {
+      Draw3dSkeleton(SkeletonModelVisual3D_Editor_SideViewPort, e);
+    }
+
+    private void SkeletonFrameReady_ToggleBackground_Editor(SkeletonFrameReadyEventArgs e)
+    {
+      using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+      {
+        if (skeletonFrame == null)
+        {
+          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
+          SideViewImage.Visibility = System.Windows.Visibility.Visible;
+          return;
+        }
+
+        Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
+        skeletonFrame.CopySkeletonDataTo(skeletons);
+        if (skeletons == null) //if no skeleton data
+        {
+          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
+          SideViewImage.Visibility = System.Windows.Visibility.Visible;
+          return;
+        }
+
+        Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
+        if (skeleton == null) //if no tracked skeleton
+        {
+          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
+          SideViewImage.Visibility = System.Windows.Visibility.Visible;
+          return;
+        }
+        else
+        {
+          FrontViewImage.Visibility = System.Windows.Visibility.Hidden;
+          SideViewImage.Visibility = System.Windows.Visibility.Hidden;
+          return;
+        }
+      }
+    }
+
+    private void SkeletonFrameReady_Detect_Editor(SkeletonFrameReadyEventArgs e)
+    {
+      SkeletonFrameReady_Detect(e, HighlightFrames_Editor, DeHighlightFrames_Editor, keyboardEmulation: false);
+    }
+
     #endregion
+
+    #region Visualizer
+
+    private void SkeletonFrameReady_Draw3D_Visualizer(SkeletonFrameReadyEventArgs e)
+    {
+      Draw3dSkeleton(SkeletonModelVisual3D_Visualizer, e);
+    }
+
+    private void SkeletonFrameReady_Detect_Visualizer(SkeletonFrameReadyEventArgs e)
+    {
+      SkeletonFrameReady_Detect(e, HighlightFrames_Visualizer, DeHighlightFrames_Visualizer, keyboardEmulation: true);
+    }
+
+    #endregion
+
+    #endregion
+
+    #region Highlighting
+
+    private delegate void HighlightFramesDelegate(Gesture g, List<GestureFrame> fs);
+    private delegate void DeHighlightFramesDelegate(Gesture g);
+
+    private Model3DGroup GetHighlightModel3D(Gesture g, List<GestureFrame> fs)
+    {
+      // Create material
+      EmissiveMaterial material = new EmissiveMaterial(new SolidColorBrush() { Color = Colors.White, Opacity = 0.3 });
+
+      Model3DGroup modelGroup = new Model3DGroup();
+      foreach (GestureFrame f in fs)
+      {
+        foreach (GestureFrameCell fc in f.FrontCells.Where(fc => fc.IsHotspot == true))
+        {
+          int fcIndex = Array.IndexOf(f.FrontCells, fc);
+          foreach (GestureFrameCell sc in f.SideCells.Where(
+              sc => sc.IsHotspot == true && (int)(Array.IndexOf(f.SideCells, sc) / 20) == (int)(fcIndex / 20)))
+          {
+            // Init mesh
+            MeshBuilder meshBuilder = new MeshBuilder(false, false);
+            // Make cube and add to mesh
+            double y = (fc.LeftCM + fc.RightCM) / 2;
+            double z = (fc.TopCM + fc.BottomCM) / 2;
+            double x = (sc.LeftCM + sc.RightCM) / 2;
+            Point3D cubeCenter = new Point3D(x, y, z);
+            meshBuilder.AddBox(cubeCenter, 15, 15, 15);
+            // Create and freeze mesh
+            var mesh = meshBuilder.ToMesh(true);
+            // Create models
+            modelGroup.Children.Add(new GeometryModel3D(mesh, material));
+          }
+        }
+      }
+      return modelGroup;
+    }
+
+    #region Editor
+
+     /// <summary>
+    /// Highlight frames on editor grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
+    /// <param name="fs">Gesture Frames</param>
+    private void HighlightFrames_Editor(Gesture g, List<GestureFrame> fs)
+    {
+      Model3DGroup modelGroup = GetHighlightModel3D(g, fs);
+      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
+    }
+
+    /// <summary>
+    /// De-highlight frames on editor grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
+    private void DeHighlightFrames_Editor(Gesture g)
+    {
+      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
+      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
+    }
+
+    #endregion
+
+    #region Visualizer
+
+    /// <summary>
+    /// Highlight frames on visualizer grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
+    /// <param name="fs">Gesture Frames</param>
+    private void HighlightFrames_Visualizer(Gesture g, List<GestureFrame> fs)
+    {
+      Model3DGroup modelGroup = GetHighlightModel3D(g, fs);
+      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = modelGroup;
+      CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = modelGroup;
+      CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = modelGroup;
+    }
+
+    /// <summary>
+    /// De-highlight frames on visualizer grids
+    /// </summary>
+    /// <param name="g">Gesture</param>
+    private void DeHighlightFrames_Visualizer(Gesture g)
+    {
+      Model3DGroup modelGroup_3D = (Model3DGroup)HotspotCellsModelVisual3D_Hit_Visualizer.Content; //TODO: remove this row?
+      CollisionHighlights_3D.Children[GestureCollection.IndexOf(g)] = new Model3DGroup(); //TODO: reuse the "new Model3DGroup()" below instead of creating 3 of those?
+      CollisionHighlights_Front.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
+      CollisionHighlights_Side.Children[GestureCollection.IndexOf(g)] = new Model3DGroup();
+    }
+
+    #endregion
+
+    #region List
+
+    private void HighlightGestureOnList(Gesture g)
+    {
+      g.IsHit = true;
+    }
+
+    private void DeHighlightGestureOnList(Gesture g)
+    {
+      g.IsHit = false;
+    }
+
+    #endregion
+
+    #endregion Highlighting
+
+    #endregion Methods
 
   }
 }

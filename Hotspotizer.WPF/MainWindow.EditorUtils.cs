@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.EditorUtils.cs
-//Version: 20150817
+//Version: 20150821
 
 using HelixToolkit.Wpf;
 using System;
@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Hotspotizer.Helpers;
 using Hotspotizer.Models;
+using Microsoft.Kinect;
 
 namespace Hotspotizer
 {
@@ -76,12 +77,7 @@ namespace Hotspotizer
       if (kinect != null)
       {
         kinect.SkeletonStream.Enable();
-        kinect.SkeletonFrameReady += SkeletonFrameReady_Draw3D_Editor;
-        kinect.SkeletonFrameReady += SkeletonFrameReady_Draw3D_Editor;
-        kinect.SkeletonFrameReady += SkeletonFrameReady_Draw3D_Front_Editor;
-        kinect.SkeletonFrameReady += SkeletonFrameReady_Draw3D_Side_Editor;
-        kinect.SkeletonFrameReady += SkeletonFrameReady_ToggleBackground_Editor;
-        kinect.SkeletonFrameReady += SkeletonFrameReady_Detect_Editor;
+        kinect.SkeletonFrameReady += Kinect_SkeletonFrameReady_Editor;
         kinect.Start();
       }
     }
@@ -91,11 +87,7 @@ namespace Hotspotizer
       if (kinect != null)
       {
         kinect.Stop();
-        kinect.SkeletonFrameReady -= SkeletonFrameReady_Draw3D_Editor;
-        kinect.SkeletonFrameReady -= SkeletonFrameReady_Draw3D_Front_Editor;
-        kinect.SkeletonFrameReady -= SkeletonFrameReady_Draw3D_Side_Editor;
-        kinect.SkeletonFrameReady -= SkeletonFrameReady_ToggleBackground_Editor;
-        kinect.SkeletonFrameReady -= SkeletonFrameReady_Detect_Editor;
+        kinect.SkeletonFrameReady -= Kinect_SkeletonFrameReady_Editor;
         kinect.SkeletonStream.Disable();
       }
     }
@@ -257,6 +249,16 @@ namespace Hotspotizer
       catch (NullReferenceException) { return; }
     }
 
+    /// <summary>
+    /// Clean up
+    /// </summary>
+    private void Cleanup_Editor()
+    {
+      RemoveHandler(Keyboard.PreviewKeyDownEvent, (KeyEventHandler)SetCommand_KeyDown);
+      RemoveHandler(Keyboard.PreviewKeyUpEvent, (KeyEventHandler)SetCommand_KeyUp);
+      EditorSetCommandOverlay.Visibility = Visibility.Hidden;
+    }
+
     #endregion
 
     #region --- Events ---
@@ -310,16 +312,6 @@ namespace Hotspotizer
     private void SetCommandOKButton_Click(object sender, RoutedEventArgs e)
     {
       Cleanup_Editor();
-    }
-
-    /// <summary>
-    /// Clean up
-    /// </summary>
-    private void Cleanup_Editor()
-    {
-      RemoveHandler(Keyboard.PreviewKeyDownEvent, (KeyEventHandler)SetCommand_KeyDown);
-      RemoveHandler(Keyboard.PreviewKeyUpEvent, (KeyEventHandler)SetCommand_KeyUp);
-      EditorSetCommandOverlay.Visibility = Visibility.Hidden;
     }
 
     private void AddNewFrameButton_Click(object sender, RoutedEventArgs e)
@@ -392,6 +384,16 @@ namespace Hotspotizer
     private void SVGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       SyncEditorGrids();
+    }
+
+    private void Kinect_SkeletonFrameReady_Editor(object sender, SkeletonFrameReadyEventArgs e)
+    {
+      //TODO: check: original code had these as separate event handlers, could it be for them to be potentially parallelized? (guess not)
+      SkeletonFrameReady_Draw3D_Editor(e);
+      SkeletonFrameReady_Draw3D_Front_Editor(e);
+      SkeletonFrameReady_Draw3D_Side_Editor(e);
+      SkeletonFrameReady_ToggleBackground_Editor(e);
+      SkeletonFrameReady_Detect_Editor(e);
     }
 
     #endregion

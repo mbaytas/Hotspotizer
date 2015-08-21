@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20150817
+//Version: 20150821
 
 using HelixToolkit.Wpf;
 using System;
@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Hotspotizer.Helpers;
 using Hotspotizer.Models;
+using Microsoft.Kinect;
 
 namespace Hotspotizer
 {
@@ -118,8 +119,7 @@ namespace Hotspotizer
       if (kinect != null)
       {
         kinect.SkeletonStream.Enable();
-        kinect.SkeletonFrameReady += SkeletonFrameReady_Draw3D_Visualizer;
-        kinect.SkeletonFrameReady += SkeletonFrameReady_Detect_Visualizer;
+        kinect.SkeletonFrameReady += Kinect_SkeletonFrameReady_Visualizer;
         kinect.Start();
       }
     }
@@ -129,8 +129,7 @@ namespace Hotspotizer
       if (kinect != null)
       {
         kinect.Stop();
-        kinect.SkeletonFrameReady -= SkeletonFrameReady_Draw3D_Visualizer;
-        kinect.SkeletonFrameReady -= SkeletonFrameReady_Detect_Visualizer;
+        kinect.SkeletonFrameReady -= Kinect_SkeletonFrameReady_Visualizer;
         kinect.SkeletonStream.Disable();
       }
     }
@@ -138,6 +137,17 @@ namespace Hotspotizer
     private void DisableKeyboardControl_Visualizer()
     {
       EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Visualizer.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
+    }
+
+    #endregion
+
+    #region --- Events ---
+
+    private void Kinect_SkeletonFrameReady_Visualizer(object sender, SkeletonFrameReadyEventArgs e)
+    {
+      //TODO: check: original code had these as separate event handlers, could it be for them to be potentially parallelized? (guess not)
+      SkeletonFrameReady_Draw3D_Visualizer(e);
+      SkeletonFrameReady_Detect_Visualizer(e);
     }
 
     #endregion
