@@ -64,12 +64,7 @@ namespace Hotspotizer
         }
 
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
-        skeletonFrame.CopySkeletonDataTo(skeletons); //TODO: should we call this even when skeletons==null?
-        if (skeletons == null)
-        {
-          modelVisual3D.Content = null;
-          return;
-        }
+        skeletonFrame.CopySkeletonDataTo(skeletons);
 
         Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
         if (skeleton == null)
@@ -134,14 +129,17 @@ namespace Hotspotizer
     {
       using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
       {
-        // Get data from stream, kill if no data
-        if (skeletonFrame == null) return;
+        // Get data from stream
+        if (skeletonFrame == null)
+          return;
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
         skeletonFrame.CopySkeletonDataTo(skeletons);
-        if (skeletonFrame == null || skeletons == null) return;
-        // Mind only the tracked
+
+        // Mind only the tracked, return if none
         Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
-        if (skeleton == null) return;
+        if (skeleton == null)
+          return;
+        
         // Init stuff
         SkeletonPoint centroid = skeleton.Joints[JointType.HipCenter].Position;
 
@@ -315,31 +313,25 @@ namespace Hotspotizer
       {
         if (skeletonFrame == null)
         {
-          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
-          SideViewImage.Visibility = System.Windows.Visibility.Visible;
+          FrontViewImage.Visibility = Visibility.Visible;
+          SideViewImage.Visibility = Visibility.Visible;
           return;
         }
 
         Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
         skeletonFrame.CopySkeletonDataTo(skeletons);
-        if (skeletons == null) //if no skeleton data
-        {
-          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
-          SideViewImage.Visibility = System.Windows.Visibility.Visible;
-          return;
-        }
 
         Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
         if (skeleton == null) //if no tracked skeleton
         {
-          FrontViewImage.Visibility = System.Windows.Visibility.Visible;
-          SideViewImage.Visibility = System.Windows.Visibility.Visible;
+          FrontViewImage.Visibility = Visibility.Visible;
+          SideViewImage.Visibility = Visibility.Visible;
           return;
         }
         else
         {
-          FrontViewImage.Visibility = System.Windows.Visibility.Hidden;
-          SideViewImage.Visibility = System.Windows.Visibility.Hidden;
+          FrontViewImage.Visibility = Visibility.Hidden;
+          SideViewImage.Visibility = Visibility.Hidden;
           return;
         }
       }
