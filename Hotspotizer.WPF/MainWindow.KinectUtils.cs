@@ -50,6 +50,11 @@ namespace Hotspotizer
       return KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected);
     }
 
+    private void Set_ViewImages_Visibility(Visibility visibility)
+    {
+      FrontViewImage.Visibility = SideViewImage.Visibility = visibility;
+    }
+
     #region SkeletonFrameReady
 
     private void Draw3dSkeleton(ModelVisual3D modelVisual3D, SkeletonFrameReadyEventArgs e) //TODO: refactor into more methods
@@ -311,29 +316,19 @@ namespace Hotspotizer
     {
       using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
       {
-        if (skeletonFrame == null)
+        if (skeletonFrame != null)
         {
-          FrontViewImage.Visibility = Visibility.Visible;
-          SideViewImage.Visibility = Visibility.Visible;
-          return;
-        }
+          Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
+          skeletonFrame.CopySkeletonDataTo(skeletons);
 
-        Skeleton[] skeletons = new Skeleton[kinect.SkeletonStream.FrameSkeletonArrayLength];
-        skeletonFrame.CopySkeletonDataTo(skeletons);
-
-        Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
-        if (skeleton == null) //if no tracked skeleton
-        {
-          FrontViewImage.Visibility = Visibility.Visible;
-          SideViewImage.Visibility = Visibility.Visible;
-          return;
+          Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
+          if (skeleton != null) //if there is a tracked skeleton
+          {
+            Set_ViewImages_Visibility(Visibility.Hidden); //hide the 2D view images (will show skeleton)
+            return;
+          }
         }
-        else
-        {
-          FrontViewImage.Visibility = Visibility.Hidden;
-          SideViewImage.Visibility = Visibility.Hidden;
-          return;
-        }
+        Set_ViewImages_Visibility(Visibility.Visible); //if there is no skeletonFrame or tracked skeleton show the 2D view images
       }
     }
 
