@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150818
+//Version: 20150821
 
 using Microsoft.Kinect;
 using System;
@@ -82,6 +82,10 @@ namespace Hotspotizer
       LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
       LocalizeDictionary.Instance.Culture = new CultureInfo("el");
       */
+
+      //To detect and show an available languages menu for selection see:
+      //http://stackoverflow.com/questions/3226974/get-all-available-cultures-from-a-resx-file-group
+      //and http://stackoverflow.com/questions/14668640/wpf-localize-extension-translate-window-at-run-time/ (can get the English and the localized names from respective Culture objects)
     }
 
     private Gesture MakeNewGesture()
