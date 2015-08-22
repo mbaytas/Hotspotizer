@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150821
+Version: 20150823
 -->
   
 <!-- TODO: maybe add a [+] sign after each frame to allow adding intermediate frames to an existing list (to finetune the movement). Can use move left-right action though to reorder a new frame added to the end already -->
@@ -16,6 +16,7 @@ Version: 20150821
   xmlns:local="clr-namespace:Hotspotizer"
   xmlns:controls="clr-namespace:Hotspotizer.Controls"
   xmlns:converters="clr-namespace:Hotspotizer.Converters"
+  xmlns:helpers="clr-namespace:Hotspotizer.Helpers"
   xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
   xmlns:lex="http://wpflocalizeextension.codeplex.com"
         
@@ -35,8 +36,13 @@ Version: 20150821
   >
 
   <Window.Resources>
-    <ResourceDictionary Source="Themes/Generic.xaml" />
-    <!-- TODO: also look into using DefaultStyleKey to load this instead of mentioning the resource file directly in the XAML (checkout how it is done in ClipFlair's FloatingWindowZUI.WPF for example) -->
+    <ResourceDictionary>
+      <helpers:AvailableLanguages x:Key="availableLanguages"/>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Themes/Generic.xaml" />
+        <!-- TODO: also look into using DefaultStyleKey to load this instead of mentioning the resource file directly in the XAML (checkout how it is done in ClipFlair's FloatingWindowZUI.WPF for example) -->
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
   </Window.Resources>
 
   <Grid SizeChanged="OuterMostGrid_SizeChanged">
@@ -53,6 +59,7 @@ Version: 20150821
       <Grid.RowDefinitions>
         <RowDefinition Height="60"/>
         <RowDefinition />
+        <RowDefinition Height="30" />
       </Grid.RowDefinitions>
 
       <Grid
@@ -262,6 +269,11 @@ Version: 20150821
           </StackPanel>
         </StackPanel>
       </ScrollViewer>
+      
+      <ComboBox 
+        Grid.Row="2"
+        ItemsSource="{StaticResource availableLanguages}"
+        />
 
     </Grid>
 

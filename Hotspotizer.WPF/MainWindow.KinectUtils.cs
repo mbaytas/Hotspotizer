@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.KinectUtils.cs
-//Version: 20150821
+//Version: 20150823
 
 using HelixToolkit.Wpf;
 using Microsoft.Kinect;
@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using Hotspotizer.Models;
+using Hotspotizer.Helpers;
 
 namespace Hotspotizer
 {

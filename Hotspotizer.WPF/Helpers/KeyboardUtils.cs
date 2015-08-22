@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: KeyboardUtils.cs
-//Version: 20150821
+//Version: 20150823
 
 using System.Windows;
 using System.Windows.Input;
@@ -8,7 +8,7 @@ using WindowsInput;
 using WindowsInput.Native;
 using Hotspotizer.Models;
 
-namespace Hotspotizer
+namespace Hotspotizer.Helpers
 {
   public static class KeyboardUtils
   {

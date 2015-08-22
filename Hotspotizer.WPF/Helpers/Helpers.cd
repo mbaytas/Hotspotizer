@@ -30,8 +30,15 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Hotspotizer.KeyboardUtils">
-    <Position X="3.75" Y="0.5" Width="2.5" />
+  <Class Name="Hotspotizer.Helpers.AvailableLanguages">
+    <Position X="3.75" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Helpers\AvailableLanguages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hotspotizer.Helpers.KeyboardUtils">
+    <Position X="3.75" Y="2.5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Helpers\KeyboardUtils.cs</FileName>

@@ -1,19 +1,17 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150821
+//Version: 20150823
 
-using Microsoft.Kinect;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Hotspotizer.Models;
 using GlblRes = Hotspotizer.Properties.Resources;
 using WPFLocalizeExtension.Engine;
-using System.Globalization;
+//using System.Globalization;
 using System.Threading;
 
 namespace Hotspotizer
@@ -84,7 +82,7 @@ namespace Hotspotizer
       */
 
       //To detect and show an available languages menu for selection see:
-      //http://stackoverflow.com/questions/3226974/get-all-available-cultures-from-a-resx-file-group
+      //
       //and http://stackoverflow.com/questions/14668640/wpf-localize-extension-translate-window-at-run-time/ (can get the English and the localized names from respective Culture objects)
     }
 
