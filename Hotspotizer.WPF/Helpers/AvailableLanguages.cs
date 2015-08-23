@@ -1,14 +1,11 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: AvailableLanguages.cs
-//Version: 20150823
+//Version: 20150824
 
 using Hotspotizer.Properties;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Resources;
 
 namespace Hotspotizer.Helpers

@@ -2,7 +2,6 @@
 //File: KeyboardUtils.cs
 //Version: 20150823
 
-using System.Windows;
 using System.Windows.Input;
 using WindowsInput;
 using WindowsInput.Native;
