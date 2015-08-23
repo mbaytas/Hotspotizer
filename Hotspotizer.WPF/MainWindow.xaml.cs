@@ -13,6 +13,7 @@ using GlblRes = Hotspotizer.Properties.Resources;
 using WPFLocalizeExtension.Engine;
 //using System.Globalization;
 using System.Threading;
+using System.Globalization;
 
 namespace Hotspotizer
 {
@@ -29,13 +30,13 @@ namespace Hotspotizer
 
     public MainWindow()
     {
-      Localize();
-
       RegisterCommands();
 
       GestureCollection = new ObservableCollection<Gesture>();
 
       InitializeComponent();
+
+      InitLocalization(); //must be called after "InitializeComponent"
 
       DependencyPropertyDescriptor.FromProperty(Controls.HotspotGrid.ItemsSourceProperty, typeof(Controls.HotspotGrid)).
         AddValueChanged(FVGrid, (s, e) =>
@@ -71,20 +72,40 @@ namespace Hotspotizer
 
     #region --- Methods ---
 
-    private void Localize()
+    #region Localization
+
+    private void InitLocalization()
     {
-      LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture;
+      LocalizeDictionary.Instance.SetCurrentThreadCulture = true; //when changing localization language will also automatically change the current culture
 
-      //To force a specific culture can use the following:
-      /*
-      LocalizeDictionary.Instance.SetCurrentThreadCulture = true;
-      LocalizeDictionary.Instance.Culture = new CultureInfo("el");
-      */
-
-      //To detect and show an available languages menu for selection see:
-      //
-      //and http://stackoverflow.com/questions/14668640/wpf-localize-extension-translate-window-at-run-time/ (can get the English and the localized names from respective Culture objects)
+      LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture; //default to the current culture as set by the OS when launching the app...
+      //...to force a specific culture instead, use:
+      //LocalizeDictionary.Instance.Culture = new CultureInfo("el");
+     
+      UpdateSelectorFromLanguage();
     }
+
+    /// <summary>
+    /// Updates the language selection UI from the LocalizeDictionary's language
+    /// </summary>
+    private void UpdateSelectorFromLanguage()
+    {
+      comboLanguage.SelectedValue = LocalizeDictionary.Instance.Culture.TwoLetterISOLanguageName;
+    }
+
+    /// <summary>
+    /// Updates the LocalizeDictionary's language from the current selection at the language selection UI
+    /// </summary>
+    private void UpdateLanguageFromSelector()
+    {
+      string s = comboLanguage.SelectedValue as string;
+      if (s == null) return;
+      CultureInfo culture = CultureInfo.CreateSpecificCulture(s);
+      if (culture != null)
+        LocalizeDictionary.Instance.Culture = culture;
+    }
+
+    #endregion
 
     private Gesture MakeNewGesture()
     {
@@ -155,6 +176,11 @@ namespace Hotspotizer
       var g = (Grid)sender;
       Double maxW = e.NewSize.Width - g.ColumnDefinitions[1].MinWidth - g.ColumnDefinitions[0].ActualWidth;
       g.ColumnDefinitions[0].MaxWidth = maxW;
+    }
+
+    private void comboLanguage_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      UpdateLanguageFromSelector();
     }
 
     #endregion

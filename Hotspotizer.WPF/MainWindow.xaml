@@ -271,8 +271,12 @@ Version: 20150823
       </ScrollViewer>
       
       <ComboBox 
+        x:Name="comboLanguage"
         Grid.Row="2"
+        DisplayMemberPath="text"
+        SelectedValuePath="value"
         ItemsSource="{StaticResource availableLanguages}"
+        SelectionChanged="comboLanguage_SelectionChanged"
         />
 
     </Grid>

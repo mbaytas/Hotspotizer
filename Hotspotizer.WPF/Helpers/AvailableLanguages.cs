@@ -14,19 +14,22 @@ using System.Resources;
 namespace Hotspotizer.Helpers
 {
 
-  class AvailableLanguages : ObservableCollection<string>
+  class AvailableLanguages : ObservableCollection<object>
   {
     public AvailableLanguages()
     {
       GetAvailableLanguages(this);
     }
 
-    public static void GetAvailableLanguages(ObservableCollection<string> languages)
+    public static void GetAvailableLanguages(ObservableCollection<object> languages)
     {
       var cultures = GetAvailableCultures();
       languages.Clear();
       foreach (CultureInfo culture in cultures)
-        languages.Add(culture.NativeName + " (" + culture.EnglishName + " [" + culture.TwoLetterISOLanguageName + "])");
+        languages.Add(new { //Anonymous Type
+                            text = culture.NativeName + " (" + culture.EnglishName + " [" + culture.TwoLetterISOLanguageName + "])",
+                            value = culture.TwoLetterISOLanguageName //do not pass just culture here, ComboBox can't compare agaist it if one then sets "SelectedValue" to set the current selected item
+                          }); //when used with a WPF ComboBox, make sure you set DisplayMemberPath="text" and SelectedValuePath="value"
     }
 
     //see http://stackoverflow.com/questions/553244/programmatic-way-to-get-all-the-available-languages-in-satellite-assemblies
