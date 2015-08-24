@@ -122,138 +122,138 @@
     <value>..\Images\Logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="NewGesture" xml:space="preserve">
-    <value>Νέο νεύμα</value>
+    <value>Nouveau geste</value>
   </data>
   <data name="CreateNewGestureCollection" xml:space="preserve">
-    <value>Δημιουργία νέας συλλογής νευμάτων</value>
+    <value>Créer la nouvelle Collection de geste</value>
   </data>
   <data name="DiscardGestureCollectionConfirmation" xml:space="preserve">
-    <value>Θέλετε σίγουρα να απορρίψετε την τρέχουσα συλλογή νευμάτων και να δημιουργήσετε μια καινούργια;</value>
+    <value>Voulez-vous vraiment à jeter la collection actuelle du geste et de créer un nouveau ?</value>
   </data>
   <data name="HotspotizerFileFilter" xml:space="preserve">
-    <value>Αρχεία νευμάτων Hotspotizer (*.hsjson)|*.hsjson</value>
+    <value>Fichiers de geste de hotspotizer (*.hsjson) | * .hsjson</value>
   </data>
   <data name="DeleteGestureFromCollection" xml:space="preserve">
-    <value>Διαγραφή νεύματος από συλλογή</value>
+    <value>Supprimer le geste de Collection</value>
   </data>
   <data name="DeleteGestureFromCollectionConfirmation" xml:space="preserve">
-    <value>Θέλετε σίγουρα να διαγράψετε το νεύμα &quot;%s&quot; από τη συλλογή;</value>
+    <value>Voulez-vous vraiment supprimer le geste « %s » dans la collection ?</value>
   </data>
   <data name="URL_DownloadKinectSDK" xml:space="preserve">
     <value>http://www.microsoft.com/en-us/download/details.aspx?id=40278</value>
   </data>
   <data name="AddNewFrame" xml:space="preserve">
-    <value>Προσθήκη νέου στιγμιότυπου</value>
+    <value>Ajouter le nouveau cadre</value>
   </data>
   <data name="AddNewGesture" xml:space="preserve">
-    <value>Προσθήκη νέου νεύματος</value>
+    <value>Ajouter nouveau geste</value>
   </data>
   <data name="AllGestures" xml:space="preserve">
-    <value>Όλα τα νεύματα</value>
+    <value>Tous les gestes</value>
   </data>
   <data name="BeginEmulation" xml:space="preserve">
-    <value>Έναρξη εξομοίωσης</value>
+    <value>Commancher émulation</value>
   </data>
   <data name="CheckKinectPowerAndUSB" xml:space="preserve">
-    <value>Παρακαλώ ελέγξτε την τροφοδοσία και τις συνδέσεις USB και επανεκκινήστε την εφαρμογή για πλήρη λειτουργικότητα.</value>
+    <value>S&apos;il vous plaît vérifier la puissance et les connexions USB et redémarrer l&apos;application pour ces fonctionnalités.</value>
   </data>
   <data name="CreateGestureOrLoadGestureCollection" xml:space="preserve">
-    <value>Δημιουργήστε ένα νέο νεύμα ή φορτώστε μια συλλογή νευμάτων για να ξεκινήσετε.</value>
+    <value>Créez un nouveau geste ou charger une collection de geste pour commencer.</value>
   </data>
   <data name="DeleteFrame" xml:space="preserve">
-    <value>Διαγραφή στιγμιότυπου</value>
+    <value>Supprimer le cadre</value>
   </data>
   <data name="DeleteGesture" xml:space="preserve">
-    <value>Διαγραφή νεύματος</value>
+    <value>Supprimer le geste</value>
   </data>
   <data name="DiscardChanges" xml:space="preserve">
-    <value>Απόρριψη αλλαγών</value>
+    <value>Abandonner les modifications</value>
   </data>
   <data name="DownloadKinectSDK" xml:space="preserve">
-    <value>Πατήστε εδώ για να κατεβάσετε το Microsoft Kinect for Windows SDK 1.8 από τον ιστότοπο της Microsoft.</value>
+    <value>Cliquez ici pour télécharger Microsoft Kinect pour Windows SDK 1.8 site Web de Microsoft.</value>
   </data>
   <data name="EditGesture" xml:space="preserve">
-    <value>Επεξεργασία νεύματος</value>
+    <value>Modifier le geste</value>
   </data>
   <data name="Editor" xml:space="preserve">
-    <value>Επεξεργαστής</value>
+    <value>Éditeur</value>
   </data>
   <data name="FrontView" xml:space="preserve">
-    <value>Εμπρόσθια όψη</value>
+    <value>Vue de face</value>
   </data>
   <data name="Head" xml:space="preserve">
-    <value>Κεφάλι</value>
+    <value>Tête</value>
   </data>
   <data name="KeyboardCommand" xml:space="preserve">
-    <value>Εντολή πληκτρολογίου</value>
+    <value>Commande de clavier</value>
   </data>
   <data name="KinectNotDetected" xml:space="preserve">
-    <value>Δεν έγινε αναγνώριση αισθητήρα Kinect συνδεδεμένου με τον υπολογιστή σας.</value>
+    <value>Ne pouvait pas détecter un Kinect capteur connecté à votre ordinateur.</value>
   </data>
   <data name="LeftElbow" xml:space="preserve">
-    <value>Αριστερός ώμος</value>
+    <value>Coude gauche</value>
   </data>
   <data name="LeftFoot" xml:space="preserve">
-    <value>Αριστερό πόδι</value>
+    <value>Pied gauche</value>
   </data>
   <data name="LeftHand" xml:space="preserve">
-    <value>Αριστερό χέρι</value>
+    <value>Main gauche</value>
   </data>
   <data name="LeftKnee" xml:space="preserve">
-    <value>Αριστερό γόνατο</value>
+    <value>Genou gauche</value>
   </data>
   <data name="LimbSelection" xml:space="preserve">
-    <value>Επιλογή άκρου</value>
+    <value>Sélection de la branche</value>
   </data>
   <data name="LoadGestureCollection" xml:space="preserve">
-    <value>Άνοιγμα συλλογής νευμάτων</value>
+    <value>Collection de geste de charge</value>
   </data>
   <data name="Manager" xml:space="preserve">
-    <value>Διαχειριστής</value>
+    <value>Gestionnaire</value>
   </data>
   <data name="MoveFrameBackward" xml:space="preserve">
-    <value>Μετακίνηση στιγμιότυπου πίσω</value>
+    <value>Se déplacer vers l&apos;arrière de cadre</value>
   </data>
   <data name="MoveFrameForward" xml:space="preserve">
-    <value>Μετακίνηση στιγμιότυπου εμπρός</value>
+    <value>Avancer la trame</value>
   </data>
   <data name="NewGestureCollection" xml:space="preserve">
-    <value>Νέα συλλογή νευμάτων</value>
+    <value>Nouvelle Collection de geste</value>
   </data>
   <data name="NoGestures" xml:space="preserve">
-    <value>Δεν υπάρχουν νεύματα στην τρέχουσα συλλογή νευμάτων.</value>
+    <value>Il n&apos;y a aucun gestes dans la collection actuelle de geste.</value>
   </data>
   <data name="PressKeyCombinationForGesture" xml:space="preserve">
-    <value>Πατήστε πλήκτρο(α) στο πληκτρολόγιο για να ορίσετε την εντολή γι&apos;αυτό το νεύμα...</value>
+    <value>Appuyez sur la clé (s) sur le clavier pour que la commande pour ce geste...</value>
   </data>
   <data name="PressOrHold" xml:space="preserve">
-    <value>Πάτημα/Κράτημα</value>
+    <value>Presse/Hold</value>
   </data>
   <data name="RequiredKinectSDK" xml:space="preserve">
-    <value>Η χρήση αισθητήρα &apos;Kinect for Xbox 360&apos; απαιτεί το πλήρες Microsoft Kinect for Windows SDK 1.8 να εγκατασταθεί στον υπολογιστή σας.</value>
+    <value>En utilisant un capteur « Kinect pour Xbox 360 » nécessite la pleine Microsoft Kinect pour Windows SDK 1.8 être installé sur votre ordinateur.</value>
   </data>
   <data name="RightElbow" xml:space="preserve">
-    <value>Δεξιός αγκώνας</value>
+    <value>Coude droit</value>
   </data>
   <data name="RightFoot" xml:space="preserve">
-    <value>Δεξί πόδι</value>
+    <value>Pied droit</value>
   </data>
   <data name="RightHand" xml:space="preserve">
-    <value>Δεξί χέρι</value>
+    <value>Main droite</value>
   </data>
   <data name="RightKnee" xml:space="preserve">
-    <value>Δεξί γόνατο</value>
+    <value>Genou droit</value>
   </data>
   <data name="SaveGesture" xml:space="preserve">
-    <value>Αποθήκευση νεύματος</value>
+    <value>Sauver le geste</value>
   </data>
   <data name="SaveGestureCollection" xml:space="preserve">
-    <value>Αποθήκευση συλλογής νευμάτων</value>
+    <value>Sauvegarder la Collection de geste</value>
   </data>
   <data name="SideView" xml:space="preserve">
-    <value>Πλάγια όψη</value>
+    <value>Vue de côté</value>
   </data>
   <data name="Visualizer" xml:space="preserve">
-    <value>Οπτικοποιητής</value>
+    <value>Visualiseur</value>
   </data>
 </root>
