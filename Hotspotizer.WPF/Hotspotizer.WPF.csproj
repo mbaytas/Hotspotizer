@@ -232,6 +232,12 @@
   <ItemGroup>
     <Resource Include="Images\Logo.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Hotspotizer.Plugins.WPF\Hotspotizer.Plugins.WPF.csproj">
+      <Project>{2207f4cf-71e5-4b8b-9699-3b9bd514fda0}</Project>
+      <Name>Hotspotizer.Plugins.WPF</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
