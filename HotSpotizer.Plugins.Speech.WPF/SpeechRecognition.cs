@@ -1,13 +1,17 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150824
+//Version: 20150825
 
 using Hotspotizer.Plugins.WPF;
 using System;
+using System.ComponentModel.Composition;
 using System.Speech.Recognition;
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {
+  //MEF
+  [Export("SpeechRecognition", typeof(ISpeechRecognition))]
+  [PartCreationPolicy(CreationPolicy.Shared)]
   class SpeechRecognition : ISpeechRecognition
   {
     #region --- Fields ---
@@ -21,11 +25,12 @@ namespace HotSpotizer.Plugins.Speech.WPF
     public void Init()
     {
       speechRecognizer = CreateSpeechRecognizer();
-
-      //Set events for recognizing, hypothesising and rejecting speech
-      speechRecognizer.SpeechRecognized += SpeechRecognized;
-      speechRecognizer.SpeechHypothesized += SpeechHypothesized;
-      speechRecognizer.SpeechRecognitionRejected += SpeechRecognitionRejected;
+      if (speechRecognizer != null)
+      {
+        speechRecognizer.SpeechRecognized += SpeechRecognized;
+        speechRecognizer.SpeechHypothesized += SpeechHypothesized;
+        speechRecognizer.SpeechRecognitionRejected += SpeechRecognitionRejected;
+      }
     }
 
     protected virtual SpeechRecognitionEngine CreateSpeechRecognizer()

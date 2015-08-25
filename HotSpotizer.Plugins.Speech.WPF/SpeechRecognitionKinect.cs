@@ -1,21 +1,27 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150824
+//Version: 20150825
 
 //see: http://kin-educate.blogspot.gr/2012/06/speech-recognition-for-kinect-easy-way.html
 
 using System;
 using System.Linq;
 using System.Speech.Recognition;
+using System.ComponentModel.Composition;
+using Hotspotizer.Plugins.WPF;
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {
-  class SpeechRecognition_Kinect : SpeechRecognition
+  //MEF
+  [Export("SpeechRecognitionKinect", typeof(ISpeechRecognition))]
+  [PartCreationPolicy(CreationPolicy.Shared)]
+  class SpeechRecognitionKinect : SpeechRecognition
   {
 
     protected override SpeechRecognitionEngine CreateSpeechRecognizer()
     {
-      return new SpeechRecognitionEngine(GetKinectRecognizer()); //use Kinect-based recognition engine
+      RecognizerInfo kinectRecognizer = GetKinectRecognizer(); //use Kinect-based recognition engine
+      return (kinectRecognizer!=null)? new SpeechRecognitionEngine(kinectRecognizer) : null;
     }
 
     private static RecognizerInfo GetKinectRecognizer() //TODO: fix this to not hardcode en-US (see MS Kinect sample)

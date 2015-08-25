@@ -92,6 +92,7 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -132,6 +133,8 @@
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="MainWindow.EditorUtils.cs" />
     <Compile Include="Helpers\KeyboardUtils.cs" />
+    <Compile Include="MainWindow.PluginUtils.cs" />
+    <Compile Include="MainWindow.SpeechUtils.cs" />
     <Compile Include="MainWindow.ManagerUtils.cs" />
     <Compile Include="MainWindow.VisualizerUtils.cs" />
     <Page Include="Controls\HotspotGrid.xaml">
@@ -233,6 +236,10 @@
     <Resource Include="Images\Logo.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HotSpotizer.Plugins.Speech.WPF\HotSpotizer.Plugins.Speech.WPF.csproj">
+      <Project>{ecc29c0e-0dc6-4f22-b52a-e259ad248779}</Project>
+      <Name>HotSpotizer.Plugins.Speech.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hotspotizer.Plugins.WPF\Hotspotizer.Plugins.WPF.csproj">
       <Project>{2207f4cf-71e5-4b8b-9699-3b9bd514fda0}</Project>
       <Name>Hotspotizer.Plugins.WPF</Name>

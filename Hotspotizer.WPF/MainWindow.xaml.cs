@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150823
+//Version: 20150825
 
 using System;
 using System.Collections.ObjectModel;
@@ -14,6 +14,7 @@ using WPFLocalizeExtension.Engine;
 //using System.Globalization;
 using System.Threading;
 using System.Globalization;
+using Hotspotizer.Plugins.WPF;
 
 namespace Hotspotizer
 {
@@ -30,6 +31,8 @@ namespace Hotspotizer
 
     public MainWindow()
     {
+      LoadPlugins();
+
       RegisterCommands();
 
       GestureCollection = new ObservableCollection<Gesture>();
@@ -60,6 +63,8 @@ namespace Hotspotizer
 
       // KinectErrorStackPanel that displays errors & warnings is shown if Kinect isn't connected
       KinectErrorStackPanel.Visibility = (kinect == null)? Visibility.Visible : Visibility.Hidden;
+      if (kinect == null && speechSynthesis != null)
+        speechSynthesis.Speak(Properties.Resources.KinectNotDetected); //TODO: should speak localized resources only if respective speech language is available (at Init of speech synthesis should check if current culture of resources matches a speech engine - should reinit speech engine when language changes [get event from LocalizeDictionary])
     }
 
     #endregion
@@ -79,8 +84,8 @@ namespace Hotspotizer
       LocalizeDictionary.Instance.SetCurrentThreadCulture = true; //when changing localization language will also automatically change the current culture
 
       LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture; //default to the current culture as set by the OS when launching the app...
-      //...to force a specific culture instead, use:
-      //LocalizeDictionary.Instance.Culture = new CultureInfo("el");
+      //...to force a specific culture (say "en") instead, use:
+      //LocalizeDictionary.Instance.Culture = new CultureInfo("en");
      
       UpdateSelectorFromLanguage();
     }

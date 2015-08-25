@@ -1,26 +1,30 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechSynthesis.cs
-//Version: 20150824
+//Version: 20150825
 
 using Hotspotizer.Plugins.WPF;
 using System;
-
+using System.ComponentModel.Composition;
+using System.Speech.Synthesis;
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {
+  //MEF
+  [Export("SpeechSynthesis", typeof(ISpeechSynthesis))]
+  [PartCreationPolicy(CreationPolicy.Shared)]
   class SpeechSynthesis : ISpeechSynthesis
   {
-
-
-
+    private SpeechSynthesizer speechSynthesizer;
+    
     public void Init()
     {
-      throw new NotImplementedException();
+      speechSynthesizer = new SpeechSynthesizer();
+      speechSynthesizer.SetOutputToDefaultAudioDevice();
     }
 
     public void Speak(string text)
     {
-      throw new NotImplementedException();
+      speechSynthesizer.Speak(text);
     }
 
     #region IDisposable Support
