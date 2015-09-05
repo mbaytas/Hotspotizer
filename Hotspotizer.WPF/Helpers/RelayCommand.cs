@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: RelayCommand.cs
-//Version: 20150817
+//Version: 20150905
 
 using System;
 using System.Windows.Input;
@@ -22,17 +22,23 @@ namespace Hotspotizer.Helpers
 
     #region --- Initialization ---
 
-    public RelayCommand(ICommandOnExecute onExecuteMethod, ICommandOnCanExecute onCanExecuteMethod)
+    public RelayCommand(string name, ICommandOnExecute onExecuteMethod) :
+      this(name, onExecuteMethod, (object parameter) => { return true; })
     {
+    }
+
+    public RelayCommand(string name, ICommandOnExecute onExecuteMethod, ICommandOnCanExecute onCanExecuteMethod)
+    {
+      Name = name;
       _execute = onExecuteMethod;
       _canExecute = onCanExecuteMethod;
     }
 
-    public RelayCommand(ICommandOnExecute onExecuteMethod)
-    {
-      _execute = onExecuteMethod;
-      _canExecute = (object parameter) => { return true; };
-    }
+    #endregion
+
+    #region --- Properties ---
+
+    public string Name { get; }
 
     #endregion
 
@@ -56,7 +62,7 @@ namespace Hotspotizer.Helpers
     {
       _execute.Invoke(parameter);
     }
-    
+
     #endregion
 
     #region --- Events ---

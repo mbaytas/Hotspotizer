@@ -1,0 +1,180 @@
+﻿<!--
+Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+Filename: SpeechGrammar_Editor_en.xml
+Version: 20150905
+-->
+
+<grammar
+  xmlns="http://www.w3.org/2001/06/grammar"
+  tag-format="semantics/1.0-literals"
+  version="1.0"
+  root="rootRule"
+  xml:lang="en-US"
+  >
+
+  <rule id="rootRule">
+    <one-of>
+
+      <item>
+        <tag>CLOSE_EDITOR</tag>
+        <one-of>
+          <item> close </item>
+          <item> close editor </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>SAVE_GESTURE</tag>
+        <one-of>
+          <item> save </item>
+          <item> save gesture </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>PRESS_MODE</tag>
+        <one-of>
+          <item> press </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>HOLD_MODE</tag>
+        <one-of>
+          <item> hold </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>GESTURE_COMMAND</tag>
+        <one-of>
+          <item> command </item>
+          <item> key </item>
+          <item> keys </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>ADD_FRAME</tag>
+        <one-of>
+          <item> add </item>
+          <item> add frame </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>REMOVE_FRAME</tag>
+        <one-of>
+          <item> remove </item>
+          <item> remove frame </item>
+          <item> delete </item>
+          <item> delete frame </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>NAME</tag>
+        <one-of>
+          <item> name </item>
+          <item> rename </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>MOVE_FRAME_BACK</tag>
+        <one-of>
+          <item> back </item>
+          <item> move back </item>
+          <item> move frame back </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>MOVE_FRAME_FORWARD</tag>
+        <one-of>
+          <item> forward </item>
+          <item> move forward </item>
+          <item> move frame forward </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>HEAD</tag>
+        <one-of>
+          <item> head </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>LEFT_SHOULDER</tag>
+        <one-of>
+          <item> left shoulder </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>RIGHT_SHOULDER</tag>
+        <one-of>
+          <item> right shoulder </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>LEFT_ARM</tag>
+        <one-of>
+          <item> left arm </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>RIGHT_ARM</tag>
+        <one-of>
+          <item> right arm </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>LEFT_KNEE</tag>
+        <one-of>
+          <item> left knee </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>RIGHT_KNEE</tag>
+        <one-of>
+          <item> right knee </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>LEFT_FOOT</tag>
+        <one-of>
+          <item> left foot </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>RIGHT_FOOT</tag>
+        <one-of>
+          <item> right foot </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>OK</tag>
+        <one-of>
+          <item> OK </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>CANCEL</tag>
+        <one-of>
+          <item> cancel </item>
+        </one-of>
+      </item>
+
+    </one-of>
+  </rule>
+</grammar>

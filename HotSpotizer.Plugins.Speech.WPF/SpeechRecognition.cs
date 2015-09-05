@@ -1,11 +1,13 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150825
+//Version: 20150906
 
 using Hotspotizer.Plugins.WPF;
+using Microsoft.Speech.Recognition;
 using System;
 using System.ComponentModel.Composition;
-using System.Speech.Recognition;
+using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codeplex.com
+using System.IO;
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {
@@ -14,51 +16,38 @@ namespace HotSpotizer.Plugins.Speech.WPF
   [PartCreationPolicy(CreationPolicy.Shared)]
   class SpeechRecognition : ISpeechRecognition
   {
-    #region --- Fields ---
 
-    private SpeechRecognitionEngine speechRecognizer;
+    #region --- Constants ---
+
+    private const string ACOUSTIC_MODEL_ADAPTATION = "AdaptationOn";
 
     #endregion
 
-    public event EventHandler<string> Recognized;
+    #region --- Fields ---
+
+    protected SpeechRecognitionEngine speechRecognitionEngine;
+
+    #endregion
+
+    #region --- Initialization ---
 
     public void Init()
     {
-      speechRecognizer = CreateSpeechRecognizer();
-      if (speechRecognizer != null)
+      speechRecognitionEngine = CreateSpeechRecognitionEngine();
+      if (speechRecognitionEngine != null)
       {
-        speechRecognizer.SpeechRecognized += SpeechRecognized;
-        speechRecognizer.SpeechHypothesized += SpeechHypothesized;
-        speechRecognizer.SpeechRecognitionRejected += SpeechRecognitionRejected;
+        speechRecognitionEngine.SpeechRecognized += SpeechRecognized;
+        //speechRecognitionEngine.SpeechHypothesized += SpeechHypothesized;
+        speechRecognitionEngine.SpeechRecognitionRejected += SpeechRecognitionRejected;
       }
     }
 
-    protected virtual SpeechRecognitionEngine CreateSpeechRecognizer()
-    {
-      return new SpeechRecognitionEngine(); //use current system default recognition engine
-    }
+    #endregion
 
-    private void SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
-    {
-      throw new NotImplementedException();
-    }
+    #region --- Cleanup ---
 
-    private void SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
-    {
-      throw new NotImplementedException();
-    }
+    //IDisposable//
 
-    private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
-    {
-      throw new NotImplementedException();
-    }
-
-    public void LoadGrammar(string grammar)
-    {
-      throw new NotImplementedException();
-    }
-
-    #region IDisposable Support
     private bool disposedValue = false; // To detect redundant calls
 
     protected virtual void Dispose(bool disposing)
@@ -91,6 +80,76 @@ namespace HotSpotizer.Plugins.Speech.WPF
       // TODO: uncomment the following line if the finalizer is overridden above.
       // GC.SuppressFinalize(this);
     }
+
     #endregion
+
+    #region --- Properties ---
+
+    /// <summary>
+    /// For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model.
+    /// This will prevent recognition accuracy from degrading over time.
+    /// </summary>
+    public bool AcousticModelAdaptation
+    {
+      get { return ((Int32)speechRecognitionEngine.QueryRecognizerSetting(ACOUSTIC_MODEL_ADAPTATION) != 0); }
+      set { speechRecognitionEngine.UpdateRecognizerSetting(ACOUSTIC_MODEL_ADAPTATION, 0); }
+    }
+
+    #endregion
+
+    #region --- Methods ---
+
+    protected virtual SpeechRecognitionEngine CreateSpeechRecognitionEngine()
+    {
+      return new SpeechRecognitionEngine(); //use current system default recognition engine
+    }
+
+    public void LoadGrammar(string grammar, string name)
+    {
+      speechRecognitionEngine.LoadGrammar(SpeechUtils.CreateGrammarFromXML(grammar, name));
+    }
+
+    public void LoadGrammar(Stream stream, string name)
+    {
+      speechRecognitionEngine.LoadGrammar(new Grammar(stream) { Name = name });
+    }
+
+    public void SetInputToDefaultAudioDevice()
+    {
+      speechRecognitionEngine.SetInputToDefaultAudioDevice();
+    }
+
+    public void Start()
+    {
+      speechRecognitionEngine.RecognizeAsync(RecognizeMode.Multiple); //start speech recognition (set to keep on firing speech recognition events, not just once)
+    }
+
+    #endregion
+
+    #region --- Events ---
+
+    public event EventHandler<SpeechRecognitionEventArgs> Recognized;
+    public event EventHandler NotRecognized;
+
+    private void SpeechRecognized(object sender, SpeechRecognizedEventArgs e)
+    {
+      if (Recognized != null)
+        Recognized(this, new SpeechRecognitionEventArgs(e.Result.Semantics.Value.ToString(), e.Result.Confidence));
+    }
+
+    private void SpeechRecognitionRejected(object sender, SpeechRecognitionRejectedEventArgs e)
+    {
+      if (NotRecognized != null)
+        NotRecognized(this, null);
+    }
+
+    //private void SpeechHypothesized(object sender, SpeechHypothesizedEventArgs e)
+    //{
+    //  throw new NotImplementedException();
+    //}
+
+    #endregion
+
   }
+
 }

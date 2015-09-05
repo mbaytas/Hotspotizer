@@ -1,20 +1,18 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150825
+//Version: 20150906
 
+using Hotspotizer.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Hotspotizer.Models;
-using GlblRes = Hotspotizer.Properties.Resources;
 using WPFLocalizeExtension.Engine;
-//using System.Globalization;
-using System.Threading;
-using System.Globalization;
-using Hotspotizer.Plugins.WPF;
+using GlblRes = Hotspotizer.Properties.Resources;
 
 namespace Hotspotizer
 {
@@ -32,13 +30,9 @@ namespace Hotspotizer
     public MainWindow()
     {
       LoadPlugins();
-
       RegisterCommands();
-
       GestureCollection = new ObservableCollection<Gesture>();
-
       InitializeComponent();
-
       InitLocalization(); //must be called after "InitializeComponent"
 
       DependencyPropertyDescriptor.FromProperty(Controls.HotspotGrid.ItemsSourceProperty, typeof(Controls.HotspotGrid)).
@@ -63,8 +57,10 @@ namespace Hotspotizer
 
       // KinectErrorStackPanel that displays errors & warnings is shown if Kinect isn't connected
       KinectErrorStackPanel.Visibility = (kinect == null)? Visibility.Visible : Visibility.Hidden;
-      if (kinect == null && speechSynthesis != null)
-        speechSynthesis.Speak(Properties.Resources.KinectNotDetected); //TODO: should speak localized resources only if respective speech language is available (at Init of speech synthesis should check if current culture of resources matches a speech engine - should reinit speech engine when language changes [get event from LocalizeDictionary])
+
+      // Speak out about missing Kinect sensor
+      if (kinect == null)
+        speechSynthesis?.Speak(GlblRes.ResourceManager.GetString("KinectNotDetected", speechSynthesis.Culture)); //speech culture may not be the same as UI culture if for example only en-US voices are available
     }
 
     #endregion
@@ -86,7 +82,7 @@ namespace Hotspotizer
       LocalizeDictionary.Instance.Culture = Thread.CurrentThread.CurrentCulture; //default to the current culture as set by the OS when launching the app...
       //...to force a specific culture (say "en") instead, use:
       //LocalizeDictionary.Instance.Culture = new CultureInfo("en");
-     
+
       UpdateSelectorFromLanguage();
     }
 

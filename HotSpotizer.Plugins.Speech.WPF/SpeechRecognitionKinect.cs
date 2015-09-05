@@ -1,38 +1,35 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150825
+//Version: 20150905
 
 //see: http://kin-educate.blogspot.gr/2012/06/speech-recognition-for-kinect-easy-way.html
 
-using System;
 using System.Linq;
-using System.Speech.Recognition;
 using System.ComponentModel.Composition;
 using Hotspotizer.Plugins.WPF;
+using Microsoft.Speech.Recognition;
+using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codeplex.com
+using System.Globalization;
+using Microsoft.Kinect;
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {
   //MEF
   [Export("SpeechRecognitionKinect", typeof(ISpeechRecognition))]
+  [Export("SpeechRecognitionKinect", typeof(ISpeechRecognitionKinect))]
   [PartCreationPolicy(CreationPolicy.Shared)]
-  class SpeechRecognitionKinect : SpeechRecognition
+  class SpeechRecognitionKinect : SpeechRecognition, ISpeechRecognitionKinect
   {
 
-    protected override SpeechRecognitionEngine CreateSpeechRecognizer()
+    protected override SpeechRecognitionEngine CreateSpeechRecognitionEngine()
     {
-      RecognizerInfo kinectRecognizer = GetKinectRecognizer(); //use Kinect-based recognition engine
-      return (kinectRecognizer!=null)? new SpeechRecognitionEngine(kinectRecognizer) : null;
+      RecognizerInfo kinectRecognizer = KinectUtils.GetKinectRecognizer(CultureInfo.GetCultureInfoByIetfLanguageTag("en")); //use Kinect-based recognition engine
+      return (kinectRecognizer!=null)? new SpeechRecognitionEngine(kinectRecognizer) : base.CreateSpeechRecognitionEngine(); //fallback to recognition using default audio source
     }
 
-    private static RecognizerInfo GetKinectRecognizer() //TODO: fix this to not hardcode en-US (see MS Kinect sample)
+    public void SetInputToKinectSensor()
     {
-      Func<RecognizerInfo, bool> matchingFunc = r =>
-      {
-        string value;
-        r.AdditionalInfo.TryGetValue("Kinect", out value);
-        return "True".Equals(value, StringComparison.InvariantCultureIgnoreCase) && "en-US".Equals(r.Culture.Name, StringComparison.InvariantCultureIgnoreCase);
-      };
-      return SpeechRecognitionEngine.InstalledRecognizers().Where(matchingFunc).FirstOrDefault();
+      speechRecognitionEngine.SetInputToKinectSensor(KinectSensor.KinectSensors.FirstOrDefault(s => s.Status == KinectStatus.Connected));
     }
 
   }
