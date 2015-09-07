@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechSynthesis.cs
-//Version: 20150905
+//Version: 20150907
 
 using Hotspotizer.Plugins.WPF;
 using System.ComponentModel.Composition;
@@ -15,6 +15,13 @@ namespace HotSpotizer.Plugins.Speech.WPF
   [PartCreationPolicy(CreationPolicy.Shared)]
   class SpeechSynthesis : ISpeechSynthesis
   {
+    #region --- Constants ---
+
+    public const int MIN_VOLUME = 0;
+    public const int MAX_VOLUME = 100;
+    public const int DEFAULT_VOLUME = MAX_VOLUME;
+
+    #endregion
 
     #region --- Fields ---
 
@@ -28,6 +35,7 @@ namespace HotSpotizer.Plugins.Speech.WPF
     {
       speechSynthesizer = new SpeechSynthesizer();
       speechSynthesizer.SetOutputToDefaultAudioDevice();
+      speechSynthesizer.Volume = DEFAULT_VOLUME;
 
       InstalledVoice voice = speechSynthesizer.GetInstalledVoices(Culture).FirstOrDefault();
       if (voice!=null)
@@ -85,7 +93,8 @@ namespace HotSpotizer.Plugins.Speech.WPF
 
     public void Speak(string text)
     {
-      speechSynthesizer.Speak(text);
+      //speechSynthesizer.SpeakAsyncCancelAll(); //stop any currently playing (or scheduled too I guess) asynchronous speech
+      speechSynthesizer.SpeakAsync(text); //not using Speak, that one blocks the UI thread
     }
 
     #endregion

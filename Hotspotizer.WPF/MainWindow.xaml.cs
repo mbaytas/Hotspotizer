@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150906
+//Version: 20150907
 
 using Hotspotizer.Models;
 using System;
@@ -167,7 +167,7 @@ namespace Hotspotizer
 
     #region --- Events ---
 
-    void sdkDownloadLink_MouseDown(object sender, MouseButtonEventArgs e)
+    private void sdkDownloadLink_MouseDown(object sender, MouseButtonEventArgs e)
     {
       System.Diagnostics.Process.Start(GlblRes.URL_DownloadKinectSDK);
     }
