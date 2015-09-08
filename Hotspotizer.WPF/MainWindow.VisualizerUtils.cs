@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20150821
+//Version: 20150908
 
 using HelixToolkit.Wpf;
 using System;
@@ -18,17 +18,9 @@ namespace Hotspotizer
   public partial class MainWindow : Window
   {
 
-    #region --- Methods ---
+    #region --- Initialization ---
 
-    public bool CanPlay(object parameter)
-    {
-      if ((kinect != null) && (GestureCollection.Count > 0) && (kinect.Status == Microsoft.Kinect.KinectStatus.Connected))
-        return true;
-      else
-        return false;
-    }
-
-    public void Play(object parameter) //TODO: make method smaller (refactor into multiple methods)
+    public void ShowVisualizer() //TODO: make method smaller (refactor into multiple methods)
     {
       CollisionTimes = new List<List<DateTime>>();
       CollisionStates = new List<JointCollisionStates[]>();
@@ -87,18 +79,35 @@ namespace Hotspotizer
         HotspotCellsModelVisual3D_Visualizer.Content = modelGroup;
       }
 
-      ShowVisualizer();
+      SetVisualizerVisible();
+
       EnableKinect_Visualizer();
       DisableKeyboardControl_Visualizer(); //we don't want to consume emulated keyboard events
     }
 
-    public void CloseVisualizer(object parameter)
+    #endregion
+
+    #region --- Cleanup ---
+
+    public void CloseVisualizer()
     {
       DisableKinect_Visualizer();
       HideVisualizer();
     }
 
-    private void ShowVisualizer()
+    #endregion
+
+    #region --- Methods ---
+
+    public bool CanPlay()
+    {
+      if ((kinect != null) && (GestureCollection.Count > 0) && (kinect.Status == Microsoft.Kinect.KinectStatus.Connected))
+        return true;
+      else
+        return false;
+    }
+
+    private void SetVisualizerVisible()
     {
       TheEditor.Visibility = Visibility.Hidden;
       TheVisualizer.Visibility = Visibility.Visible;

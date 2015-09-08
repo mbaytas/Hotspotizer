@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.EditorUtils.cs
-//Version: 20150821
+//Version: 20150908
 
 using HelixToolkit.Wpf;
 using System;
@@ -34,9 +34,12 @@ namespace Hotspotizer
 
     #endregion
 
-    #region --- Methods ---
+    #region --- Initialization ---
 
-    private void LaunchEditor()
+    /// <summary>
+    /// Show the Editor UI
+    /// </summary>
+    public void ShowEditor()
     {
       // Collision stuff for highlights during testing
       CollisionTimes = new List<List<DateTime>>();
@@ -56,7 +59,7 @@ namespace Hotspotizer
 
       EnableKinect_Editor();
 
-      ShowEditor();
+      SetEditorVisible();
 
       FramesListBox.SelectedIndex = 0; // Reset Frame selection
 
@@ -64,13 +67,125 @@ namespace Hotspotizer
       EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Editor.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
     }
 
-    private void KillEditor()
+    #endregion
+
+    #region --- Cleanup ---
+
+    /// <summary>
+    /// Close the Editor UI and go back to the Manager
+    /// </summary>
+    public void CloseEditor()
     {
       DisableKinect_Editor();
       TheWorkspace.DataContext = InitGesture;        // Clean up DataContext
       EditorOverlay.Visibility = Visibility.Visible; // Hide Editor
       ManagerOverlay.Visibility = Visibility.Hidden; // Show Manager
     }
+
+    /// <summary>
+    /// Close command selector UI
+    /// </summary>
+    public void CloseCommandSelector()
+    {
+      RemoveHandler(Keyboard.PreviewKeyDownEvent, (KeyEventHandler)SetCommand_KeyDown);
+      RemoveHandler(Keyboard.PreviewKeyUpEvent, (KeyEventHandler)SetCommand_KeyUp);
+      EditorSetCommandOverlay.Visibility = Visibility.Hidden;
+    }
+
+    #endregion
+
+    #region --- Methods ---
+
+    public void SaveGesture()
+    {
+      ExGesture = null;
+      CloseEditor();
+    }
+
+    public bool CanSaveGesture()
+    {
+      //TODO (???)
+      if (TheWorkspace == null)
+        return false;
+
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+      return (g != null) &&
+             !String.IsNullOrEmpty(g.Name) &&
+             (g.Command != null) && (g.Command.Count != 0) && !g.Command.Contains(Key.None) &&
+             (g.Joint != JointType.HipCenter) &&
+             !g.Frames.Any(f => f.SideCells.Count(c => c.IsHotspot) == 0);
+    }
+
+    /// <summary>
+    /// Undo changes done to gesture (or if it was a new one discard it)
+    /// </summary>
+    public void DiscardGesture()
+    {
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+
+      if (ExGesture == null)                                         // If the gesture is a new gesture...
+        GestureCollection.Remove(g);                                 //...remove it from the Gesture Collection
+      else                                                           // else if the gesture is an existing gesture being edited...
+        GestureCollection[GestureCollection.IndexOf(g)] = ExGesture; //...restore it to its initial state
+
+      CloseEditor();
+    }
+
+    #region Frames
+
+    public void AddNewFrame()
+    {
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+
+      g.Frames.Add(MakeNewGestureFrame());                              // Add the frame to the Gesture object
+      CollisionTimes[GestureCollection.IndexOf(g)].Add(new DateTime()); // Extend CollisionTimes to keep track of collisions
+      FramesListBox.SelectedIndex = FramesListBox.Items.Count - 1;      // Select the newly added frame on the timeline
+
+      SyncEditorGrids();
+    }
+
+    private void DeleteFrame(GestureFrame s)
+    {
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+
+      g.Frames.Remove(s);
+
+      if (g.Frames.Count == 0)
+        g.Frames.Add(MakeNewGestureFrame()); // Do not let a gesture have 0 frames //TODO: having 0-framed gestures could be useful for creating named libraries of keyboard shortcuts as templates (say one library for PowerPoint, one for Media Player etc.) to which a user can then fill-in the gesture frames (would need the Visualizer to be aware of that and also maybe show the respective gestures colored as red - to signify they're not yet complete)
+
+      if (FramesListBox.SelectedItem == null)
+        FramesListBox.SelectedIndex = FramesListBox.Items.Count - 1;
+
+      SyncEditorGrids();
+    }
+
+    private void MoveFrameForward(GestureFrame f)
+    {
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+
+      int fIndex = g.Frames.IndexOf(f);
+      if (fIndex == g.Frames.Count - 1)
+        g.Frames.Move(fIndex, 0);
+      else
+        g.Frames.Move(fIndex, fIndex + 1);
+
+      SyncEditorGrids();
+    }
+
+    private void MoveFrameBackward(GestureFrame f)
+    {
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+
+      int fIndex = g.Frames.IndexOf(f);
+      if (fIndex == 0)
+        g.Frames.Move(fIndex, g.Frames.Count - 1);
+      else
+        g.Frames.Move(fIndex, fIndex - 1);
+
+      SyncEditorGrids();
+    }
+
+    #endregion
 
     private void EnableKinect_Editor()
     {
@@ -92,14 +207,16 @@ namespace Hotspotizer
       }
     }
 
-    private void ShowEditor()
+    private void SetEditorVisible()
     {
       TheEditor.Visibility = Visibility.Visible;
       EditorOverlay.Visibility = Visibility.Hidden;
       ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
     }
 
-    // Enable/disable rows on SideViewGrid according to selection on FrontViewGrid
+    /// <summary>
+    /// Enable/disable rows on SideViewGrid according to selection on FrontViewGrid
+    /// </summary>
     private void SyncEditorGrids_FrontToSide(Gesture g)
     {
       GestureFrame sf = (GestureFrame)FramesListBox.SelectedItem;
@@ -129,7 +246,9 @@ namespace Hotspotizer
       }
     }
 
-    // Put hints for the current gesture's existing hotspots below both 2D grids
+    /// <summary>
+    /// Put hints for the current gesture's existing hotspots below both 2D grids
+    /// </summary>
     private void SyncEditorGrids_2D_Hints(Gesture g)
     {
       FVHints.Children.Clear();
@@ -155,8 +274,10 @@ namespace Hotspotizer
       }
     }
 
-    // Also sync 3D Viewport with grids
-    private void SyncEditorGrids_3D(Gesture g)
+    /// <summary>
+    /// Sync 3D Viewport with grids
+    /// </summary>
+    private void SyncEditorGrids_3D(Gesture g) //TODO: split into smaller methods
     {
       // Init 3D stuff
       Model3DGroup modelGroup = new Model3DGroup();
@@ -184,10 +305,10 @@ namespace Hotspotizer
             double x = (sc.LeftCM + sc.RightCM) / 2;
             Point3D cubeCenter = new Point3D(x, y, z);
             meshBuilder.AddBox(cubeCenter, 15, 15, 15);
-            
+
             // Create and freeze mesh
             var mesh = meshBuilder.ToMesh(true);
-            
+
             // Create model
             modelGroup.Children.Add(new GeometryModel3D(mesh, material));
           }
@@ -215,17 +336,17 @@ namespace Hotspotizer
             {
               // Init mesh
               MeshBuilder meshBuilder = new MeshBuilder(false, false);
-              
+
               // Make cube and add to mesh
               double y = (fc.LeftCM + fc.RightCM) / 2;
               double z = (fc.TopCM + fc.BottomCM) / 2;
               double x = (sc.LeftCM + sc.RightCM) / 2;
               Point3D cubeCenter = new Point3D(x, y, z);
               meshBuilder.AddBox(cubeCenter, 15, 15, 15);
-              
+
               // Create and freeze mesh
               var mesh = meshBuilder.ToMesh(true);
-              
+
               // Create model
               modelGroup.Children.Add(new GeometryModel3D(mesh, material));
             }
@@ -247,16 +368,6 @@ namespace Hotspotizer
         SyncEditorGrids_3D(g);
       }
       catch (NullReferenceException) { return; }
-    }
-
-    /// <summary>
-    /// Clean up
-    /// </summary>
-    private void Cleanup_Editor()
-    {
-      RemoveHandler(Keyboard.PreviewKeyDownEvent, (KeyEventHandler)SetCommand_KeyDown);
-      RemoveHandler(Keyboard.PreviewKeyUpEvent, (KeyEventHandler)SetCommand_KeyUp);
-      EditorSetCommandOverlay.Visibility = Visibility.Hidden;
     }
 
     #endregion
@@ -302,7 +413,7 @@ namespace Hotspotizer
 
     private void SetCommandCancelButton_Click(object sender, RoutedEventArgs e)
     {
-      Cleanup_Editor();
+      CloseCommandSelector();
 
       // De-update gesture
       Gesture g = (Gesture)TheWorkspace.DataContext;
@@ -311,71 +422,39 @@ namespace Hotspotizer
 
     private void SetCommandOKButton_Click(object sender, RoutedEventArgs e)
     {
-      Cleanup_Editor();
+      CloseCommandSelector();
     }
 
     private void AddNewFrameButton_Click(object sender, RoutedEventArgs e)
     {
-      Gesture g = (Gesture)TheWorkspace.DataContext;
-
-      g.Frames.Add(MakeNewGestureFrame());                              // Add the frame to the Gesture object
-      CollisionTimes[GestureCollection.IndexOf(g)].Add(new DateTime()); // Extend CollisionTimes to keep track of collisions
-      FramesListBox.SelectedIndex = FramesListBox.Items.Count - 1;      // Select the newly added frame on the timeline
-
-      SyncEditorGrids();
+      AddNewFrame();
     }
 
     private void DeleteFrameButton_Click(object sender, RoutedEventArgs e)
     {
-      Gesture g = (Gesture)TheWorkspace.DataContext;
-
       Button b = (Button)sender;
       GestureFrame s = (GestureFrame)b.DataContext;
 
-      g.Frames.Remove(s);
-
-      if (g.Frames.Count == 0)
-        g.Frames.Add(MakeNewGestureFrame()); // Do not let a gesture have 0 frames //TODO: having 0-framed gestures could be useful for creating named libraries of keyboard shortcuts as templates (say one library for PowerPoint, one for Media Player etc.) to which a user can then fill-in the gesture frames (would need the Visualizer to be aware of that and also maybe show the respective gestures colored as red - to signify they're not yet complete)
-
-      if (FramesListBox.SelectedItem == null)
-        FramesListBox.SelectedIndex = FramesListBox.Items.Count - 1;
-
-      SyncEditorGrids();
-    }
-
-    private void MoveFrameForwardButton_Click(object sender, RoutedEventArgs e)
-    {
-      Gesture g = (Gesture)TheWorkspace.DataContext;
-
-      Button b = (Button)sender;
-      GestureFrame f = (GestureFrame)b.DataContext;
-
-      int fIndex = g.Frames.IndexOf(f);
-      if (fIndex == g.Frames.Count - 1)
-        g.Frames.Move(fIndex, 0);
-      else
-        g.Frames.Move(fIndex, fIndex + 1);
-
-      SyncEditorGrids();
+      DeleteFrame(s);
     }
 
     private void MoveFrameBackwardButton_Click(object sender, RoutedEventArgs e)
     {
-      Gesture g = (Gesture)TheWorkspace.DataContext;
-
       Button b = (Button)sender;
       GestureFrame f = (GestureFrame)b.DataContext;
-
-      int fIndex = g.Frames.IndexOf(f);
-      if (fIndex == 0)
-        g.Frames.Move(fIndex, g.Frames.Count - 1);
-      else
-        g.Frames.Move(fIndex, fIndex - 1);
-
-      SyncEditorGrids();
+      MoveFrameBackward(f);
     }
 
-    // Enable/disable rows on SideViewGrid according to selection on FrontViewGrid
+    private void MoveFrameForwardButton_Click(object sender, RoutedEventArgs e)
+    {
+      Button b = (Button)sender;
+      GestureFrame f = (GestureFrame)b.DataContext;
+      MoveFrameForward(f);
+    }
+
+    /// <summary>
+    /// Enable/disable rows on SideViewGrid according to selection on FrontViewGrid
+    /// </summary>
     private void FVGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       SyncEditorGrids();

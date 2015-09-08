@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
-//File: GestureFrameCell.cs
-//Version: 20150817
+//File: Models / GestureFrameCell.cs
+//Version: 20150908
 
 using Newtonsoft.Json;
 using System.ComponentModel;

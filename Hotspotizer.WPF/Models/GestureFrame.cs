@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
-//File: GestureFrame.cs
-//Version: 20150817
+//File: Models / GestureFrame.cs
+//Version: 20150908
 
 namespace Hotspotizer.Models
 {

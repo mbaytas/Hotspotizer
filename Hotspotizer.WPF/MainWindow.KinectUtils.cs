@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.KinectUtils.cs
-//Version: 20150823
+//Version: 20150908
 
 using HelixToolkit.Wpf;
 using Microsoft.Kinect;
@@ -58,7 +58,7 @@ namespace Hotspotizer
 
     #region SkeletonFrameReady
 
-    private void Draw3dSkeleton(ModelVisual3D modelVisual3D, SkeletonFrameReadyEventArgs e) //TODO: refactor into more methods
+    private void SkeletonFrameReady_Draw3D(ModelVisual3D modelVisual3D, SkeletonFrameReadyEventArgs e) //TODO: refactor into more methods
     {
       using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
       {
@@ -145,7 +145,7 @@ namespace Hotspotizer
         Skeleton skeleton = skeletons.FirstOrDefault(s => s.TrackingState == SkeletonTrackingState.Tracked);
         if (skeleton == null)
           return;
-        
+
         // Init stuff
         SkeletonPoint centroid = skeleton.Joints[JointType.HipCenter].Position;
 
@@ -156,7 +156,7 @@ namespace Hotspotizer
           Gesture g = GestureCollection[gi];
           // Get coordinates of tracked joint
           // SkeletonPoint structure contains X. Y, Z values in meters, relative to the sensor
-          // We'll convert that to a Point3D that contains values in cm, relative to the centroid        
+          // We'll convert that to a Point3D that contains values in cm, relative to the centroid
           SkeletonPoint trackedJoint = skeleton.Joints[g.Joint].Position;
           int jX = (int)((trackedJoint.X - centroid.X) * 100);
           int jY = (int)((trackedJoint.Y - centroid.Y) * 100);
@@ -300,17 +300,17 @@ namespace Hotspotizer
 
     private void SkeletonFrameReady_Draw3D_Editor(SkeletonFrameReadyEventArgs e)
     {
-      Draw3dSkeleton(SkeletonModelVisual3D_Editor, e);
+      SkeletonFrameReady_Draw3D(SkeletonModelVisual3D_Editor, e);
     }
 
     private void SkeletonFrameReady_Draw3D_Front_Editor(SkeletonFrameReadyEventArgs e)
     {
-      Draw3dSkeleton(SkeletonModelVisual3D_Editor_FrontViewPort, e);
+      SkeletonFrameReady_Draw3D(SkeletonModelVisual3D_Editor_FrontViewPort, e);
     }
 
     private void SkeletonFrameReady_Draw3D_Side_Editor(SkeletonFrameReadyEventArgs e)
     {
-      Draw3dSkeleton(SkeletonModelVisual3D_Editor_SideViewPort, e);
+      SkeletonFrameReady_Draw3D(SkeletonModelVisual3D_Editor_SideViewPort, e);
     }
 
     private void SkeletonFrameReady_ToggleBackground_Editor(SkeletonFrameReadyEventArgs e)
@@ -344,7 +344,7 @@ namespace Hotspotizer
 
     private void SkeletonFrameReady_Draw3D_Visualizer(SkeletonFrameReadyEventArgs e)
     {
-      Draw3dSkeleton(SkeletonModelVisual3D_Visualizer, e);
+      SkeletonFrameReady_Draw3D(SkeletonModelVisual3D_Visualizer, e);
     }
 
     private void SkeletonFrameReady_Detect_Visualizer(SkeletonFrameReadyEventArgs e)

@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
-//File: Gesture.cs
-//Version: 20150821
+//File: Models / Gesture.cs
+//Version: 20150908
 
 using Microsoft.Kinect;
 using Newtonsoft.Json;

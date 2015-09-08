@@ -138,6 +138,7 @@
     <Compile Include="Grammars\EditorCommands.cs" />
     <Compile Include="Helpers\AvailableLanguages.cs" />
     <Compile Include="Helpers\EventLogic.cs" />
+    <Compile Include="Models\IManager.cs" />
     <Compile Include="MainWindow.Commands.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="MainWindow.EditorUtils.cs" />
