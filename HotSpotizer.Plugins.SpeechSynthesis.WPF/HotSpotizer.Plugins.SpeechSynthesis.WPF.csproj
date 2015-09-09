@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ECC29C0E-0DC6-4F22-B52A-E259AD248779}</ProjectGuid>
+    <ProjectGuid>{0478078F-504A-4C45-81E0-AF42AB591683}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HotSpotizer.Plugins.Speech</RootNamespace>
-    <AssemblyName>HotSpotizer.Plugins.Speech</AssemblyName>
+    <RootNamespace>HotSpotizer.Plugins.SpeechSynthesis</RootNamespace>
+    <AssemblyName>HotSpotizer.Plugins.SpeechSynthesis</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
@@ -31,20 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Kinect, Version=1.8.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Speech, Version=11.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Speech" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="KinectUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SpeechRecognitionKinect.cs" />
-    <Compile Include="SpeechRecognition.cs" />
     <Compile Include="SpeechSynthesis.cs" />
-    <Compile Include="SpeechUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hotspotizer.Plugins.WPF\Hotspotizer.Plugins.WPF.csproj">

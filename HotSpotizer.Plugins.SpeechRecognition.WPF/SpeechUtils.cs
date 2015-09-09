@@ -1,10 +1,10 @@
 ﻿//Project: SpeechTurtle (http://SpeechTurtle.codeplex.com)
 //Filename: SpeechUtils.cs
-//Version: 20150901
+//Version: 20150909
 
 //IF YOU MODIFY THIS FILE, CONTRIBUTE THE CHANGES BACK TO THE SPEECHTURTLE PROJECT TOO
 
-using Microsoft.Speech.Recognition;
+using System.Speech.Recognition;
 using System.Globalization;
 using System.IO;
 using System.Text;

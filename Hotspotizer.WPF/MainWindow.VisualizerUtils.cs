@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20150908
+//Version: 20150909
 
 using HelixToolkit.Wpf;
 using System;
@@ -129,7 +129,7 @@ namespace Hotspotizer
       {
         kinect.SkeletonStream.Enable();
         kinect.SkeletonFrameReady += Kinect_SkeletonFrameReady_Visualizer;
-        kinect.Start();
+        //kinect.Start(); //Kinect is also used for speech recognition if available, so starting at launch and stopping at end of app
       }
     }
 
@@ -137,7 +137,7 @@ namespace Hotspotizer
     {
       if (kinect != null)
       {
-        kinect.Stop();
+        //kinect.Stop(); //Kinect is also used for speech recognition if available, so starting at launch and stopping at end of app
         kinect.SkeletonFrameReady -= Kinect_SkeletonFrameReady_Visualizer;
         kinect.SkeletonStream.Disable();
       }

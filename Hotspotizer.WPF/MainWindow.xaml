@@ -33,6 +33,8 @@ Version: 20150909
   WindowState="Maximized"
 
   DataContext="{Binding RelativeSource={RelativeSource Self}}"
+
+  Closed="MainWindow_Closed"
   >
 
   <Window.Resources>

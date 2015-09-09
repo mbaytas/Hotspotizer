@@ -1,22 +1,27 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 Filename: SpeechGrammar_Editor_en.xml
-Version: 20150905
+Version: 20150909
 -->
 
 <grammar
   xmlns="http://www.w3.org/2001/06/grammar"
-  tag-format="semantics/1.0-literals"
+  tag-format="semantics/1.0"
   version="1.0"
   root="rootRule"
   xml:lang="en-US"
   >
 
+  <!--
+  semantics/1.0-literals that was supported by Microsoft.Speech (Speech Server SDK) seems to not be supported by System.Speech (Speech SDK),
+  need to use semantics/1.0 or semantics-ms/1.0 (both need different syntax), see https://msdn.microsoft.com/en-us/library/office/hh361606(v=office.14).aspx and https://msdn.microsoft.com/en-us/library/office/hh361639(v=office.14).aspx
+  -->
+
   <rule id="rootRule">
     <one-of>
 
       <item>
-        <tag>CLOSE_EDITOR</tag>
+        <tag>out="CLOSE_EDITOR";</tag>
         <one-of>
           <item> close </item>
           <item> close editor </item>
@@ -24,7 +29,7 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>SAVE_GESTURE</tag>
+        <tag>out="SAVE_GESTURE";</tag>
         <one-of>
           <item> save </item>
           <item> save gesture </item>
@@ -32,21 +37,21 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>PRESS_MODE</tag>
+        <tag>out="PRESS_MODE";</tag>
         <one-of>
           <item> press </item>
         </one-of>
       </item>
 
       <item>
-        <tag>HOLD_MODE</tag>
+        <tag>out="HOLD_MODE";</tag>
         <one-of>
           <item> hold </item>
         </one-of>
       </item>
 
       <item>
-        <tag>GESTURE_COMMAND</tag>
+        <tag>out="GESTURE_COMMAND";</tag>
         <one-of>
           <item> command </item>
           <item> key </item>
@@ -55,7 +60,7 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>ADD_FRAME</tag>
+        <tag>out="ADD_FRAME";</tag>
         <one-of>
           <item> add </item>
           <item> add frame </item>
@@ -63,7 +68,7 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>REMOVE_FRAME</tag>
+        <tag>out="REMOVE_FRAME";</tag>
         <one-of>
           <item> remove </item>
           <item> remove frame </item>
@@ -73,7 +78,7 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>NAME</tag>
+        <tag>out="NAME";</tag>
         <one-of>
           <item> name </item>
           <item> rename </item>
@@ -81,7 +86,7 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>MOVE_FRAME_BACK</tag>
+        <tag>out="MOVE_FRAME_BACK";</tag>
         <one-of>
           <item> back </item>
           <item> move back </item>
@@ -90,7 +95,7 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>MOVE_FRAME_FORWARD</tag>
+        <tag>out="MOVE_FRAME_FORWARD";</tag>
         <one-of>
           <item> forward </item>
           <item> move forward </item>
@@ -99,77 +104,77 @@ Version: 20150905
       </item>
 
       <item>
-        <tag>HEAD</tag>
+        <tag>out="HEAD";</tag>
         <one-of>
           <item> head </item>
         </one-of>
       </item>
 
       <item>
-        <tag>LEFT_SHOULDER</tag>
+        <tag>out="LEFT_SHOULDER";</tag>
         <one-of>
           <item> left shoulder </item>
         </one-of>
       </item>
 
       <item>
-        <tag>RIGHT_SHOULDER</tag>
+        <tag>out="RIGHT_SHOULDER";</tag>
         <one-of>
           <item> right shoulder </item>
         </one-of>
       </item>
 
       <item>
-        <tag>LEFT_ARM</tag>
+        <tag>out="LEFT_ARM";</tag>
         <one-of>
           <item> left arm </item>
         </one-of>
       </item>
 
       <item>
-        <tag>RIGHT_ARM</tag>
+        <tag>out="RIGHT_ARM";</tag>
         <one-of>
           <item> right arm </item>
         </one-of>
       </item>
 
       <item>
-        <tag>LEFT_KNEE</tag>
+        <tag>out="LEFT_KNEE";</tag>
         <one-of>
           <item> left knee </item>
         </one-of>
       </item>
 
       <item>
-        <tag>RIGHT_KNEE</tag>
+        <tag>out="RIGHT_KNEE";</tag>
         <one-of>
           <item> right knee </item>
         </one-of>
       </item>
 
       <item>
-        <tag>LEFT_FOOT</tag>
+        <tag>out="LEFT_FOOT";</tag>
         <one-of>
           <item> left foot </item>
         </one-of>
       </item>
 
       <item>
-        <tag>RIGHT_FOOT</tag>
+        <tag>out="RIGHT_FOOT";</tag>
         <one-of>
           <item> right foot </item>
         </one-of>
       </item>
 
       <item>
-        <tag>OK</tag>
+        <tag>out="OK";</tag>
         <one-of>
           <item> OK </item>
         </one-of>
       </item>
 
       <item>
-        <tag>CANCEL</tag>
+        <tag>out="CANCEL";</tag>
         <one-of>
           <item> cancel </item>
         </one-of>

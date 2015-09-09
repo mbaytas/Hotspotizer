@@ -1,10 +1,10 @@
 ﻿//Project: SpeechTurtle (http://SpeechTurtle.codeplex.com)
 //Filename: KinectUtils.cs
-//Version: 20150906
+//Version: 20150909
 
 using Microsoft.Kinect;
-using Microsoft.Speech.AudioFormat;
-using Microsoft.Speech.Recognition;
+using System.Speech.AudioFormat;
+using System.Speech.Recognition;
 using System;
 using System.Globalization;
 using System.IO;

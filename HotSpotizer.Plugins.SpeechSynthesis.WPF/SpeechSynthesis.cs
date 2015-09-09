@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechSynthesis.cs
-//Version: 20150907
+//Version: 20150909
 
 using Hotspotizer.Plugins.WPF;
 using System.ComponentModel.Composition;

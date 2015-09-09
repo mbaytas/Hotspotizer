@@ -1,9 +1,8 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.SpeechUtils.cs
-//Version: 20150906
+//Version: 20150909
 
 using Hotspotizer.Plugins.WPF;
-using Microsoft.Kinect;
 using System;
 using System.IO;
 using System.Linq;
@@ -41,12 +40,12 @@ namespace Hotspotizer
     public void LoadSpeechRecognitionPlugin()
     {
       Lazy<ISpeechRecognitionKinect> plugin1 = mefContainer.GetExports<ISpeechRecognitionKinect>("SpeechRecognitionKinect").FirstOrDefault();
-      speechRecognition = speechRecognitionKinect = plugin1.Value;
+      speechRecognition = speechRecognitionKinect = plugin1?.Value;
 
       if (speechRecognition == null) //SpeechRecognitionKinect plugin couldn't be loaded, try to fallback to the SpeechRecognition one (which uses the default audio source as input)
       {
         Lazy<ISpeechRecognition> plugin2 = mefContainer.GetExports<ISpeechRecognition>("SpeechRecognition").FirstOrDefault();
-        speechRecognition = plugin2.Value;
+        speechRecognition = plugin2?.Value;
       }
 
       if (speechRecognition != null)

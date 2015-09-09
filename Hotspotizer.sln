@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotspotizer.WPF", "Hotspoti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotspotizer.Plugins.WPF", "Hotspotizer.Plugins.WPF\Hotspotizer.Plugins.WPF.csproj", "{2207F4CF-71E5-4B8B-9699-3B9BD514FDA0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotSpotizer.Plugins.Speech.WPF", "HotSpotizer.Plugins.Speech.WPF\HotSpotizer.Plugins.Speech.WPF.csproj", "{ECC29C0E-0DC6-4F22-B52A-E259AD248779}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotSpotizer.Plugins.SpeechSynthesis.WPF", "HotSpotizer.Plugins.SpeechSynthesis.WPF\HotSpotizer.Plugins.SpeechSynthesis.WPF.csproj", "{0478078F-504A-4C45-81E0-AF42AB591683}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotSpotizer.Plugins.SpeechRecognition.WPF", "HotSpotizer.Plugins.SpeechRecognition.WPF\HotSpotizer.Plugins.SpeechRecognition.WPF.csproj", "{ECC29C0E-0DC6-4F22-B52A-E259AD248779}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,16 @@ Global
 		{2207F4CF-71E5-4B8B-9699-3B9BD514FDA0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2207F4CF-71E5-4B8B-9699-3B9BD514FDA0}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{2207F4CF-71E5-4B8B-9699-3B9BD514FDA0}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{0478078F-504A-4C45-81E0-AF42AB591683}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 		{ECC29C0E-0DC6-4F22-B52A-E259AD248779}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
 		{ECC29C0E-0DC6-4F22-B52A-E259AD248779}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
 		{ECC29C0E-0DC6-4F22-B52A-E259AD248779}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

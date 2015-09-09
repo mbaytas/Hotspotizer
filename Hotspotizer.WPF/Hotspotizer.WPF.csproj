@@ -247,9 +247,13 @@
     <Resource Include="Images\Logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HotSpotizer.Plugins.Speech.WPF\HotSpotizer.Plugins.Speech.WPF.csproj">
+    <ProjectReference Include="..\HotSpotizer.Plugins.SpeechRecognition.WPF\HotSpotizer.Plugins.SpeechRecognition.WPF.csproj">
       <Project>{ecc29c0e-0dc6-4f22-b52a-e259ad248779}</Project>
-      <Name>HotSpotizer.Plugins.Speech.WPF</Name>
+      <Name>HotSpotizer.Plugins.SpeechRecognition.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HotSpotizer.Plugins.SpeechSynthesis.WPF\HotSpotizer.Plugins.SpeechSynthesis.WPF.csproj">
+      <Project>{0478078f-504a-4c45-81e0-af42ab591683}</Project>
+      <Name>HotSpotizer.Plugins.SpeechSynthesis.WPF</Name>
     </ProjectReference>
     <ProjectReference Include="..\Hotspotizer.Plugins.WPF\Hotspotizer.Plugins.WPF.csproj">
       <Project>{2207f4cf-71e5-4b8b-9699-3b9bd514fda0}</Project>

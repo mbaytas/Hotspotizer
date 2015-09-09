@@ -1,9 +1,9 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150906
+//Version: 20150909
 
 using Hotspotizer.Plugins.WPF;
-using Microsoft.Speech.Recognition;
+using System.Speech.Recognition;
 using System;
 using System.ComponentModel.Composition;
 using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codeplex.com

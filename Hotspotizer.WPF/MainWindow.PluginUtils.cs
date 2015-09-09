@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.PluginUtils.cs
-//Version: 20150905
+//Version: 20150909
 
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -22,7 +22,8 @@ namespace Hotspotizer
     private void InitPluginsCatalog()
     {
       AggregateCatalog partsCatalog = new AggregateCatalog();
-      partsCatalog.Catalogs.Add(new AssemblyCatalog("Hotspotizer.Plugins.Speech.dll"));
+      partsCatalog.Catalogs.Add(new AssemblyCatalog("Hotspotizer.Plugins.SpeechSynthesis.dll"));
+      partsCatalog.Catalogs.Add(new AssemblyCatalog("Hotspotizer.Plugins.SpeechRecognition.dll"));
       mefContainer = new CompositionContainer(partsCatalog);
       mefContainer.SatisfyImportsOnce(this);
       //CompositionInitializer.SatisfyImports(this);

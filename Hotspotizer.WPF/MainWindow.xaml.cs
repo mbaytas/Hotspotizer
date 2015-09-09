@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150907
+//Version: 20150909
 
 using Hotspotizer.Models;
 using System;
@@ -29,6 +29,9 @@ namespace Hotspotizer
 
     public MainWindow()
     {
+      // Holla Kinect //note: must do before LoadPlugins, since the SpeechRecognition plugin's ISpeechRecognitionKinect implementation tries to start recognition feeding it with audio stream from Kinect
+      kinect = SpeechTurtle.Utils.KinectUtils.StartKinectSensor(); //GetKinectSensor(); //Kinect is also used for speech recognition if available, so starting at launch and stopping at end of app
+
       LoadPlugins();
       RegisterCommands();
       GestureCollection = new ObservableCollection<Gesture>();
@@ -52,15 +55,22 @@ namespace Hotspotizer
       //EditorTipsOverlay.Visibility = Visibility.Visible;
       EditorOverlay.Visibility = Visibility.Visible;
 
-      // Holla Kinect
-      kinect = GetKinectSensor();
-
       // KinectErrorStackPanel that displays errors & warnings is shown if Kinect isn't connected
       KinectErrorStackPanel.Visibility = (kinect == null)? Visibility.Visible : Visibility.Hidden;
 
       // Speak out about missing Kinect sensor
       if (kinect == null)
         speechSynthesis?.Speak(GlblRes.ResourceManager.GetString("KinectNotDetected", speechSynthesis.Culture)); //speech culture may not be the same as UI culture if for example only en-US voices are available
+    }
+
+    #endregion
+
+    #region --- Cleanup ---
+
+    private void MainWindow_Closed(object sender, EventArgs e)
+    {
+      if (kinect != null)
+        kinect.Stop();
     }
 
     #endregion
