@@ -19,7 +19,7 @@ using Microsoft.Kinect;
 
 namespace Hotspotizer
 {
-  public partial class MainWindow
+  public partial class MainWindow : IFrameManager
   {
 
     #region --- Fields ---
@@ -94,6 +94,15 @@ namespace Hotspotizer
 
     #endregion
 
+    #region --- Properties ---
+
+    public GestureFrame CurrentFrame //IFrameManager property
+    {
+      get { return (GestureFrame)FramesListBox.SelectedItem; }
+    }
+
+    #endregion
+
     #region --- Methods ---
 
     public void SaveGesture()
@@ -131,7 +140,7 @@ namespace Hotspotizer
       CloseEditor();
     }
 
-    #region Frames
+    #region IFrameManager methods
 
     public void AddNewFrame()
     {
@@ -144,7 +153,34 @@ namespace Hotspotizer
       SyncEditorGrids();
     }
 
-    private void DeleteFrame(GestureFrame s)
+    public void SelectPreviousFrame()
+    {
+      int selectedIndex = FramesListBox.SelectedIndex;
+      FramesListBox.SelectedIndex = (selectedIndex != 0) ? selectedIndex - 1 : FramesListBox.Items.Count - 1;
+    }
+
+    public void SelectNextFrame()
+    {
+      int selectedIndex = FramesListBox.SelectedIndex;
+      FramesListBox.SelectedIndex = (selectedIndex != FramesListBox.Items.Count-1) ? selectedIndex + 1 : 0;
+    }
+
+    public void DeleteCurrentFrame()
+    {
+      DeleteFrame(CurrentFrame);
+    }
+
+    public void MoveCurrentFrameForward()
+    {
+      MoveFrameForward(CurrentFrame);
+    }
+
+    public void MoveCurrentFrameBackward()
+    {
+      MoveFrameBackward(CurrentFrame);
+    }
+
+    public void DeleteFrame(GestureFrame s)
     {
       Gesture g = (Gesture)TheWorkspace.DataContext;
 
@@ -159,7 +195,7 @@ namespace Hotspotizer
       SyncEditorGrids();
     }
 
-    private void MoveFrameForward(GestureFrame f)
+    public void MoveFrameForward(GestureFrame f)
     {
       Gesture g = (Gesture)TheWorkspace.DataContext;
 
@@ -172,7 +208,7 @@ namespace Hotspotizer
       SyncEditorGrids();
     }
 
-    private void MoveFrameBackward(GestureFrame f)
+    public void MoveFrameBackward(GestureFrame f)
     {
       Gesture g = (Gesture)TheWorkspace.DataContext;
 
@@ -214,6 +250,8 @@ namespace Hotspotizer
       ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
     }
 
+    #region Sync UI Grids
+
     /// <summary>
     /// Enable/disable rows on SideViewGrid according to selection on FrontViewGrid
     /// </summary>
@@ -222,6 +260,7 @@ namespace Hotspotizer
       GestureFrame sf = (GestureFrame)FramesListBox.SelectedItem;
       GestureFrameCell[] fcs = (GestureFrameCell[])FVGrid.ItemsSource;
       GestureFrameCell[] scs = (GestureFrameCell[])SVGrid.ItemsSource;
+
       // 'If' overcomes FVGrid_SelectionChanged firing before everything else and syncing SVGrid to a different Frame's FVGrid
       if (Object.ReferenceEquals(sf.FrontCells, fcs) && Object.ReferenceEquals(sf.SideCells, scs))
       {
@@ -372,6 +411,8 @@ namespace Hotspotizer
 
     #endregion
 
+    #endregion
+
     #region --- Events ---
 
     private void SetCommandButton_Click(object sender, RoutedEventArgs e)
@@ -430,25 +471,34 @@ namespace Hotspotizer
       AddNewFrame();
     }
 
-    private void DeleteFrameButton_Click(object sender, RoutedEventArgs e)
+    private void SelectPreviousFrameButton_Click(object sender, RoutedEventArgs e)
     {
-      Button b = (Button)sender;
-      GestureFrame s = (GestureFrame)b.DataContext;
+      SelectPreviousFrame();
+    }
 
+    private void SelectNextFrameButton_Click(object sender, RoutedEventArgs e)
+    {
+      SelectNextFrame();
+    }
+
+    private void DeleteFrameButton_Click(object sender, RoutedEventArgs e) //reused at each frame
+    {
+      Button b = (Button)sender; //find the button clicked
+      GestureFrame s = (GestureFrame)b.DataContext; //find the corresponding frame
       DeleteFrame(s);
     }
 
-    private void MoveFrameBackwardButton_Click(object sender, RoutedEventArgs e)
+    private void MoveFrameBackwardButton_Click(object sender, RoutedEventArgs e) //reused at each frame
     {
-      Button b = (Button)sender;
-      GestureFrame f = (GestureFrame)b.DataContext;
+      Button b = (Button)sender; //find the button clicked
+      GestureFrame f = (GestureFrame)b.DataContext; //find the corresponding frame
       MoveFrameBackward(f);
     }
 
-    private void MoveFrameForwardButton_Click(object sender, RoutedEventArgs e)
+    private void MoveFrameForwardButton_Click(object sender, RoutedEventArgs e) //reused at each frame
     {
-      Button b = (Button)sender;
-      GestureFrame f = (GestureFrame)b.DataContext;
+      Button b = (Button)sender; //find the button clicked
+      GestureFrame f = (GestureFrame)b.DataContext; //find the corresponding frame
       MoveFrameForward(f);
     }
 

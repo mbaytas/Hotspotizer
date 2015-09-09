@@ -1,9 +1,9 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150823
+Version: 20150909
 -->
-  
+
 <!-- TODO: maybe add a [+] sign after each frame to allow adding intermediate frames to an existing list (to finetune the movement). Can use move left-right action though to reorder a new frame added to the end already -->
 
 <Window x:Class="Hotspotizer.MainWindow"
@@ -19,13 +19,13 @@ Version: 20150823
   xmlns:helpers="clr-namespace:Hotspotizer.Helpers"
   xmlns:HelixToolkit="clr-namespace:HelixToolkit.Wpf;assembly=HelixToolkit.Wpf"
   xmlns:lex="http://wpflocalizeextension.codeplex.com"
-        
+
   mc:Ignorable="d"
 
   lex:LocalizeDictionary.DesignCulture="en"
   lex:ResxLocalizationProvider.DefaultAssembly="Hotspotizer"
   lex:ResxLocalizationProvider.DefaultDictionary="Resources"
-    
+
   Icon="Images/Logo.ico"
   Title="Hotspotizer"
   MinHeight="700" MinWidth="1000"
@@ -52,9 +52,9 @@ Version: 20150823
       <ColumnDefinition Width="*" MinWidth="400"/>
     </Grid.ColumnDefinitions>
 
-    <!-- #Region MANAGER -->
-    
-    <Grid>
+    <!-- Region MANAGER -->
+
+    <Grid Grid.Column="0">
 
       <Grid.RowDefinitions>
         <RowDefinition Height="60"/>
@@ -110,7 +110,7 @@ Version: 20150823
         VerticalScrollBarVisibility="Auto"
         >
         <StackPanel>
-   
+
           <StackPanel>
             <StackPanel.Style>
               <Style TargetType="StackPanel">
@@ -128,8 +128,8 @@ Version: 20150823
                 </Style.Triggers>
               </Style>
             </StackPanel.Style>
-            
-            <TextBlock 
+
+            <TextBlock
               Margin="15,15,15,0"
               TextAlignment="Center"
               VerticalAlignment="Center"
@@ -137,7 +137,7 @@ Version: 20150823
               Foreground="Gray"
               Text="{lex:Loc NoGestures}"
               />
-            
+
             <TextBlock
               Margin="15,10,15,0"
               TextAlignment="Center"
@@ -147,8 +147,8 @@ Version: 20150823
               Text="{lex:Loc CreateGestureOrLoadGestureCollection}"
               />
           </StackPanel>
-          
-          <ItemsControl 
+
+          <ItemsControl
             ItemsSource="{Binding GestureCollection}"
 						BorderBrush="{x:Null}"
 						HorizontalContentAlignment="Stretch"
@@ -165,7 +165,7 @@ Version: 20150823
                     <ColumnDefinition Width="26"/>
                     <ColumnDefinition Width="26"/>
                   </Grid.ColumnDefinitions>
-                  
+
                   <Border
                     Grid.Column="0"
                     Background="Gainsboro"
@@ -181,7 +181,7 @@ Version: 20150823
                       <Run Text="{Binding Command, Converter={StaticResource commandConverter}, Mode=OneWay}"/>
                     </TextBlock>
                   </Border>
-                  
+
                   <TextBlock
                     Grid.Column="1"
                     TextTrimming="CharacterEllipsis"
@@ -189,7 +189,7 @@ Version: 20150823
                     Padding="5"
                     VerticalAlignment="Center"
                     />
-                  
+
                   <Button
                     Grid.Column="2"
                     ToolTip="{lex:Loc EditGesture}"
@@ -201,7 +201,7 @@ Version: 20150823
                     VerticalAlignment="Center"
                     HorizontalAlignment="Right"
                     />
-                  
+
                   <Button
                     Grid.Column="3"
                     ToolTip="{lex:Loc DeleteGesture}"
@@ -217,8 +217,8 @@ Version: 20150823
               </DataTemplate>
             </ItemsControl.ItemTemplate>
           </ItemsControl>
-    
-          <Button 
+
+          <Button
             Command="{Binding AddNewGestureCommand}"
 						ToolTip="{lex:Loc AddNewGesture}"
 						Height="40"
@@ -227,12 +227,12 @@ Version: 20150823
 						FontSize="18"
 						Content="&#xE109;"
             />
-          
-          <StackPanel 
+
+          <StackPanel
             x:Name="KinectErrorStackPanel"
             Visibility="Collapsed"
             >
-            <TextBlock 
+            <TextBlock
               Margin="15,15,15,0"
               TextAlignment="Center"
               VerticalAlignment="Center"
@@ -240,7 +240,7 @@ Version: 20150823
               Foreground="Firebrick"
               Text="{lex:Loc KinectNotDetected}"
               />
-            <TextBlock 
+            <TextBlock
               Margin="15,15,15,0"
               TextAlignment="Center"
               VerticalAlignment="Center"
@@ -248,7 +248,7 @@ Version: 20150823
               Foreground="Firebrick"
               Text="{lex:Loc CheckKinectPowerAndUSB}"
               />
-            <TextBlock 
+            <TextBlock
               Margin="15,10,15,0"
               TextAlignment="Center"
               VerticalAlignment="Center"
@@ -256,7 +256,7 @@ Version: 20150823
               Foreground="Goldenrod"
               Text="{lex:Loc RequiredKinectSDK}"
               />
-            <TextBlock 
+            <TextBlock
               Margin="15,10,15,0"
               TextAlignment="Center"
               VerticalAlignment="Center"
@@ -269,8 +269,8 @@ Version: 20150823
           </StackPanel>
         </StackPanel>
       </ScrollViewer>
-      
-      <ComboBox 
+
+      <ComboBox
         x:Name="comboLanguage"
         Grid.Row="2"
         DisplayMemberPath="text"
@@ -282,15 +282,20 @@ Version: 20150823
     </Grid>
 
     <!-- End Region -->
-    
-    <!-- #Region EDITOR -->
-    
-    <Grid x:Name="TheEditor" Grid.Column="1" Visibility="Visible">
 
+    <!-- Region EDITOR -->
+
+    <Grid
+      x:Name="TheEditor"
+      Grid.Column="1"
+      Visibility="Visible"
+      >
       <Grid.RowDefinitions>
         <RowDefinition Height="60"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
+
+      <!-- Region Editor's Toolbar -->
 
       <Grid Style="{StaticResource TitleBar}" x:Name="EditorTitle" Grid.Row="0">
         <TextBlock
@@ -318,12 +323,11 @@ Version: 20150823
         </StackPanel>
       </Grid>
 
+      <!-- End Region -->
+
+      <!-- Region Editor's Workspace -->
+
       <Grid Grid.Row="1" x:Name="TheWorkspace" DataContext="{Binding InitGesture}">
-
-        <Grid.BindingGroup>
-          <BindingGroup x:Name="WorkspaceBindingGroup"/>
-        </Grid.BindingGroup>
-
         <Grid.RowDefinitions>
           <RowDefinition Height="51"/>
           <RowDefinition Height="*" />
@@ -331,19 +335,23 @@ Version: 20150823
           <RowDefinition Height="220"/>
         </Grid.RowDefinitions>
 
+        <Grid.BindingGroup>
+          <BindingGroup x:Name="WorkspaceBindingGroup"/>
+        </Grid.BindingGroup>
+
         <Border Grid.Row="0">
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*"/>
               <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-        
+
             <TextBox
               Grid.Column="0"
               VerticalAlignment="Center"
               Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
               />
-            
+
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
               <Button
                 ToolTip="{lex:Loc KeyboardCommand}"
@@ -361,6 +369,7 @@ Version: 20150823
                        Text="{Binding Command, Converter={StaticResource commandConverterWithIcon}, Mode=OneWay}" />
                 </TextBlock>
               </Button>
+
               <ToggleButton
                 ToolTip="{lex:Loc PressOrHold}"
                 IsChecked="{Binding Hold, UpdateSourceTrigger=PropertyChanged}"
@@ -377,6 +386,8 @@ Version: 20150823
             </StackPanel>
           </Grid>
         </Border>
+
+        <!-- Region Editor's 2D and 3D views -->
 
         <Grid Grid.Row="1" DataContext="{Binding SelectedItem, ElementName=FramesListBox}">
 
@@ -407,7 +418,7 @@ Version: 20150823
               HorizontalAlignment="Center"
               />
           </Grid>
-          
+
           <HelixToolkit:HelixViewport3D
             Grid.Column="0"
             CameraMode="FixedPosition"
@@ -425,7 +436,7 @@ Version: 20150823
             <ModelVisual3D x:Name="SkeletonModelVisual3D_Editor_FrontViewPort"/>
             <ModelVisual3D x:Name="CurrentHotspotCellsModelVisual3D_Editor_FrontViewPort"/>
           </HelixToolkit:HelixViewport3D>
-          
+
           <UniformGrid
             x:Name="FVHints"
             Grid.Column="0"
@@ -462,7 +473,7 @@ Version: 20150823
               HorizontalAlignment="Center"
               />
           </Grid>
-          
+
           <HelixToolkit:HelixViewport3D
             Grid.Column="1"
             CameraMode="FixedPosition"
@@ -480,16 +491,16 @@ Version: 20150823
             <ModelVisual3D x:Name="SkeletonModelVisual3D_Editor_SideViewPort"/>
             <ModelVisual3D x:Name="CurrentHotspotCellsModelVisual3D_Editor_SideViewPort"/>
           </HelixToolkit:HelixViewport3D>
-          
-          <UniformGrid 
+
+          <UniformGrid
             x:Name="SVHints"
             Grid.Column="1"
 						Margin="10,10,0,10"
             Rows="20"
             Columns="20"
             />
-          
-          <controls:HotspotGrid 
+
+          <controls:HotspotGrid
             x:Name="SVGrid"
 						Grid.Column="1"
 						ItemsSource="{Binding SideCells}"
@@ -497,7 +508,7 @@ Version: 20150823
             SelectionChanged="SVGrid_SelectionChanged"
             />
 
-          <HelixToolkit:HelixViewport3D 
+          <HelixToolkit:HelixViewport3D
             x:Name="ViewPort3D_Editor"
             Grid.Column="2"
             MinWidth="63" MinHeight="69"
@@ -506,30 +517,29 @@ Version: 20150823
             Cursor="SizeAll"
             ShowViewCube="False"
             >
-            
             <HelixToolkit:HelixViewport3D.RotateGesture>
-              <MouseGesture 
+              <MouseGesture
                 MouseAction="LeftClick"
                 />
             </HelixToolkit:HelixViewport3D.RotateGesture>
-            
+
             <HelixToolkit:HelixViewport3D.DefaultCamera>
-              <PerspectiveCamera 
-                Position="300,300,300" 
-                LookDirection="-100,-100,-100" 
+              <PerspectiveCamera
+                Position="300,300,300"
+                LookDirection="-100,-100,-100"
                 UpDirection="0,0,1"
                 />
             </HelixToolkit:HelixViewport3D.DefaultCamera>
-            
+
             <HelixToolkit:SunLight/>
-            
-            <HelixToolkit:GridLinesVisual3D 
-              MinorDistance="15" 
-              MajorDistance="15" 
-              Thickness="1" 
-              Length="300" 
-              Width="300" 
-              Center="0 0 -150" 
+
+            <HelixToolkit:GridLinesVisual3D
+              MinorDistance="15"
+              MajorDistance="15"
+              Thickness="1"
+              Length="300"
+              Width="300"
+              Center="0 0 -150"
               Normal="0 0 1"
               >
               <HelixToolkit:GridLinesVisual3D.Fill>
@@ -539,14 +549,14 @@ Version: 20150823
                   />
               </HelixToolkit:GridLinesVisual3D.Fill>
             </HelixToolkit:GridLinesVisual3D>
-            
-            <HelixToolkit:GridLinesVisual3D 
-              MinorDistance="15" 
-              MajorDistance="15" 
-              Thickness="1" 
-              Length="300" 
-              Width="300" 
-              Center="0 -150 0" 
+
+            <HelixToolkit:GridLinesVisual3D
+              MinorDistance="15"
+              MajorDistance="15"
+              Thickness="1"
+              Length="300"
+              Width="300"
+              Center="0 -150 0"
               Normal="0 1 0"
               >
               <HelixToolkit:GridLinesVisual3D.Fill>
@@ -556,7 +566,7 @@ Version: 20150823
                   />
               </HelixToolkit:GridLinesVisual3D.Fill>
             </HelixToolkit:GridLinesVisual3D>
-            
+
             <HelixToolkit:GridLinesVisual3D
               MinorDistance="15"
               MajorDistance="15"
@@ -567,13 +577,13 @@ Version: 20150823
               LengthDirection="0.00000000001 0 1"
               >
               <HelixToolkit:GridLinesVisual3D.Fill>
-                <SolidColorBrush 
-                  Color="LightGray" 
+                <SolidColorBrush
+                  Color="LightGray"
                   Opacity="0.5"
                   />
               </HelixToolkit:GridLinesVisual3D.Fill>
             </HelixToolkit:GridLinesVisual3D>
-            
+
             <ModelVisual3D x:Name="SkeletonModelVisual3D_Editor"/>
             <ModelVisual3D x:Name="HotspotCellsModelVisual3D_Editor"/>
             <ModelVisual3D x:Name="HotspotCellsModelVisual3D_Hit_Editor"/>
@@ -581,202 +591,218 @@ Version: 20150823
 
         </Grid>
 
-        <GridSplitter
-          Grid.Row="2"
-          HorizontalAlignment="Stretch"
-          VerticalAlignment="Center"
-          Background="LightGray"
-          Height="1"
-          Margin="0,5,0,0"
-          />
+        <!-- End Region -->
 
-        <ScrollViewer
-          Grid.Row="3"
-          HorizontalScrollBarVisibility="Auto"
-          VerticalScrollBarVisibility="Hidden"
-          >
-          <StackPanel Orientation="Horizontal" CanHorizontallyScroll="True">
-            <Grid>
-              <Grid.RowDefinitions>
-                <RowDefinition Height="180"/>
-                <RowDefinition/>
-              </Grid.RowDefinitions>
-            
-              <Viewbox Margin="10,10,10,0" Grid.Row="0" Height="170">
-                <Grid>
-                  <Grid.Resources>
-                    
-                    <!-- Inspired by: https://gist.github.com/Konard/6059991 -->
-                    <Style TargetType="{x:Type RadioButton}">
-                      <Setter Property="Opacity" Value="0.4"/>
-                      <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                      <Setter Property="VerticalAlignment" Value="Stretch"/>
-                      
-                      <Setter Property="Template">
-                        <Setter.Value>
-                          <ControlTemplate TargetType="{x:Type RadioButton}">
-                            
-                            <Grid
-                              x:Name="templateRoot"
-                              Background="Transparent"
-                              SnapsToDevicePixels="True"
+        <Rectangle Grid.Row="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Center"
+            Fill="LightGray"
+            Margin="0,10,0,0"
+            Height="1"
+            />
+
+        <!-- Region Editor's Bottom area -->
+
+        <Grid Grid.Row="3">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+
+          <!-- Region Limb Selection -->
+
+          <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="180"/>
+              <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Viewbox Margin="10,10,10,0" Grid.Row="0" Height="170">
+              <Grid>
+                <Grid.Resources>
+
+                  <!-- Inspired by: https://gist.github.com/Konard/6059991 -->
+                  <Style TargetType="{x:Type RadioButton}">
+                    <Setter Property="Opacity" Value="0.4"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+
+                    <Setter Property="Template">
+                      <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RadioButton}">
+
+                          <Grid
+                            x:Name="templateRoot"
+                            Background="Transparent"
+                            SnapsToDevicePixels="True"
+                            >
+                            <Grid.ColumnDefinitions>
+                              <ColumnDefinition Width="Auto"/>
+                              <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border
+                              x:Name="radioButtonBorder"
+                              BorderBrush="{x:Null}"
+                              Background="LightGray"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                               >
-                              <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="*"/>
-                              </Grid.ColumnDefinitions>
-                              
-                              <Border
-                                x:Name="radioButtonBorder"
-                                BorderBrush="{x:Null}"
-                                Background="LightGray"
-                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                >
-                                <Grid x:Name="markGrid" Margin="2">
-                                  <Rectangle 
-                                    x:Name="optionMark"
-                                    Fill="LightBlue"
-                                    Opacity="0"
-                                    />
-                                </Grid>
-                              </Border>
-                            </Grid>
-                            
-                            <ControlTemplate.Triggers>
-                              <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="radioButtonBorder" Value="SlateBlue"/>
-                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="SlateBlue"/>
-                              </Trigger>
-                              <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" TargetName="radioButtonBorder" Value="Gainsboro"/>
-                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="Gainsboro"/>
-                              </Trigger>
-                              <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" TargetName="radioButtonBorder" Value="Indigo"/>
-                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="Indigo"/>
-                              </Trigger>
-                              <Trigger Property="IsChecked" Value="True">
-                                <Setter Property="Background" TargetName="radioButtonBorder" Value="DarkSlateBlue"/>
-                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="DarkSlateBlue"/>
-                              </Trigger>
-                            </ControlTemplate.Triggers>
-                            
-                          </ControlTemplate>
-                        </Setter.Value>
-                      </Setter>
-                    </Style>
-                    
-                  </Grid.Resources>
-              
-                  <Grid.Background>
-                    <ImageBrush
-                      ImageSource="Images/Silhouette/SilhouetteFront.png"
-                      Stretch="Uniform"
-                      Opacity="0.4"
-                      />
-                  </Grid.Background>
-                  
-                  <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                  </Grid.RowDefinitions>
-                  
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                  </Grid.ColumnDefinitions>
-                  
-                  <RadioButton
-                    GroupName="Joint"
-                    Grid.Row="0"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Center"
-                    ToolTip="{lex:Loc Head}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Head}"
+                              <Grid x:Name="markGrid" Margin="2">
+                                <Rectangle
+                                  x:Name="optionMark"
+                                  Fill="LightBlue"
+                                  Opacity="0"
+                                  />
+                              </Grid>
+                            </Border>
+                          </Grid>
+
+                          <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                              <Setter Property="Background" TargetName="radioButtonBorder" Value="SlateBlue"/>
+                              <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="SlateBlue"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                              <Setter Property="Background" TargetName="radioButtonBorder" Value="Gainsboro"/>
+                              <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="Gainsboro"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                              <Setter Property="Background" TargetName="radioButtonBorder" Value="Indigo"/>
+                              <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="Indigo"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                              <Setter Property="Background" TargetName="radioButtonBorder" Value="DarkSlateBlue"/>
+                              <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="DarkSlateBlue"/>
+                            </Trigger>
+                          </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                      </Setter.Value>
+                    </Setter>
+                  </Style>
+
+                </Grid.Resources>
+
+                <Grid.Background>
+                  <ImageBrush
+                    ImageSource="Images/Silhouette/SilhouetteFront.png"
+                    Stretch="Uniform"
+                    Opacity="0.4"
                     />
-                  <RadioButton 
-                    GroupName="Joint"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    ToolTip="{lex:Loc LeftElbow}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowLeft}"
-                    />
-                  <RadioButton 
-                    GroupName="Joint"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    ToolTip="{lex:Loc RightElbow}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowRight}"
-                    />
-                  <RadioButton 
-                    GroupName="Joint"
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    ToolTip="{lex:Loc LeftHand}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandLeft}"
-                    />
-                  <RadioButton 
-                    GroupName="Joint"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    ToolTip="{lex:Loc RightHand}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandRight}"
-                    />
-                  <RadioButton
-                    GroupName="Joint"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    ToolTip="{lex:Loc LeftKnee}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeLeft}"
-                    />
-                  <RadioButton 
-                    GroupName="Joint"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    ToolTip="{lex:Loc RightKnee}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeRight}"
-                    />
-                  <RadioButton 
-                    GroupName="Joint"
-                    Grid.Row="4"
-                    Grid.Column="0"
-                    ToolTip="{lex:Loc LeftFoot}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootLeft}"
-                    />
-                  <RadioButton 
-                    GroupName="Joint"
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    ToolTip="{lex:Loc RightFoot}"
-                    IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootRight}"
-                    />
-                </Grid>
-              </Viewbox>
-              
-              <TextBlock
-                Grid.Row="1"
-                Style="{StaticResource h2}"
-                Foreground="LightGray"
-                Text="{lex:Loc LimbSelection}"
-                HorizontalAlignment="Center"
-                Margin="10,0"
-                FontFamily="Segoe UI Light"
-                />
-            </Grid>
-            
-            <GridSplitter 
-              HorizontalAlignment="Center" 
-              VerticalAlignment="Stretch" 
-              Background="LightGray" 
-              Margin="0,0,10,0" 
-              Width="1"
+                </Grid.Background>
+
+                <Grid.RowDefinitions>
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                  <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition />
+                  <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="0"
+                  Grid.ColumnSpan="2"
+                  HorizontalAlignment="Center"
+                  ToolTip="{lex:Loc Head}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Head}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  ToolTip="{lex:Loc LeftElbow}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowLeft}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="1"
+                  Grid.Column="1"
+                  ToolTip="{lex:Loc RightElbow}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowRight}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="2"
+                  Grid.Column="0"
+                  ToolTip="{lex:Loc LeftHand}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandLeft}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  ToolTip="{lex:Loc RightHand}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandRight}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="3"
+                  Grid.Column="0"
+                  ToolTip="{lex:Loc LeftKnee}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeLeft}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="3"
+                  Grid.Column="1"
+                  ToolTip="{lex:Loc RightKnee}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeRight}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="4"
+                  Grid.Column="0"
+                  ToolTip="{lex:Loc LeftFoot}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootLeft}"
+                  />
+                <RadioButton
+                  GroupName="Joint"
+                  Grid.Row="4"
+                  Grid.Column="1"
+                  ToolTip="{lex:Loc RightFoot}"
+                  IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootRight}"
+                  />
+              </Grid>
+            </Viewbox>
+
+            <TextBlock
+              Grid.Row="1"
+              Style="{StaticResource h2}"
+              Foreground="LightGray"
+              Text="{lex:Loc LimbSelection}"
+              HorizontalAlignment="Center"
+              Margin="10,0"
+              FontFamily="Segoe UI Light"
               />
-            
-            <ListBox 
+          </Grid>
+
+          <!-- End Region -->
+
+          <Rectangle Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+            Fill="LightGray"
+            Margin="10,0"
+            Width="1"
+            />
+
+          <!-- Region Frames -->
+
+          <ScrollViewer Grid.Column="2"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Hidden"
+            HorizontalAlignment="Stretch"
+            >
+            <ListBox
               x:Name="FramesListBox"
               ItemsSource="{Binding Frames}"
 							VerticalAlignment="Center"
@@ -788,7 +814,7 @@ Version: 20150823
                   <StackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
               </ListBox.ItemsPanel>
-              
+
               <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
                   <Setter Property="Padding" Value="0"/>
@@ -796,7 +822,7 @@ Version: 20150823
                   <Setter Property="BorderBrush" Value="{x:Null}"/>
                 </Style>
               </ListBox.ItemContainerStyle>
-              
+
               <ListBox.ItemTemplate>
                 <DataTemplate>
                   <Grid Width="220"
@@ -805,13 +831,13 @@ Version: 20150823
                       <RowDefinition Height="*" />
                       <RowDefinition Height="30" />
                     </Grid.RowDefinitions>
-              
+
                     <Grid Grid.Row="0">
                       <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                       </Grid.ColumnDefinitions>
-                    
+
                       <!--This grid aligns the silhouette to the grid properly.-->
                       <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
@@ -823,19 +849,19 @@ Version: 20150823
                                Source="Images/Silhouette/SilhouetteFront.png"
                                Opacity="0.4"/>
                       </Grid>
-                      
+
                       <controls:HotspotGrid
                         Grid.Column="0"
                         ItemsSource="{Binding FrontCells, Mode=OneWay}"
                         Margin="5,5,0,5"
                         />
-                      
+
                       <!--This border kills interactions with the HotspotGrid without setting IsEnabled=False-->
-                      <Border 
+                      <Border
                         Grid.Column="0"
                         Background="Transparent"
                         />
-                      
+
                       <!--This grid aligns the silhouette to the grid properly.-->
                       <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -843,33 +869,33 @@ Version: 20150823
                           <RowDefinition Height="62*"/>
                           <RowDefinition Height="24*"/>
                         </Grid.RowDefinitions>
-                        
+
                         <Image
                           Grid.Row="1"
                           Source="Images/Silhouette/SilhouetteSide.png"
                           Opacity="0.4"
                           />
                       </Grid>
-                      
+
                       <controls:HotspotGrid
                         Grid.Column="1"
                         ItemsSource="{Binding SideCells, Mode=OneWay}"
                         Margin="5"
                         />
-                      
+
                       <!--This border kills interactions with the HotspotGrid without setting IsEnabled=False-->
                       <Border
                         Grid.Column="1"
                         Background="Transparent"
                         />
                     </Grid>
-                    
+
                     <StackPanel
                       Grid.Row="1"
                       Orientation="Horizontal"
                       HorizontalAlignment="Right"
                       >
-                      <Button 
+                      <Button
                         Click="DeleteFrameButton_Click"
     			              ToolTip="{lex:Loc DeleteFrame}"
     			              Width="20"
@@ -880,7 +906,7 @@ Version: 20150823
     			              VerticalAlignment="Bottom"
     			              Margin="0,0,5,5"
                         />
-                      <Button 
+                      <Button
                         Click="MoveFrameBackwardButton_Click"
      			              ToolTip="{lex:Loc MoveFrameBackward}"
     			              Width="20" Height="20"
@@ -905,8 +931,22 @@ Version: 20150823
                 </DataTemplate>
               </ListBox.ItemTemplate>
             </ListBox>
-            
-            <Button 
+          </ScrollViewer>
+
+          <!-- End Region -->
+
+          <!-- Region Frame addition and navigation -->
+
+          <StackPanel Grid.Column="3" Orientation="Vertical" Margin="10,20">
+            <Button
+              ToolTip="{lex:Loc SelectPreviousFrame}"
+							FontSize="20"
+							Content="&#x2191;"
+							Width="40"
+              Height="40"
+							Click="SelectPreviousFrameButton_Click"
+              />
+            <Button
               ToolTip="{lex:Loc AddNewFrame}"
 							FontSize="18"
 							Content="&#xE109;"
@@ -914,17 +954,32 @@ Version: 20150823
               Height="40"
 							Click="AddNewFrameButton_Click"
               />
+            <Button
+              ToolTip="{lex:Loc SelectNextFrame}"
+							FontSize="20"
+							Content="&#x2193;"
+							Width="40"
+              Height="40"
+							Click="SelectNextFrameButton_Click"
+              />
           </StackPanel>
-        </ScrollViewer>
+
+          <!-- End Region -->
+
+        </Grid>
+
+        <!-- End Region -->
 
       </Grid>
 
+      <!-- End Region -->
+
     </Grid>
-    
+
     <!-- End Region -->
 
-    <!-- #Region VISUALIZER -->
-    
+    <!-- Region VISUALIZER -->
+
     <Grid
       x:Name="TheVisualizer"
       Grid.Column="1"
@@ -934,6 +989,8 @@ Version: 20150823
         <RowDefinition Height="60"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
+
+      <!-- Region Visualizer's Toolbar -->
 
       <Grid
         x:Name="VisualizerTitle"
@@ -959,7 +1016,11 @@ Version: 20150823
         </StackPanel>
       </Grid>
 
-      <HelixToolkit:HelixViewport3D 
+      <!-- End Region -->
+
+      <!-- Region Visualizer's 3D display -->
+
+      <HelixToolkit:HelixViewport3D
         x:Name="ViewPort3D_Visualizer"
         MinWidth="63" MinHeight="69"
         ZoomExtentsWhenLoaded="True"
@@ -971,7 +1032,7 @@ Version: 20150823
         <HelixToolkit:HelixViewport3D.RotateGesture>
           <MouseGesture MouseAction="LeftClick"/>
         </HelixToolkit:HelixViewport3D.RotateGesture>
-        
+
         <HelixToolkit:HelixViewport3D.DefaultCamera>
           <PerspectiveCamera
             Position="300,300,300"
@@ -979,9 +1040,9 @@ Version: 20150823
             UpDirection="0,0,1"
             />
         </HelixToolkit:HelixViewport3D.DefaultCamera>
-        
+
         <HelixToolkit:SunLight/>
-        
+
         <HelixToolkit:GridLinesVisual3D
           MinorDistance="15"
           MajorDistance="15"
@@ -995,7 +1056,7 @@ Version: 20150823
             <SolidColorBrush Color="LightGray" Opacity="0.5" />
           </HelixToolkit:GridLinesVisual3D.Fill>
         </HelixToolkit:GridLinesVisual3D>
-        
+
         <HelixToolkit:GridLinesVisual3D
           MinorDistance="15"
           MajorDistance="15"
@@ -1009,7 +1070,7 @@ Version: 20150823
             <SolidColorBrush Color="LightGray" Opacity="0.5" />
           </HelixToolkit:GridLinesVisual3D.Fill>
         </HelixToolkit:GridLinesVisual3D>
-        
+
         <HelixToolkit:GridLinesVisual3D
           MinorDistance="15"
           MajorDistance="15"
@@ -1023,18 +1084,20 @@ Version: 20150823
             <SolidColorBrush Color="LightGray" Opacity="0.5" />
           </HelixToolkit:GridLinesVisual3D.Fill>
         </HelixToolkit:GridLinesVisual3D>
-        
+
         <ModelVisual3D x:Name="SkeletonModelVisual3D_Visualizer"/>
         <ModelVisual3D x:Name="HotspotCellsModelVisual3D_Visualizer"/>
         <ModelVisual3D x:Name="HotspotCellsModelVisual3D_Hit_Visualizer"/>
       </HelixToolkit:HelixViewport3D>
 
+      <!-- End Region -->
+
     </Grid>
-    
+
     <!-- End Region -->
 
-    <!-- #Region Overlays -->
-    
+    <!-- Region Sidebar for EDITOR -->
+
     <Border
       x:Name="ManagerOverlay"
       Grid.Column="0"
@@ -1048,7 +1111,7 @@ Version: 20150823
           <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid 
+        <Grid
           Style="{StaticResource TitleBar}"
           Grid.Row="0"
           >
@@ -1066,7 +1129,7 @@ Version: 20150823
           VerticalScrollBarVisibility="Auto"
           > <!-- TODO: should HorizontalScrollBarVisibility be set to "Disabled" here? -->
           <StackPanel>
-            <ItemsControl 
+            <ItemsControl
               x:Name="AllGesturesItemsControl"
               ItemsSource="{Binding GestureCollection}"
               HorizontalContentAlignment="Stretch"
@@ -1081,7 +1144,7 @@ Version: 20150823
                       <ColumnDefinition Width="*"/>
                       <ColumnDefinition Width="35"/>
                     </Grid.ColumnDefinitions>
-                    
+
                     <Rectangle
                       x:Name="AllGesturesItemBackgroundRectangle"
                       Grid.ColumnSpan="3"
@@ -1098,12 +1161,12 @@ Version: 20150823
                       </Rectangle.Style>
                     </Rectangle>
 
-                    <Border 
+                    <Border
                       Grid.Column="0"
                       Padding="5"
                       VerticalAlignment="Center"
                       >
-                      <TextBlock 
+                      <TextBlock
                         Style="{StaticResource h1}"
                         VerticalAlignment="Center"
                         FontFamily="Segoe UI Symbol"
@@ -1136,52 +1199,52 @@ Version: 20150823
                       Style="{StaticResource h1}"
                       /> <!-- Pen symbol -->
                   </Grid>
-                  
+
                   <DataTemplate.Triggers>
                     <!-- Alternate colors -->
                     <Trigger Property="ItemsControl.AlternationIndex" Value="0">
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemBackgroundRectangle"
                         Property="Fill"
                         Value="Red"
                         />
                     </Trigger>
                     <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemBackgroundRectangle"
                         Property="Fill"
                         Value="Green"
                         />
                     </Trigger>
                     <Trigger Property="ItemsControl.AlternationIndex" Value="2">
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemBackgroundRectangle"
                         Property="Fill"
                         Value="Blue"
                         />
                     </Trigger>
                     <Trigger Property="ItemsControl.AlternationIndex" Value="3">
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemBackgroundRectangle"
                         Property="Fill"
                         Value="Yellow"
                         />
                     </Trigger>
                     <Trigger Property="ItemsControl.AlternationIndex" Value="4">
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemBackgroundRectangle"
                         Property="Fill"
                         Value="Magenta"
                         />
                     </Trigger>
                     <Trigger Property="ItemsControl.AlternationIndex" Value="5">
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemBackgroundRectangle"
                         Property="Fill"
                         Value="Cyan"
                         />
                     </Trigger>
-                    
+
                     <!-- Different color for currently edited gesture -->
                     <DataTrigger Value="True">
                       <DataTrigger.Binding>
@@ -1192,12 +1255,12 @@ Version: 20150823
                         </MultiBinding>
                       </DataTrigger.Binding>
 
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemBackgroundRectangle"
                         Property="Fill"
                         Value="DarkSlateBlue"
                         />
-                      <Setter 
+                      <Setter
                         TargetName="AllGesturesItemEditText"
                         Property="Visibility"
                         Value="Visible"
@@ -1214,7 +1277,20 @@ Version: 20150823
       </Grid>
     </Border>
 
-    <Border 
+    <!-- End Region -->
+
+    <GridSplitter
+      Grid.Column="0"
+      ResizeDirection="Columns"
+		  ShowsPreview="True"
+      VerticalAlignment="Stretch"
+      Width="2"
+      Background="Gray"
+      /> <!-- This must be placed after the "Sidebar for EDITOR" region -->
+
+    <!-- Region Play button -->
+
+    <Border
       x:Name="EditorOverlay"
       Grid.Column="1"
       Background="DarkGray"
@@ -1232,7 +1308,11 @@ Version: 20150823
         />
     </Border>
 
-    <Grid 
+    <!-- End Region -->
+
+    <!-- Region Keyboard Command Selection UI -->
+
+    <Grid
       x:Name="EditorSetCommandOverlay"
       Grid.Column="1"
       Background="DarkGray"
@@ -1245,7 +1325,7 @@ Version: 20150823
         <RowDefinition Height="60"/>
         <RowDefinition Height="*"/>
       </Grid.RowDefinitions>
-      <TextBlock 
+      <TextBlock
         Grid.Row="1"
         Foreground="White"
         VerticalAlignment="Center"
@@ -1255,7 +1335,7 @@ Version: 20150823
         Text="{lex:Loc PressKeyCombinationForGesture}"
         />
 
-      <TextBlock 
+      <TextBlock
         Grid.Row="2"
         VerticalAlignment="Center"
         FontFamily="Segoe UI Symbol"
@@ -1268,25 +1348,25 @@ Version: 20150823
         <Run x:Name="EditorSetCommandOverlayKeyText"
              Text="{Binding Command, Converter={StaticResource commandConverterWithIcon}, Mode=OneWay}" />
       </TextBlock>
-      
+
       <StackPanel
         Grid.Row="3"
         Orientation="Horizontal"
         HorizontalAlignment="Center"
         >
-        <Button 
+        <Button
           Click="SetCommandCancelButton_Click"
           Grid.Row="3"
-          Content="&#xE10A;" 
+          Content="&#xE10A;"
           Width="40"
           Height="40"
           FontSize="18"
           Margin="0,10,5,10"
           />
-        <Button 
+        <Button
           Click="SetCommandOKButton_Click"
           Grid.Row="3"
-          Content="&#xE10B;" 
+          Content="&#xE10B;"
           Width="40"
           Height="40"
           FontSize="18"
@@ -1294,18 +1374,9 @@ Version: 20150823
           />
       </StackPanel>
     </Grid>
-    
+
     <!-- End Region -->
 
-    <GridSplitter 
-      Grid.Column="0"
-      ResizeDirection="Columns"
-		  ShowsPreview="True"
-      VerticalAlignment="Stretch"
-      Width="2"
-      Background="Gray"
-      />
-
   </Grid>
-  
+
 </Window>
