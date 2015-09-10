@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 Filename: SpeechGrammar_Visualizer_en.xml
-Version: 20150909
+Version: 20150910
 -->
 
 <grammar
@@ -9,19 +9,19 @@ Version: 20150909
   tag-format="semantics/1.0"
   version="1.0"
   root="rootRule"
-  xml:lang="en-US"
+  xml:lang="en"
   >
 
   <!--
-  semantics/1.0-literals that was supported by Microsoft.Speech (Speech Server SDK) seems to not be supported by System.Speech (Speech SDK),
-  need to use semantics/1.0 or semantics-ms/1.0 (both need different syntax), see https://msdn.microsoft.com/en-us/library/office/hh361606(v=office.14).aspx and https://msdn.microsoft.com/en-us/library/office/hh361639(v=office.14).aspx
+    Note: System.Speech doesn't support tag-format="semantics/1.0-literals" (Microsoft.Speech does instead),
+    so using tag-format="semantics/1.0" and instead of <tag>x</tag> using <tag>out="x"</tag>
   -->
 
   <rule id="rootRule">
     <one-of>
 
       <item>
-        <tag>out="PLAY";</tag>
+        <tag>out="PLAY"</tag>
         <one-of>
           <item> play </item>
           <item> test </item>
@@ -32,7 +32,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="CLOSE_VISUALIZER";</tag>
+        <tag>out="CLOSE_VISUALIZER"</tag>
         <one-of>
           <item> close </item>
           <item> close visualizer </item>

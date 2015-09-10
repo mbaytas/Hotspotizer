@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 Filename: SpeechGrammar_Manager_en.xml
-Version: 20150909
+Version: 20150910
 -->
 
 <grammar
@@ -13,15 +13,15 @@ Version: 20150909
   >
 
   <!--
-  semantics/1.0-literals that was supported by Microsoft.Speech (Speech Server SDK) seems to not be supported by System.Speech (Speech SDK),
-  need to use semantics/1.0 or semantics-ms/1.0 (both need different syntax), see https://msdn.microsoft.com/en-us/library/office/hh361606(v=office.14).aspx and https://msdn.microsoft.com/en-us/library/office/hh361639(v=office.14).aspx
+    Note: System.Speech doesn't support tag-format="semantics/1.0-literals" (Microsoft.Speech does instead),
+    so using tag-format="semantics/1.0" and instead of <tag>x</tag> using <tag>out="x"</tag>
   -->
 
   <rule id="rootRule">
     <one-of>
 
       <item>
-        <tag>out="EXIT_APPLICATION";</tag>
+        <tag>out="EXIT_APPLICATION"</tag>
         <one-of>
           <item> exit </item>
           <item> exit application </item>
@@ -29,7 +29,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="NEW_GESTURE_COLLECTION";</tag>
+        <tag>out="NEW_GESTURE_COLLECTION"</tag>
         <one-of>
           <item> new </item>
           <item> new collection </item>
@@ -38,7 +38,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="LOAD_GESTURE_COLLECTION";</tag>
+        <tag>out="LOAD_GESTURE_COLLECTION"</tag>
         <one-of>
           <item> load </item>
           <item> open </item>
@@ -50,7 +50,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="SAVE_GESTURE_COLLECTION";</tag>
+        <tag>out="SAVE_GESTURE_COLLECTION"</tag>
         <one-of>
           <item> save </item>
           <item> save collection </item>
@@ -58,7 +58,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="ADD_NEW_GESTURE";</tag>
+        <tag>out="ADD_NEW_GESTURE"</tag>
         <one-of>
           <item> add </item>
           <item> add gesture </item>
@@ -67,7 +67,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="EDIT_GESTURE";</tag>
+        <tag>out="EDIT_GESTURE"</tag>
         <one-of>
           <item> edit </item>
           <item> editor </item>
@@ -75,7 +75,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="REMOVE_GESTURE";</tag>
+        <tag>out="REMOVE_GESTURE"</tag>
         <one-of>
           <item> remove </item>
           <item> remove gesture </item>
@@ -85,7 +85,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="PREVIOUS_GESTURE";</tag>
+        <tag>out="PREVIOUS_GESTURE"</tag>
         <one-of>
           <item> previous </item>
           <item> select previous gesture</item>
@@ -93,7 +93,7 @@ Version: 20150909
       </item>
 
       <item>
-        <tag>out="NEXT_GESTURE";</tag>
+        <tag>out="NEXT_GESTURE"</tag>
         <one-of>
           <item> next </item>
           <item> select next gesture </item>
