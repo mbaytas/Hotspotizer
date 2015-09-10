@@ -1,12 +1,12 @@
 ﻿//Project: SpeechTurtle (http://SpeechTurtle.codeplex.com)
-//Filename: SpeechUtils.cs
-//Version: 20150909
+//Filename: SpeechRecognitionUtils.cs
+//Version: 20150910
 
 //IF YOU MODIFY THIS FILE, CONTRIBUTE THE CHANGES BACK TO THE SPEECHTURTLE PROJECT TOO
 
-using System.Speech.Recognition;
 using System.Globalization;
 using System.IO;
+using System.Speech.Recognition;
 using System.Text;
 
 namespace SpeechTurtle.Utils
@@ -14,7 +14,7 @@ namespace SpeechTurtle.Utils
   /// <summary>
   /// Speech-related utility methods
   /// </summary>
-  public static class SpeechUtils
+  public static class SpeechRecognitionUtils
   {
 
     /// <summary>

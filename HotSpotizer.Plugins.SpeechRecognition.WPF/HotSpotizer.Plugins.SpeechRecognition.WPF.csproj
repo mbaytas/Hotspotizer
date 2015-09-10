@@ -42,7 +42,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpeechRecognitionKinect.cs" />
     <Compile Include="SpeechRecognition.cs" />
-    <Compile Include="SpeechUtils.cs" />
+    <Compile Include="SpeechRecognitionUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Hotspotizer.Plugins.WPF\Hotspotizer.Plugins.WPF.csproj">

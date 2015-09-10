@@ -1,13 +1,13 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150909
+//Version: 20150910
 
 using Hotspotizer.Plugins.WPF;
-using System.Speech.Recognition;
+using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codeplex.com
 using System;
 using System.ComponentModel.Composition;
-using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codeplex.com
 using System.IO;
+using System.Speech.Recognition;
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {
@@ -106,7 +106,7 @@ namespace HotSpotizer.Plugins.Speech.WPF
 
     public void LoadGrammar(string grammar, string name)
     {
-      speechRecognitionEngine.LoadGrammar(SpeechUtils.CreateGrammarFromXML(grammar, name));
+      speechRecognitionEngine.LoadGrammar(SpeechRecognitionUtils.CreateGrammarFromXML(grammar, name));
     }
 
     public void LoadGrammar(Stream stream, string name)
