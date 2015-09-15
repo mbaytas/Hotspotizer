@@ -151,7 +151,7 @@ namespace Hotspotizer.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really want to delete the gesture &quot;%s&quot; from the collection?.
+        ///   Looks up a localized string similar to Do you really want to delete the gesture &quot;{0}&quot; from the collection?.
         /// </summary>
         public static string DeleteGestureFromCollectionConfirmation {
             get {
@@ -445,6 +445,24 @@ namespace Hotspotizer.Properties {
         public static string SaveGestureCollection {
             get {
                 return ResourceManager.GetString("SaveGestureCollection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Next Frame.
+        /// </summary>
+        public static string SelectNextFrame {
+            get {
+                return ResourceManager.GetString("SelectNextFrame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select Previous Frame.
+        /// </summary>
+        public static string SelectPreviousFrame {
+            get {
+                return ResourceManager.GetString("SelectPreviousFrame", resourceCulture);
             }
         }
         

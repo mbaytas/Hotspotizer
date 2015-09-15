@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.EditorUtils.cs
-//Version: 20150909
+//Version: 20150915
 
 using HelixToolkit.Wpf;
 using System;
@@ -90,6 +90,17 @@ namespace Hotspotizer
       RemoveHandler(Keyboard.PreviewKeyDownEvent, (KeyEventHandler)SetCommand_KeyDown);
       RemoveHandler(Keyboard.PreviewKeyUpEvent, (KeyEventHandler)SetCommand_KeyUp);
       EditorSetCommandOverlay.Visibility = Visibility.Hidden;
+    }
+
+    /// <summary>
+    /// Cancel command selection
+    /// </summary>
+    public void CancelCommandSelector()
+    {
+      CloseCommandSelector();
+      // De-update gesture
+      Gesture g = (Gesture)TheWorkspace.DataContext;
+      g.Command = new ObservableCollection<Key>(CommandBackup);
     }
 
     #endregion
@@ -415,6 +426,8 @@ namespace Hotspotizer
 
     #region --- Events ---
 
+    #region Command selection UI
+
     private void SetCommandButton_Click(object sender, RoutedEventArgs e)
     {
       // Put the overlay on Editor
@@ -452,19 +465,9 @@ namespace Hotspotizer
       e.Handled = true;
     }
 
-    private void SetCommandCancelButton_Click(object sender, RoutedEventArgs e)
-    {
-      CloseCommandSelector();
+    #endregion
 
-      // De-update gesture
-      Gesture g = (Gesture)TheWorkspace.DataContext;
-      g.Command = new ObservableCollection<Key>(CommandBackup);
-    }
-
-    private void SetCommandOKButton_Click(object sender, RoutedEventArgs e)
-    {
-      CloseCommandSelector();
-    }
+    #region Frames UI
 
     private void AddNewFrameButton_Click(object sender, RoutedEventArgs e)
     {
@@ -502,6 +505,10 @@ namespace Hotspotizer
       MoveFrameForward(f);
     }
 
+    #endregion
+
+    #region Front and Side view UI
+
     /// <summary>
     /// Enable/disable rows on SideViewGrid according to selection on FrontViewGrid
     /// </summary>
@@ -514,6 +521,8 @@ namespace Hotspotizer
     {
       SyncEditorGrids();
     }
+
+    #endregion
 
     private void Kinect_SkeletonFrameReady_Editor(object sender, SkeletonFrameReadyEventArgs e)
     {

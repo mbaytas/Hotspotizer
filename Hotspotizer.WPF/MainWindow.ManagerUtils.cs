@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.ManagerUtils.cs
-//Version: 20150908
+//Version: 20150915
 
 using System.Windows;
 using System.Windows.Controls;
@@ -108,6 +108,23 @@ namespace Hotspotizer
       ShowEditor();
     }
 
+    public void EditGesture(Gesture g)
+    {
+      // Store the initial state of the gesture being edited
+      ExGesture = DeepCopyGesture(g);
+      // Go
+      TheWorkspace.DataContext = g;
+      ShowEditor();
+    }
+
+    public void DeleteGesture(Gesture g)
+    {
+      if (MessageBox.Show(string.Format(GlblRes.DeleteGestureFromCollectionConfirmation, g.Name),
+                    GlblRes.DeleteGestureFromCollection, MessageBoxButton.YesNo)
+          == MessageBoxResult.Yes)
+        GestureCollection.Remove(g);
+    }
+
     #endregion
 
     #endregion
@@ -118,22 +135,14 @@ namespace Hotspotizer
     {
       Button b = (Button)sender;
       Gesture g = (Gesture)b.DataContext;
-
-      // Store the initial state of the gesture being edited
-      ExGesture = DeepCopyGesture(g);
-      // Go
-      TheWorkspace.DataContext = g;
-      ShowEditor();
+      EditGesture(g);
     }
 
     public void DeleteGestureButton_Click(object sender, RoutedEventArgs e)
     {
       Button b = (Button)sender;
       Gesture g = (Gesture)b.DataContext;
-      if (MessageBox.Show(string.Format(GlblRes.DeleteGestureFromCollectionConfirmation, g.Name),
-                          GlblRes.DeleteGestureFromCollection, MessageBoxButton.YesNo)
-          == MessageBoxResult.Yes)
-        GestureCollection.Remove(g);
+      DeleteGesture(g);
     }
 
     #endregion

@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150909
+Version: 20150915
 -->
 
 <!-- TODO: maybe add a [+] sign after each frame to allow adding intermediate frames to an existing list (to finetune the movement). Can use move left-right action though to reorder a new frame added to the end already -->
@@ -1357,7 +1357,7 @@ Version: 20150909
         HorizontalAlignment="Center"
         >
         <Button
-          Click="SetCommandCancelButton_Click"
+          Command="{Binding CancelCommandSelectorCommand}"
           Grid.Row="3"
           Content="&#xE10A;"
           Width="40"
@@ -1366,7 +1366,7 @@ Version: 20150909
           Margin="0,10,5,10"
           />
         <Button
-          Click="SetCommandOKButton_Click"
+          Command="{Binding CloseCommandSelectorCommand}"
           Grid.Row="3"
           Content="&#xE10B;"
           Width="40"

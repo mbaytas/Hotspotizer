@@ -137,7 +137,7 @@
     <value>Delete Gesture from Collection</value>
   </data>
   <data name="DeleteGestureFromCollectionConfirmation" xml:space="preserve">
-    <value>Do you really want to delete the gesture "%s" from the collection?</value>
+    <value>Do you really want to delete the gesture "{0}" from the collection?</value>
   </data>
   <data name="URL_DownloadKinectSDK" xml:space="preserve">
     <value>http://www.microsoft.com/en-us/download/details.aspx?id=40278</value>
@@ -255,5 +255,11 @@
   </data>
   <data name="Visualizer" xml:space="preserve">
     <value>Visualizer</value>
+  </data>
+  <data name="SelectNextFrame" xml:space="preserve">
+    <value>Select Next Frame</value>
+  </data>
+  <data name="SelectPreviousFrame" xml:space="preserve">
+    <value>Select Previous Frame</value>
   </data>
 </root>

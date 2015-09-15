@@ -1,16 +1,21 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150909
+//Version: 20150910
 
 //see: http://kin-educate.blogspot.gr/2012/06/speech-recognition-for-kinect-easy-way.html
 
 using System.Linq;
 using System.ComponentModel.Composition;
 using Hotspotizer.Plugins.WPF;
-using System.Speech.Recognition;
 using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codeplex.com
 using System.Globalization;
 using Microsoft.Kinect;
+
+#if USE_MICROSOFT_SPEECH
+using Microsoft.Speech.Recognition;
+#else
+using System.Speech.Recognition;
+#endif
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {

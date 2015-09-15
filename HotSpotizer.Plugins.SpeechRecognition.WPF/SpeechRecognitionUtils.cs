@@ -2,12 +2,17 @@
 //Filename: SpeechRecognitionUtils.cs
 //Version: 20150910
 
-//IF YOU MODIFY THIS FILE, CONTRIBUTE THE CHANGES BACK TO THE SPEECHTURTLE PROJECT TOO
+/*** IF YOU MODIFY THIS FILE, CONTRIBUTE THE CHANGES BACK TO THE SPEECHTURTLE PROJECT TOO ***/
 
 using System.Globalization;
 using System.IO;
-using System.Speech.Recognition;
 using System.Text;
+
+#if USE_MICROSOFT_SPEECH
+using Microsoft.Speech.Recognition;
+#else
+using System.Speech.Recognition;
+#endif
 
 namespace SpeechTurtle.Utils
 {

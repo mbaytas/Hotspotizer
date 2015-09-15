@@ -7,7 +7,12 @@ using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codepl
 using System;
 using System.ComponentModel.Composition;
 using System.IO;
+
+#if USE_MICROSOFT_SPEECH
+using Microsoft.Speech.Recognition;
+#else
 using System.Speech.Recognition;
+#endif
 
 namespace HotSpotizer.Plugins.Speech.WPF
 {

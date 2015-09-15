@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: EditorCommands.cs
-//Version: 20150905
+//Version: 20150915
 
 using System.Collections.Generic;
 using System.Windows.Input;
@@ -30,8 +30,8 @@ namespace Hotspotizer
     public const string RIGHT_KNEE = "RIGHT_KNEE";
     public const string LEFT_FOOT = "LEFT_FOOT";
     public const string RIGHT_FOOT = "RIGHT_FOOT";
-    public const string OK = "OK";
-    public const string CANCEL = "CANCEL";
+    public const string CLOSE_COMMAND_SELECTOR = "OK";
+    public const string CANCEL_COMMAND_SELECTOR = "CANCEL";
 
     #endregion
 
