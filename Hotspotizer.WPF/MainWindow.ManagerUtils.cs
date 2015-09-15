@@ -29,8 +29,7 @@ namespace Hotspotizer
       if (MessageBox.Show(GlblRes.DiscardGestureCollectionConfirmation,
                           GlblRes.CreateNewGestureCollection, MessageBoxButton.YesNo)
           == MessageBoxResult.Yes)
-        while (GestureCollection.Count > 0)
-          GestureCollection.RemoveAt(0);
+        GestureCollection.Clear();
     }
 
     public void LoadGestureCollection()
@@ -44,8 +43,7 @@ namespace Hotspotizer
         // DeserializeObject() does not appear to correctly deserialize Gesture objects
         // Below is a kinda-dirty solution around that
         List<Gesture> sourceList = JsonConvert.DeserializeObject<List<Gesture>>(json);
-        while (GestureCollection.Count > 0)
-          GestureCollection.RemoveAt(0);
+        GestureCollection.Clear();
 
         foreach (Gesture sourceGesture in sourceList)
         {
@@ -57,8 +55,7 @@ namespace Hotspotizer
             Joint = sourceGesture.Joint
           };
 
-          while (targetGesture.Frames.Count > 0)
-            targetGesture.Frames.RemoveAt(0);
+          targetGesture.Frames.Clear();
 
           foreach (GestureFrame sourceFrame in sourceGesture.Frames)
           {
