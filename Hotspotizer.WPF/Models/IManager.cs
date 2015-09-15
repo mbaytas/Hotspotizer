@@ -10,7 +10,6 @@ namespace Hotspotizer.Models
   public interface IManager
   {
     ObservableCollection<Gesture> GestureCollection { get; set; }
-    ICommand SaveGestureCollectionCommand { get; set; }
 
     void AddNewGesture();
     bool CanSaveGestureCollection();

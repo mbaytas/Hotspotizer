@@ -30,8 +30,8 @@ namespace Hotspotizer
     public const string RIGHT_KNEE = "RIGHT_KNEE";
     public const string LEFT_FOOT = "LEFT_FOOT";
     public const string RIGHT_FOOT = "RIGHT_FOOT";
-    public const string CLOSE_COMMAND_SELECTOR = "OK";
-    public const string CANCEL_COMMAND_SELECTOR = "CANCEL";
+    public const string CLOSE_COMMAND_SELECTOR = "CLOSE_COMMAND_SELECTOR";
+    public const string CANCEL_COMMAND_SELECTOR = "CANCEL_COMMAND_SELECTOR";
 
     #endregion
 

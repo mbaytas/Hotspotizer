@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 Filename: SpeechGrammar_Editor_en.xml
-Version: 20150910
+Version: 20150915
 -->
 
 <grammar
@@ -167,14 +167,14 @@ Version: 20150910
       </item>
 
       <item>
-        <tag>out="OK"</tag>
+        <tag>out="CLOSE_COMMAND_SELECTOR"</tag>
         <one-of>
           <item> OK </item>
         </one-of>
       </item>
 
       <item>
-        <tag>out="CANCEL"</tag>
+        <tag>out="CANCEL_COMMAND_SELECTOR"</tag>
         <one-of>
           <item> cancel </item>
         </one-of>

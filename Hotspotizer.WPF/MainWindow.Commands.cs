@@ -4,6 +4,7 @@
 
 using System.Windows.Input;
 using Hotspotizer.Helpers;
+using System.Collections.Generic;
 
 namespace Hotspotizer
 {
@@ -12,21 +13,23 @@ namespace Hotspotizer
 
     #region --- Properties ---
 
+    public readonly Dictionary<string, ICommand> Commands = new Dictionary<string, ICommand>();
+
     //Manager//
-    public ICommand CreateNewGestureCollectionCommand { get; set; }
-    public ICommand LoadGestureCollectionCommand { get; set; }
-    public ICommand SaveGestureCollectionCommand { get; set; }
-    public ICommand AddNewGestureCommand { get; set; }
+    public RelayCommand CreateNewGestureCollectionCommand { get; set; }
+    public RelayCommand LoadGestureCollectionCommand { get; set; }
+    public RelayCommand SaveGestureCollectionCommand { get; set; }
+    public RelayCommand AddNewGestureCommand { get; set; }
 
     //Editor//
-    public ICommand SaveGestureCommand { get; set; }
-    public ICommand DiscardGestureCommand { get; set; }
-    public ICommand CloseCommandSelectorCommand { get; set; }
-    public ICommand CancelCommandSelectorCommand { get; set; }
+    public RelayCommand SaveGestureCommand { get; set; }
+    public RelayCommand DiscardGestureCommand { get; set; }
+    public RelayCommand CloseCommandSelectorCommand { get; set; }
+    public RelayCommand CancelCommandSelectorCommand { get; set; }
 
     //Visualizer//
-    public ICommand PlayCommand { get; set; }
-    public ICommand CloseVisualizerCommand { get; set; }
+    public RelayCommand PlayCommand { get; set; }
+    public RelayCommand CloseVisualizerCommand { get; set; }
 
     #endregion
 
@@ -35,20 +38,20 @@ namespace Hotspotizer
     private void RegisterCommands()
     {
       //Manager//
-      CreateNewGestureCollectionCommand = new RelayCommand(ManagerCommands.NEW_GESTURE_COLLECTION, (p)=>CreateNewGestureCollection());
-      LoadGestureCollectionCommand = new RelayCommand(ManagerCommands.LOAD_GESTURE_COLLECTION, (p)=>LoadGestureCollection());
-      SaveGestureCollectionCommand = new RelayCommand(ManagerCommands.SAVE_GESTURE_COLLECTION, (p)=>SaveGestureCollection(), (p)=>CanSaveGestureCollection());
-      AddNewGestureCommand = new RelayCommand(ManagerCommands.ADD_NEW_GESTURE, (p)=>AddNewGesture());
+      Commands.Add(ManagerCommands.NEW_GESTURE_COLLECTION, CreateNewGestureCollectionCommand = new RelayCommand((p)=>CreateNewGestureCollection()));
+      Commands.Add(ManagerCommands.LOAD_GESTURE_COLLECTION, LoadGestureCollectionCommand = new RelayCommand((p)=>LoadGestureCollection()));
+      Commands.Add(ManagerCommands.SAVE_GESTURE_COLLECTION, SaveGestureCollectionCommand = new RelayCommand((p)=>SaveGestureCollection(), (p)=>CanSaveGestureCollection()));
+      Commands.Add(ManagerCommands.ADD_NEW_GESTURE, AddNewGestureCommand = new RelayCommand((p)=>AddNewGesture()));
 
       //Editor//
-      SaveGestureCommand = new RelayCommand(EditorCommands.SAVE_GESTURE, (p)=>SaveGesture(), (p)=>CanSaveGesture());
-      DiscardGestureCommand = new RelayCommand(EditorCommands.CLOSE_EDITOR, (p)=>DiscardGesture());
-      CloseCommandSelectorCommand = new RelayCommand(EditorCommands.CLOSE_COMMAND_SELECTOR, (p) => CloseCommandSelector());
-      CancelCommandSelectorCommand = new RelayCommand(EditorCommands.CANCEL_COMMAND_SELECTOR, (p) => CancelCommandSelector());
+      Commands.Add(EditorCommands.SAVE_GESTURE, SaveGestureCommand = new RelayCommand((p)=>SaveGesture(), (p)=>CanSaveGesture()));
+      Commands.Add(EditorCommands.CLOSE_EDITOR, DiscardGestureCommand = new RelayCommand((p)=>DiscardGesture()));
+      Commands.Add(EditorCommands.CLOSE_COMMAND_SELECTOR, CloseCommandSelectorCommand = new RelayCommand((p) => CloseCommandSelector()));
+      Commands.Add(EditorCommands.CANCEL_COMMAND_SELECTOR, CancelCommandSelectorCommand = new RelayCommand((p) => CancelCommandSelector()));
 
       //Visualizer//
-      PlayCommand = new RelayCommand(VisualizerCommands.PLAY, (p)=>ShowVisualizer(), (p)=>CanPlay());
-      CloseVisualizerCommand = new RelayCommand(VisualizerCommands.CLOSE_VISUALIZER, (p)=>CloseVisualizer());
+      Commands.Add(VisualizerCommands.PLAY, PlayCommand = new RelayCommand((p)=>ShowVisualizer(), (p)=>CanPlay()));
+      Commands.Add(VisualizerCommands.CLOSE_VISUALIZER, CloseVisualizerCommand = new RelayCommand((p)=>CloseVisualizer()));
     }
 
     #endregion
