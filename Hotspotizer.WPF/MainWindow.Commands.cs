@@ -16,20 +16,21 @@ namespace Hotspotizer
     public readonly Dictionary<string, ICommand> Commands = new Dictionary<string, ICommand>();
 
     //Manager//
-    public RelayCommand CreateNewGestureCollectionCommand { get; set; }
-    public RelayCommand LoadGestureCollectionCommand { get; set; }
-    public RelayCommand SaveGestureCollectionCommand { get; set; }
-    public RelayCommand AddNewGestureCommand { get; set; }
+    public RelayCommand ExitApplicationCommand { get; private set; }
+    public RelayCommand CreateNewGestureCollectionCommand { get; private set; }
+    public RelayCommand LoadGestureCollectionCommand { get; private set; }
+    public RelayCommand SaveGestureCollectionCommand { get; private set; }
+    public RelayCommand AddNewGestureCommand { get; private set; }
 
     //Editor//
-    public RelayCommand SaveGestureCommand { get; set; }
-    public RelayCommand DiscardGestureCommand { get; set; }
-    public RelayCommand CloseCommandSelectorCommand { get; set; }
-    public RelayCommand CancelCommandSelectorCommand { get; set; }
+    public RelayCommand SaveGestureCommand { get; private set; }
+    public RelayCommand DiscardGestureCommand { get; private set; }
+    public RelayCommand CloseCommandSelectorCommand { get; private set; }
+    public RelayCommand CancelCommandSelectorCommand { get; private set; }
 
     //Visualizer//
-    public RelayCommand PlayCommand { get; set; }
-    public RelayCommand CloseVisualizerCommand { get; set; }
+    public RelayCommand PlayCommand { get; private set; }
+    public RelayCommand CloseVisualizerCommand { get; private set; }
 
     #endregion
 
@@ -38,6 +39,7 @@ namespace Hotspotizer
     private void RegisterCommands()
     {
       //Manager//
+      Commands.Add(ManagerCommands.EXIT_APPLICATION, ExitApplicationCommand = new RelayCommand((p) => ExitApplication()));
       Commands.Add(ManagerCommands.NEW_GESTURE_COLLECTION, CreateNewGestureCollectionCommand = new RelayCommand((p)=>CreateNewGestureCollection()));
       Commands.Add(ManagerCommands.LOAD_GESTURE_COLLECTION, LoadGestureCollectionCommand = new RelayCommand((p)=>LoadGestureCollection()));
       Commands.Add(ManagerCommands.SAVE_GESTURE_COLLECTION, SaveGestureCollectionCommand = new RelayCommand((p)=>SaveGestureCollection(), (p)=>CanSaveGestureCollection()));

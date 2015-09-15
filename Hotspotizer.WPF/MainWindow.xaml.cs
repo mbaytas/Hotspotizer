@@ -1,6 +1,8 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150909
+//Version: 20150915
+
+//TODO: adapt code from SpeechTurtle project on Codeplex to be able to respond to MessageBoxes shown by the app (like Yes or No)
 
 using Hotspotizer.Models;
 using System;
@@ -117,6 +119,11 @@ namespace Hotspotizer
     }
 
     #endregion
+
+    public void ExitApplication()
+    {
+      Application.Current.MainWindow.Close();
+    }
 
     private Gesture MakeNewGesture()
     {

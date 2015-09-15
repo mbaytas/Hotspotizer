@@ -1,12 +1,13 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.SpeechUtils.cs
-//Version: 20150909
+//Version: 20150915
 
 using Hotspotizer.Plugins.WPF;
 using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Hotspotizer
 {
@@ -84,15 +85,12 @@ namespace Hotspotizer
 
     private void SpeechRecognition_Recognized(object sender, SpeechRecognitionEventArgs e)
     {
-      if (e.confidence < SpeechRecognitionConfidenceThreshold)
-        return;
-
-      switch (e.command) //TODO: check a dictionary of named commands (define one at MainWindow.Commands) instead of using a switch
-      {
-        case ManagerCommands.EXIT_APPLICATION:
-          Application.Current.MainWindow.Close(); //TODO: add as named command at MainWidow.Commands
-          break;
-      }
+      ICommand cmd;
+      if ((e.confidence >= SpeechRecognitionConfidenceThreshold) &&
+          Commands.TryGetValue(e.command, out cmd) &&
+          cmd.CanExecute(null)
+         ) //must use && to do short-circuit boolean evaluation here
+        cmd.Execute(null);
     }
 
     private void SpeechRecognition_NotRecognized(object sender, EventArgs e)
