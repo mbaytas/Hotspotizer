@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20150909
+//Version: 20151011
 
 using HelixToolkit.Wpf;
 using System;
@@ -105,6 +105,11 @@ namespace Hotspotizer
         return true;
       else
         return false;
+    }
+
+    private bool IsVisualizerVisible()
+    {
+      return (TheVisualizer.Visibility == Visibility.Visible);
     }
 
     private void SetVisualizerVisible()

@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 Filename: SpeechGrammar_Editor_en.xml
-Version: 20150915
+Version: 20151011
 -->
 
 <grammar
@@ -86,11 +86,11 @@ Version: 20150915
       </item>
 
       <item>
-        <tag>out="MOVE_FRAME_BACK"</tag>
+        <tag>out="MOVE_FRAME_BACKWARDS"</tag>
         <one-of>
           <item> back </item>
           <item> move back </item>
-          <item> move frame back </item>
+          <item> move frame backwards </item>
         </one-of>
       </item>
 

@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Models / IFrameManager.cs
-//Version: 20150908
+//Version: 20151011
 
 namespace Hotspotizer.Models
 {
@@ -20,7 +20,7 @@ namespace Hotspotizer.Models
     void SelectPreviousFrame(); //TODO
     void SelectNextFrame(); //TODO
 
-    void MoveCurrentFrameBackward();
+    void MoveCurrentFrameBackwards();
     void MoveCurrentFrameForward();
 
     #endregion

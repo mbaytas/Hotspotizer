@@ -1,9 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: VisualizerCommands.cs
-//Version: 20150905
-
-using System.Collections.Generic;
-using System.Windows.Input;
+//Version: 20151011
 
 namespace Hotspotizer
 {

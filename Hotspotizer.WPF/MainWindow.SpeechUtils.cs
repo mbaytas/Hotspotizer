@@ -4,6 +4,7 @@
 
 using Hotspotizer.Plugins.WPF;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -61,7 +62,7 @@ namespace Hotspotizer
       if (speechRecognition == null)
         return;
 
-      string grammarsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Grammars");
+      string grammarsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Grammars", "SRGS");
       speechRecognition.LoadGrammar (new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Manager_en.xml"), FileMode.Open), "Manager");
       speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Editor_en.xml"), FileMode.Open), "Editor");
       speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Visualizer_en.xml"), FileMode.Open), "Visualizer");
@@ -85,9 +86,14 @@ namespace Hotspotizer
 
     private void SpeechRecognition_Recognized(object sender, SpeechRecognitionEventArgs e)
     {
+      Dictionary<string, ICommand> commands;
+      if (IsEditorVisible()) commands = commands_Editor;
+      else if (IsVisualizerVisible()) commands = commands_Visualizer;
+      else commands = commands_Manager;
+
       ICommand cmd;
       if ((e.confidence >= SpeechRecognitionConfidenceThreshold) &&
-          Commands.TryGetValue(e.command, out cmd) &&
+          commands.TryGetValue(e.command, out cmd) &&
           cmd.CanExecute(null)
          ) //must use && to do short-circuit boolean evaluation here
         cmd.Execute(null);

@@ -261,17 +261,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Grammars\SpeechGrammar_Editor_en.xml">
+    <None Include="Grammars\SRGS\SpeechGrammar_Editor_en.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Grammars\SpeechGrammar_Manager_en.xml">
+    <None Include="Grammars\SRGS\SpeechGrammar_Manager_en.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Grammars\SpeechGrammar_Visualizer_en.xml">
+    <None Include="Grammars\SRGS\SpeechGrammar_Visualizer_en.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

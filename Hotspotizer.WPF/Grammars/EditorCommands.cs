@@ -1,9 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: EditorCommands.cs
-//Version: 20150915
-
-using System.Collections.Generic;
-using System.Windows.Input;
+//Version: 20151011
 
 namespace Hotspotizer
 {
@@ -20,7 +17,8 @@ namespace Hotspotizer
     public const string ADD_FRAME = "ADD_FRAME";
     public const string REMOVE_FRAME = "REMOVE_FRAME";
     public const string NAME = "NAME";
-    public const string MOVE_FRAME_BACK = "MOVE_FRAME_BACK";
+    public const string MOVE_FRAME_BACKWARDS = "MOVE_FRAME_BACKWARDS";
+    public const string MOVE_FRAME_FORWARD = "MOVE_FRAME_FORWARD";
     public const string HEAD = "HEAD";
     public const string LEFT_SHOULDER = "LEFT_SHOULDER";
     public const string RIGHT_SHOULDER = "RIGHT_SHOULDER";
