@@ -57,7 +57,7 @@ Hotspotizer has been designed primarily for the following purposes:
 
 ## Installation
 
-Download the release.
+Download [the latest release](https://github.com/mbaytas/Hotspotizer/releases).
 
 Unzip the archive and run `setup.exe` to install.
 
