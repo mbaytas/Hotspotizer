@@ -93,14 +93,17 @@ We’ll implement a simple “swipe” gesture with the right hand, from the lef
 
 ![Keyboard Key Assignment](/_screenshots/hs_keyboardbutton.png)
 
-
 After naming the gesture, click the “Keyboard Command” button to set the keyboard mapping. Press the “space” button and click the “check” symbol to accept.
 
 *The “Press/Hold” toggle button next to the “Keyboard Command” button sets whether performing the gesture should trigger a single key press or hold down the keyboard button as long as the tracked limb remains in the hotspots of the gesture’s last frame.*
 
+![Setting the Keyboar Command](/_screenshots/hs_spacekey.png)
+
 *You can map your gestures to any combination of keys, not just a single key.*
 
 Select the limb that will be used to perform the gesture – in this case, the right hand.
+
+![Limb Selection](/_screenshots/hs_righthand.png)
 
 We’ll implement a “swipe” gesture that incorporates 3 frames: The right hand will pass through “hotspots” on the left, in the middle, and on the right, respectively.
 
@@ -110,13 +113,22 @@ Mark the hotspots for the first frame on the front view grid first. On the side 
 
 *You can rotate the 3D viewport in the Editor and the Visualizer by right-clicking it and holding the right mouse button as you move the mouse around. You can zoom in and out using the mouse wheel or ctrl + right mouse button.*
 
+![Testing with Kinect](/_screenshots/hs_kinect1.png)
+
 Step in front of the Kinect to try them out. See if the hotspots you marked really correspond to where you want your right hand to be at when you begin the gesture.
+
+![Add New Frame Button](/_screenshots/hs_addframe.png)
 
 Add the second (middle) frame using the “Add New Frame” button and mark hotspots on it. Then add the third frame.
 
 *You can go back and edit frames by clicking on them on the timeline at the bottom. You can also re-order and delete frames using the buttons below the frame’s mini-grids.*
 
+![Gesture with 3 Frames](/_screenshots/hs_3frame.png)
+
 *As you add frames, hotspots of the previous frames will still appear on the 3D viewport, but they will become more transparent. If there are other gestures in the gesture set you are working on, those will also appear there, and they will be very transparent (see screenshots above). This is to aid the user in keeping track of where their current hotspots are in relation to the other gestures in the set.*
+
+![Save Button](/_screenshots/hs_savegesture.png)
+![Manager with 1 Gesture](/_screenshots/hs_swipemanager.png)
 
 Save the gesture. The gesture is now part of the gesture collection loaded in the Manager and you can see its press/hold behavior, keyboard mapping and name listed in there, along with buttons to launch the Editor to make changes on the gesture and delete the gesture from the gesture collection completely.
 
@@ -124,6 +136,8 @@ Click the “Begin Emulation” (or “Play”) button to launch the visualizer.
 
 - A color-coded list of the gestures in the current gesture collection with their press/hold behavior, key mapping and name.
 - On a zoomable and rotatable 3D viewport and non-movable front- and side-view ports; the hotspots, color-coded, of all of the gestures in your gesture collection. The opacity of the hotspots corresponds to which frame they belong to within the gesture. Transparent hotspots are to be touched before more opaque hotspots.
+
+![Visualizer](/_screenshots/hs_visualizer.png)
 
 The hotspots and the list items will light up when you perform the gesture. Step in front of the Kinect and try it!
 
