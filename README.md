@@ -23,9 +23,11 @@ Conversely; if my work somehow makes use of content that belongs to you (or an o
 
 ## Academic Project Info
 
-**Advisors:** Oğuzhan Özcan, Yücel Yemez
-**Concept Development:** Mehmet Aydın Baytaş, Ayça Ünlüer
-**Software Development:** Mehmet Aydın Baytaş
+- **Advisors:** Oğuzhan Özcan, Yücel Yemez
+- **Concept Development:** Mehmet Aydın Baytaş, Ayça Ünlüer
+- **Software Development:** Mehmet Aydın Baytaş
+ 
+![Stickman in Voxels](/screenshots/hotspotizer-cover.jpg)
 
 Touchless full-body gesture-sensing devices such as the Microsoft Kinect have introduced a world of possibilities to interactive computing. However, the technical understanding and programming skills required to make use of these devices left them largely out of reach for designers, hobbyists, gamers and professionals outside of computing. To lower the floor of technical skills needed to utilize the technology in custom applications and to enable rapid prototyping of gesture-based interactions, we have developed Hotspotizer.
 
@@ -43,6 +45,8 @@ Hotspotizer has been designed primarily for the following purposes:
 ## Documentation
 
 ### Screenshots
+
+![Alt text](/relative/path/to/img.jpg?raw=true "Optional Title")
 
 ### Requirements
 
