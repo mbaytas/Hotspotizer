@@ -1,6 +1,6 @@
 # Hotspotizer
 
-**NOTICE:** Hotspotizer is currently not being maintained.
+**NOTICE:** This project is currently not being maintained. Check out [birbilis/Hotspotizer](https://github.com/birbilis/Hotspotizer) for a more up-to-date fork.
 
 ![Stickman in Voxels](/_screenshots/hotspotizer_cover.jpg)
 
