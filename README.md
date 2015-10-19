@@ -38,14 +38,12 @@ Hotspotizer has been designed primarily for the following purposes:
 - Gaming
 - Adapting arbitrary keyboard-controlled software for gesture control
 
-## Documentation
-
-### Screenshots
+## Screenshots
 
 ![Hotspotizer Manager Module](/_screenshots/hotspotizer09_manager.png)
 ![Hotspotizer Editor Module](/_screenshots/hotspotizer09_editor.png)
 
-### Requirements
+## Requirements
 
 - Windows 8 or Windows 8.1 recommended, also works on Windows 7
 - Kinect for Windows or Kinect for XBox 360 sensor (the current version does not support Kinect for Windows v2 and Kinect for Xbox One)
@@ -57,7 +55,7 @@ Hotspotizer has been designed primarily for the following purposes:
 
 \*\*: Hotspotizer will check for and assist with the installation of these software packages during startup.
 
-### Installation
+## Installation
 
 Download the release.
 
@@ -65,7 +63,7 @@ Unzip the archive and run `setup.exe` to install.
 
 Alternatively, you can directly run `Hotspotizer.exe` under `Application Files/Hotspotizer_X_X_X_X/`.
 
-### Getting Started
+## Getting Started
 
 Hotspotizer consists of three modules:
 
@@ -145,7 +143,7 @@ In the manager, you can add new gestures to your gesture collection (for example
 
 *Gesture collections are saved as “JSON” data, with the extension “.hsjson”. Curious and technically adept users may edit those files to explore possibilities.*
 
-### Release Notes
+## Release Notes
 
 - 1.0.0 introduces updates to the GUI, along with performance and stability improvements.
 - 0.9.7 introduces a fix that prevents a gesture from having no frames.
@@ -157,6 +155,6 @@ In the manager, you can add new gestures to your gesture collection (for example
 - 0.9.1 fixes minor issues in gesture recognizer.
 - 0.9.0 initial public release.
 
-### Known Issues in the Current Version
+## Known Issues in the Current Version
 
 - The application may crash ungracefully upon startup, after displaying a warning message, if the Kinect Runtime is not installed.
