@@ -4,11 +4,7 @@ Hotspotizer allows users without computer programming skills to design, visualiz
 
 Hotspotizer was master's research project at the [Koç University Design Lab](http://designlab.ku.edu.tr). See [mbaytas/ma-thesis](https://github.com/mbaytas/ma-thesis) for the TeX source files and PDF of the thesis.
 
-## Links
-
-- [Master's Thesis: End-User Authoring of Mid-Air Gestural Interactions (TeX source)](https://github.com/mbaytas/ma-thesis)
-- [Koç University Design Lab](http://designlab.ku.edu.tr/)
-- [Hotspotizer featured on Channel 9 Coding4Fun Kinect Projects blog](http://channel9.msdn.com/coding4fun/kinect/Todays-hot-project-Hotspotizer)
+Hotspotizer has been featured on Microsoft's [Channel 9 Coding4Fun Kinect Projects blog](http://channel9.msdn.com/coding4fun/kinect/Todays-hot-project-Hotspotizer).
 
 ## Related Academic Publications
 
