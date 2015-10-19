@@ -155,6 +155,6 @@ In the manager, you can add new gestures to your gesture collection (for example
 - 0.9.1 fixes minor issues in gesture recognizer.
 - 0.9.0 initial public release.
 
-## Known Issues in the Current Version
+### Known Issues in the Current Version
 
 - The application may crash ungracefully upon startup, after displaying a warning message, if the Kinect Runtime is not installed.
