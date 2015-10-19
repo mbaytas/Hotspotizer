@@ -27,7 +27,7 @@ Conversely; if my work somehow makes use of content that belongs to you (or an o
 - **Concept Development:** Mehmet Aydın Baytaş, Ayça Ünlüer
 - **Software Development:** Mehmet Aydın Baytaş
  
-![Stickman in Voxels](/screenshots/hotspotizer-cover.jpg)
+![Stickman in Voxels](/_screenshots/hotspotizer_cover.jpg)
 
 Touchless full-body gesture-sensing devices such as the Microsoft Kinect have introduced a world of possibilities to interactive computing. However, the technical understanding and programming skills required to make use of these devices left them largely out of reach for designers, hobbyists, gamers and professionals outside of computing. To lower the floor of technical skills needed to utilize the technology in custom applications and to enable rapid prototyping of gesture-based interactions, we have developed Hotspotizer.
 
@@ -46,7 +46,8 @@ Hotspotizer has been designed primarily for the following purposes:
 
 ### Screenshots
 
-![Alt text](/relative/path/to/img.jpg?raw=true "Optional Title")
+![Hotspotizer Manager Module](/_screenshots/hotspotizer09_manager.png)
+![Hotspotizer Editor Module](/_screenshots/hotspotizer09_editor.png)
 
 ### Requirements
 
@@ -78,11 +79,20 @@ Hotspotizer consists of three modules:
 
 Start Hotspotizer to launch a Manager screen with an empty gesture set:
 
+![Empty Manager Module](/_screenshots/hs_emptymanager.png)
+
 *If Hotspotizer can’t successfully connect to your Kinect sensor, a warning will be displayed on the right side and Kinect-related features will be disabled.*
+
+![Add New Gesture Button](/_screenshots/hs_addnew.png)
 
 Click the “Add New Gesture” button to launch the Editor.
 
+![Empty Editor Module](/_screenshots/hs_emptyeditor.png)
+
 We’ll implement a simple “swipe” gesture with the right hand, from the left to the right. We’ll map this gesture to the “space” key.
+
+![Keyboard Key Assignment](/_screenshots/hs_keyboardbutton.png)
+
 
 After naming the gesture, click the “Keyboard Command” button to set the keyboard mapping. Press the “space” button and click the “check” symbol to accept.
 
