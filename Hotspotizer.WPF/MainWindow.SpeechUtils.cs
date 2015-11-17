@@ -22,9 +22,10 @@ namespace Hotspotizer
 
     #region --- Fields ---
 
-    private ISpeechSynthesis speechSynthesis;
-    private ISpeechRecognition speechRecognition;
-    private ISpeechRecognitionKinect speechRecognitionKinect;
+    public ISpeechSynthesis speechSynthesis;
+    public ISpeechRecognition speechRecognition;
+    public ISpeechRecognitionKinect speechRecognitionKinect;
+
     private double SpeechRecognitionConfidenceThreshold = DEFAULT_SPEECH_RECOGNITION_CONFIDENCE_THRESHOLD;
 
     #endregion
