@@ -84,6 +84,10 @@ namespace Hotspotizer
       speechRecognition.Start();
     }
 
+    #endregion
+
+    #region --- Events ---
+
     private void SpeechRecognition_Recognized(object sender, SpeechRecognitionEventArgs e)
     {
       Dictionary<string, ICommand> commands;
@@ -104,7 +108,7 @@ namespace Hotspotizer
       //TODO: maybe show some hint about which are the supported voice commands
     }
 
-    #endregion Methods
+    #endregion
 
   }
 }
