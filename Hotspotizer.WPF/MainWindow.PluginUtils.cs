@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.PluginUtils.cs
-//Version: 20150909
+//Version: 20151117
 
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
@@ -22,8 +22,17 @@ namespace Hotspotizer
     private void InitPluginsCatalog()
     {
       AggregateCatalog partsCatalog = new AggregateCatalog();
-      partsCatalog.Catalogs.Add(new AssemblyCatalog("Hotspotizer.Plugins.SpeechSynthesis.dll"));
-      partsCatalog.Catalogs.Add(new AssemblyCatalog("Hotspotizer.Plugins.SpeechRecognition.dll"));
+
+      //TODO: replace the following code to load plugins from a subfolder, remove specific plugin references from application project and set plugin projects to copy their DLL to a "Plugins" subfolder under the folder where the executable of the app is built
+      string[] assemblies = new string[]
+      {
+        "Hotspotizer.Plugins.SpeechSynthesis.dll",
+        "Hotspotizer.Plugins.SpeechRecognition.dll"
+      };
+
+      foreach (string s in assemblies)
+        partsCatalog.Catalogs.Add(new AssemblyCatalog(s));
+
       mefContainer = new CompositionContainer(partsCatalog);
       mefContainer.SatisfyImportsOnce(this);
       //CompositionInitializer.SatisfyImports(this);
