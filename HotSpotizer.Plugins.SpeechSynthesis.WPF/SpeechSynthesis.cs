@@ -1,14 +1,14 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechSynthesis.cs
-//Version: 20150909
+//Version: 20151117
 
-using Hotspotizer.Plugins.WPF;
+using Hotspotizer.Plugins;
 using System.ComponentModel.Composition;
 using System.Globalization;
 using System.Linq;
 using System.Speech.Synthesis; //do not use Microsoft.Speech.Synthesis here, throws Illegal Access Error (probably needs to have the app running as administrator, or some other issue occurs when trying to use speech synthesis with it)
 
-namespace HotSpotizer.Plugins.Speech.WPF
+namespace HotSpotizer.Plugins.Speech
 {
   //MEF
   [Export("SpeechSynthesis", typeof(ISpeechSynthesis))]

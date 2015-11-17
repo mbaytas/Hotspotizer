@@ -1,8 +1,8 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins.Speech / SpeechRecognition.cs
-//Version: 20150910
+//Version: 20151117
 
-using Hotspotizer.Plugins.WPF;
+using Hotspotizer.Plugins;
 using SpeechTurtle.Utils; //using borrowed files from http://SpeechTurtle.codeplex.com
 using System;
 using System.ComponentModel.Composition;
@@ -14,7 +14,7 @@ using Microsoft.Speech.Recognition;
 using System.Speech.Recognition;
 #endif
 
-namespace HotSpotizer.Plugins.Speech.WPF
+namespace HotSpotizer.Plugins.Speech
 {
   //MEF
   [Export("SpeechRecognition", typeof(ISpeechRecognition))]

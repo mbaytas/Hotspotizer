@@ -1,12 +1,13 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins / ISpeechRecognition.cs
-//Version: 20150906
+//Version: 20151117
 
 using System;
 using System.IO;
 
-namespace Hotspotizer.Plugins.WPF
+namespace Hotspotizer.Plugins
 {
+
   public interface ISpeechRecognition : IPlugin
   {
     #region --- Properties ---

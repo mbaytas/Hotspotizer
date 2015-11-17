@@ -1,17 +1,19 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: Hotspotizer.Plugins / IPlugin.cs
-//Version: 20150824
+//Version: 20151117
 
 using System;
 
 namespace Hotspotizer.Plugins
 {
-  #region --- Methods ---
 
   public interface IPlugin : IDisposable
   {
+    #region --- Methods ---
+
     void Init();
+
+    #endregion
   }
 
-  #endregion
 }
