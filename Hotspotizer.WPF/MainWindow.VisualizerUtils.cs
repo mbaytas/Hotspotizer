@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20151202
+//Version: 20151203
 
 using HelixToolkit.Wpf;
 using System;
@@ -118,6 +118,7 @@ namespace Hotspotizer
           TheVisualizer.Visibility = Visibility.Visible;
           EditorOverlay.Visibility = Visibility.Hidden;
           ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
+          AddNewGestureManagerOverlayButton.Visibility = Visibility.Hidden; //make sure this is hidden, since it is shown at Editor
         }
         else
         {

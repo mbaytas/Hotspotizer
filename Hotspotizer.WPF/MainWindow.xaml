@@ -1,7 +1,7 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20151202
+Version: 20151203
 -->
 
 <!-- TODO: maybe add a [+] sign after each frame (or better a clone frame button) to allow adding intermediate frames to an existing list (to finetune the movement). Can use move left-right action though to reorder a new frame added to the end already -->
@@ -1148,6 +1148,7 @@ Version: 20151202
             HorizontalAlignment="Right"
             >
             <Button
+              x:Name="AddNewGestureManagerOverlayButton"
               Command="{Binding AddNewGestureCommand}"
               ToolTip="{lex:Loc AddNewGesture}"
               Margin="0,10,10,10"

@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.EditorUtils.cs
-//Version: 20151202
+//Version: 20151203
 
 #define ALLOW_SAVING_GESTURE_WITH_NO_COMMAND_OR_JOINT_AND_HOTSPOTS
 
@@ -118,6 +118,7 @@ namespace Hotspotizer
           TheEditor.Visibility = Visibility.Visible;
           EditorOverlay.Visibility = Visibility.Hidden;
           ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
+          AddNewGestureManagerOverlayButton.Visibility = Visibility.Visible; //make sure this is visible, since it is hidden at Visualizer
         }
         else
         {
