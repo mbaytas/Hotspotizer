@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.ManagerUtils.cs
-//Version: 20151202
+//Version: 20151203
 
 using System.Windows;
 using System.Windows.Controls;
@@ -61,6 +61,9 @@ namespace Hotspotizer
 
         foreach (Gesture sourceGesture in sourceList)
         {
+          RemoveNoneKeys(sourceGesture.Command); //Seems somewhere at the serialization or deserialization Key.None creeps in, so remove it
+
+          //copy sourceGesture to targetGesture //TODO: check why this copying is needed
           Gesture targetGesture = new Gesture()
           {
             Name = sourceGesture.Name,
@@ -68,9 +71,7 @@ namespace Hotspotizer
             Hold = sourceGesture.Hold,
             Joint = sourceGesture.Joint
           };
-
-          targetGesture.Frames.Clear();
-
+          //copy the frames too
           foreach (GestureFrame sourceFrame in sourceGesture.Frames)
           {
             GestureFrame targetFrame = new GestureFrame();
@@ -81,9 +82,15 @@ namespace Hotspotizer
             }
             targetGesture.Frames.Add(targetFrame);
           }
+
           GestureCollection.Add(targetGesture);
         }
       }
+    }
+
+    private void RemoveNoneKeys(ObservableCollection<Key> keys)
+    {
+      while (keys.Remove(Key.None));
     }
 
     public void SaveGestureCollection()
