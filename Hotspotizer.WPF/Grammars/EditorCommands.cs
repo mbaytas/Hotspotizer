@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: EditorCommands.cs
-//Version: 20151011
+//Version: 20151202
 
 namespace Hotspotizer
 {
@@ -9,6 +9,7 @@ namespace Hotspotizer
 
     #region --- Constants ---
 
+    public const string ADD_NEW_GESTURE = "ADD_NEW_GESTURE";
     public const string CLOSE_EDITOR = "CLOSE_EDITOR";
     public const string SAVE_GESTURE = "SAVE_GESTURE";
     public const string PRESS_MODE = "PRESS_MODE";

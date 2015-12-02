@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.ManagerUtils.cs
-//Version: 20150915
+//Version: 20151202
 
 using System.Windows;
 using System.Windows.Controls;
@@ -19,6 +19,20 @@ namespace Hotspotizer
 {
   public partial class MainWindow : IManager
   {
+
+    #region --- Properties ---
+
+    public bool CanSaveGestureCollection
+    {
+      get { return (GestureCollection.Count > 0); }
+    }
+
+    public bool CanAddNewGesture
+    {
+      get { return !EditorVisible || CanSaveGesture; }
+    }
+
+    #endregion
 
     #region --- Methods ---
 
@@ -81,13 +95,14 @@ namespace Hotspotizer
         File.WriteAllText(saveDialog.FileName, JsonConvert.SerializeObject(GestureCollection));
     }
 
-    public bool CanSaveGestureCollection()
+    public bool AddNewGesture()
     {
-      return (GestureCollection.Count > 0);
-    }
+      if (!CanAddNewGesture)
+        return false; //do not add a new gesture if any currently edited gesture doesn't contain enough data to be allowed to save
 
-    public void AddNewGesture()
-    {
+      if (EditorVisible)
+        SaveGesture(); //CanAddNewGesture has already checked if CanSaveGesture when EditorVisible
+
       // Clear the initial state store
       ExGesture = null;
 
@@ -103,6 +118,8 @@ namespace Hotspotizer
       // Go
       TheWorkspace.DataContext = g;
       ShowEditor();
+
+      return true;
     }
 
     public void EditGesture(Gesture g)

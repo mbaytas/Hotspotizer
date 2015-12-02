@@ -1142,6 +1142,20 @@ Version: 20151202
             HorizontalAlignment="Left"
             Text="{lex:Loc AllGestures}"
             />
+
+          <StackPanel
+            Orientation="Horizontal"
+            HorizontalAlignment="Right"
+            >
+            <Button
+              Command="{Binding AddNewGestureCommand}"
+              ToolTip="{lex:Loc AddNewGesture}"
+              Margin="0,10,10,10"
+              Width="40" Height="40"
+              FontSize="18"
+              Content="&#xE109;"
+              />
+          </StackPanel>
         </Grid>
 
         <ScrollViewer

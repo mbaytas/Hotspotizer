@@ -61,7 +61,7 @@ namespace Hotspotizer
 
       EnableKinect_Editor();
 
-      SetEditorVisible();
+      EditorVisible = true;
 
       FramesListBox.SelectedIndex = 0; // Reset Frame selection
 
@@ -80,8 +80,7 @@ namespace Hotspotizer
     {
       DisableKinect_Editor();
       TheWorkspace.DataContext = InitGesture;        // Clean up DataContext
-      EditorOverlay.Visibility = Visibility.Visible; // Hide Editor
-      ManagerOverlay.Visibility = Visibility.Hidden; // Show Manager
+      EditorVisible = false;
     }
 
     /// <summary>
@@ -108,6 +107,25 @@ namespace Hotspotizer
     #endregion
 
     #region --- Properties ---
+
+    public bool EditorVisible
+    {
+      get { return (TheEditor != null) && (TheEditor.Visibility == Visibility.Visible) && ((EditorOverlay == null) || EditorOverlay.Visibility == Visibility.Hidden); }
+      private set
+      {
+        if (value)
+        {
+          TheEditor.Visibility = Visibility.Visible;
+          EditorOverlay.Visibility = Visibility.Hidden;
+          ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
+        }
+        else
+        {
+          EditorOverlay.Visibility = Visibility.Visible; // Hide Editor
+          ManagerOverlay.Visibility = Visibility.Hidden; // Show Manager
+        }
+      }
+    }
 
     public GestureFrame CurrentFrame //IFrameManager property
     {
@@ -172,10 +190,13 @@ namespace Hotspotizer
 
     #region --- Methods ---
 
-    public void SaveGesture()
+    public bool SaveGesture()
     {
+      if (!CanSaveGesture) return false;
+
       ExGesture = null;
       CloseEditor();
+      return true;
     }
 
     /// <summary>
@@ -304,18 +325,6 @@ namespace Hotspotizer
         kinect.SkeletonFrameReady -= Kinect_SkeletonFrameReady_Editor;
         kinect.SkeletonStream.Disable();
       }
-    }
-
-    private bool IsEditorVisible()
-    {
-      return (TheEditor.Visibility == Visibility.Visible && EditorOverlay.Visibility == Visibility.Hidden);
-    }
-
-    private void SetEditorVisible()
-    {
-      TheEditor.Visibility = Visibility.Visible;
-      EditorOverlay.Visibility = Visibility.Hidden;
-      ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
     }
 
     #region Sync UI Grids

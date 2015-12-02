@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.SpeechUtils.cs
-//Version: 20151117
+//Version: 20151202
 
 using Hotspotizer.Plugins;
 using System;
@@ -92,8 +92,8 @@ namespace Hotspotizer
     private void SpeechRecognition_Recognized(object sender, SpeechRecognitionEventArgs e)
     {
       Dictionary<string, ICommand> commands;
-      if (IsEditorVisible()) commands = commands_Editor;
-      else if (IsVisualizerVisible()) commands = commands_Visualizer;
+      if (EditorVisible) commands = commands_Editor;
+      else if (VisualizerVisible) commands = commands_Visualizer;
       else commands = commands_Manager;
 
       ICommand cmd;

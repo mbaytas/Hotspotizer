@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20151011
+//Version: 20151202
 
 using HelixToolkit.Wpf;
 using System;
@@ -79,7 +79,7 @@ namespace Hotspotizer
         HotspotCellsModelVisual3D_Visualizer.Content = modelGroup;
       }
 
-      SetVisualizerVisible();
+      VisualizerVisible = true;
 
       EnableKinect_Visualizer();
       DisableKeyboardControl_Visualizer(); //we don't want to consume emulated keyboard events
@@ -92,41 +92,46 @@ namespace Hotspotizer
     public void CloseVisualizer()
     {
       DisableKinect_Visualizer();
-      HideVisualizer();
+      VisualizerVisible = false;
+    }
+
+    #endregion
+
+    #region --- Properties ---
+
+    public bool CanPlay
+    {
+      get
+      {
+        return ((kinect != null) && (GestureCollection.Count > 0) && (kinect.Status == Microsoft.Kinect.KinectStatus.Connected));
+      }
+    }
+
+    public bool VisualizerVisible
+    {
+      get { return (TheVisualizer != null) && (TheVisualizer.Visibility == Visibility.Visible); }
+      private set
+      {
+        if (value)
+        {
+          TheEditor.Visibility = Visibility.Hidden;
+          TheVisualizer.Visibility = Visibility.Visible;
+          EditorOverlay.Visibility = Visibility.Hidden;
+          ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
+        }
+        else
+        {
+          EditorOverlay.Visibility = Visibility.Visible;
+          TheEditor.Visibility = Visibility.Hidden;
+          TheVisualizer.Visibility = Visibility.Hidden;
+          ManagerOverlay.Visibility = Visibility.Hidden; // Show Manager
+        }
+      }
     }
 
     #endregion
 
     #region --- Methods ---
-
-    public bool CanPlay()
-    {
-      if ((kinect != null) && (GestureCollection.Count > 0) && (kinect.Status == Microsoft.Kinect.KinectStatus.Connected))
-        return true;
-      else
-        return false;
-    }
-
-    private bool IsVisualizerVisible()
-    {
-      return (TheVisualizer.Visibility == Visibility.Visible);
-    }
-
-    private void SetVisualizerVisible()
-    {
-      TheEditor.Visibility = Visibility.Hidden;
-      TheVisualizer.Visibility = Visibility.Visible;
-      EditorOverlay.Visibility = Visibility.Hidden;
-      ManagerOverlay.Visibility = Visibility.Visible; // Hide Manager
-    }
-
-    private void HideVisualizer()
-    {
-      EditorOverlay.Visibility = Visibility.Visible;
-      TheEditor.Visibility = Visibility.Hidden;
-      TheVisualizer.Visibility = Visibility.Hidden;
-      ManagerOverlay.Visibility = Visibility.Hidden; // Show Manager
-    }
 
     private void EnableKinect_Visualizer()
     {
