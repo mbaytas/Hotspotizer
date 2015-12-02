@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.Commands.cs
-//Version: 20151011
+//Version: 20151202
 
 using System.Windows.Input;
 using Hotspotizer.Helpers;
@@ -50,7 +50,7 @@ namespace Hotspotizer
 
       //Editor//
       commands_Editor.Add(EditorCommands.CLOSE_EDITOR, DiscardGestureCommand = new RelayCommand((p) => DiscardGesture()));
-      commands_Editor.Add(EditorCommands.SAVE_GESTURE, SaveGestureCommand = new RelayCommand((p)=>SaveGesture(), (p)=>CanSaveGesture()));
+      commands_Editor.Add(EditorCommands.SAVE_GESTURE, SaveGestureCommand = new RelayCommand((p)=>SaveGesture(), (p)=>CanSaveGesture));
       commands_Editor.Add(EditorCommands.MOVE_FRAME_BACKWARDS, new RelayCommand((p) => MoveCurrentFrameBackwards()));
       commands_Editor.Add(EditorCommands.MOVE_FRAME_FORWARD, new RelayCommand((p) => MoveCurrentFrameForward()));
       commands_Editor.Add(EditorCommands.CLOSE_COMMAND_SELECTOR, CloseCommandSelectorCommand = new RelayCommand((p) => CloseCommandSelector()));
