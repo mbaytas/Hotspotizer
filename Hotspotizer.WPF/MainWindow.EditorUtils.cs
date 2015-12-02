@@ -2,7 +2,7 @@
 //File: MainWindow.EditorUtils.cs
 //Version: 20151202
 
-#define ALLOW_SAVING_GESTURE_WITH_ONLY_COMMAND_OR_JOINT_AND_HOTSPOTS
+#define ALLOW_SAVING_GESTURE_WITH_NO_COMMAND_OR_JOINT_AND_HOTSPOTS
 
 using HelixToolkit.Wpf;
 using System;
@@ -124,7 +124,7 @@ namespace Hotspotizer
         return (g != null) &&
                !String.IsNullOrEmpty(g.Name)
                && (HasSelectedCommand
-               #if ALLOW_SAVING_GESTURE_WITH_ONLY_COMMAND_OR_JOINT_AND_HOTSPOTS
+               #if ALLOW_SAVING_GESTURE_WITH_NO_COMMAND_OR_JOINT_AND_HOTSPOTS
                ||
                #else
                &&
