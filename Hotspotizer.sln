@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotspotizer.WPF", "Hotspotizer.WPF\Hotspotizer.WPF.csproj", "{A7419861-6777-456E-9F7E-5C21D7476664}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotSpotizer.Plugins.SpeechSynthesis.WPF", "HotSpotizer.Plugins.SpeechSynthesis.WPF\HotSpotizer.Plugins.SpeechSynthesis.WPF.csproj", "{0478078F-504A-4C45-81E0-AF42AB591683}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotSpotizer.Plugins.SpeechRecognition.WPF", "HotSpotizer.Plugins.SpeechRecognition.WPF\HotSpotizer.Plugins.SpeechRecognition.WPF.csproj", "{ECC29C0E-0DC6-4F22-B52A-E259AD248779}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E7259BA4-5055-49C2-A490-7580BB0D13F8}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

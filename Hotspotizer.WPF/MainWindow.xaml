@@ -1,10 +1,10 @@
 ﻿<!--
 Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 File: MainWindow.xaml
-Version: 20150915
+Version: 20151202
 -->
 
-<!-- TODO: maybe add a [+] sign after each frame to allow adding intermediate frames to an existing list (to finetune the movement). Can use move left-right action though to reorder a new frame added to the end already -->
+<!-- TODO: maybe add a [+] sign after each frame (or better a clone frame button) to allow adding intermediate frames to an existing list (to finetune the movement). Can use move left-right action though to reorder a new frame added to the end already -->
 
 <Window x:Class="Hotspotizer.MainWindow"
 
@@ -81,27 +81,27 @@ Version: 20150915
           >
           <Button
             Command="{Binding CreateNewGestureCollectionCommand}"
-						ToolTip="{lex:Loc NewGestureCollection}"
-						Margin="0,10,10,10"
-						Width="40" Height="40"
-						FontSize="18"
-						Content="&#xE130;"
+            ToolTip="{lex:Loc NewGestureCollection}"
+            Margin="0,10,10,10"
+            Width="40" Height="40"
+            FontSize="18"
+            Content="&#xE130;"
             />
           <Button
             Command="{Binding LoadGestureCollectionCommand}"
-						ToolTip="{lex:Loc LoadGestureCollection}"
-						Margin="0,10,10,10"
-						Width="40" Height="40"
-						FontSize="18"
-						Content="&#xE1A5;"
+            ToolTip="{lex:Loc LoadGestureCollection}"
+            Margin="0,10,10,10"
+            Width="40" Height="40"
+            FontSize="18"
+            Content="&#xE1A5;"
             />
           <Button
             Command="{Binding SaveGestureCollectionCommand}"
-						ToolTip="{lex:Loc SaveGestureCollection}"
-						Margin="0,10,10,10"
-						Width="40" Height="40"
-						FontSize="18"
-						Content="&#xE105;"
+            ToolTip="{lex:Loc SaveGestureCollection}"
+            Margin="0,10,10,10"
+            Width="40" Height="40"
+            FontSize="18"
+            Content="&#xE105;"
             />
         </StackPanel>
       </Grid>
@@ -152,9 +152,9 @@ Version: 20150915
 
           <ItemsControl
             ItemsSource="{Binding GestureCollection}"
-						BorderBrush="{x:Null}"
-						HorizontalContentAlignment="Stretch"
-						Margin="5,10,5,0"
+            BorderBrush="{x:Null}"
+            HorizontalContentAlignment="Stretch"
+            Margin="5,10,5,0"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled"
             >
@@ -222,12 +222,12 @@ Version: 20150915
 
           <Button
             Command="{Binding AddNewGestureCommand}"
-						ToolTip="{lex:Loc AddNewGesture}"
-						Height="40"
-						HorizontalAlignment="Stretch"
-						Margin="10"
-						FontSize="18"
-						Content="&#xE109;"
+            ToolTip="{lex:Loc AddNewGesture}"
+            Height="40"
+            HorizontalAlignment="Stretch"
+            Margin="10"
+            FontSize="18"
+            Content="&#xE109;"
             />
 
           <StackPanel
@@ -309,18 +309,18 @@ Version: 20150915
 
         <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
           <Button Command="{Binding SaveGestureCommand}"
-						ToolTip="{lex:Loc SaveGesture}"
-						Margin="0,10,10,10"
-						Width="40" Height="40"
-						FontSize="18"
-						Content="&#xE105;"
+            ToolTip="{lex:Loc SaveGesture}"
+            Margin="0,10,10,10"
+            Width="40" Height="40"
+            FontSize="18"
+            Content="&#xE105;"
             />
           <Button Command="{Binding DiscardGestureCommand}"
-						ToolTip="{lex:Loc DiscardChanges}"
-						Margin="0,10,10,10"
-						Height="40" Width="40"
-						FontSize="18"
-						Content="&#xE10A;"
+            ToolTip="{lex:Loc DiscardChanges}"
+            Margin="0,10,10,10"
+            Height="40" Width="40"
+            FontSize="18"
+            Content="&#xE10A;"
             />
         </StackPanel>
       </Grid>
@@ -442,16 +442,16 @@ Version: 20150915
           <UniformGrid
             x:Name="FVHints"
             Grid.Column="0"
-						Margin="10,10,0,10"
+            Margin="10,10,0,10"
             Rows="20"
             Columns="20"
             />
           <controls:HotspotGrid
             x:Name="FVGrid"
-						Grid.Column="0"
-						ItemsSource="{Binding FrontCells}"
-						Margin="10,10,0,10"
-						SelectionChanged="FVGrid_SelectionChanged"
+            Grid.Column="0"
+            ItemsSource="{Binding FrontCells}"
+            Margin="10,10,0,10"
+            SelectionChanged="FVGrid_SelectionChanged"
             />
 
           <!--This grid aligns the silhouette to the grid properly.-->
@@ -497,16 +497,16 @@ Version: 20150915
           <UniformGrid
             x:Name="SVHints"
             Grid.Column="1"
-						Margin="10,10,0,10"
+            Margin="10,10,0,10"
             Rows="20"
             Columns="20"
             />
 
           <controls:HotspotGrid
             x:Name="SVGrid"
-						Grid.Column="1"
-						ItemsSource="{Binding SideCells}"
-						Margin="10,10,0,10"
+            Grid.Column="1"
+            ItemsSource="{Binding SideCells}"
+            Margin="10,10,0,10"
             SelectionChanged="SVGrid_SelectionChanged"
             />
 
@@ -710,73 +710,92 @@ Version: 20150915
                 </Grid.ColumnDefinitions>
 
                 <RadioButton
+                  x:Name="HeadSelector"
                   GroupName="Joint"
                   Grid.Row="0"
                   Grid.ColumnSpan="2"
                   HorizontalAlignment="Center"
                   ToolTip="{lex:Loc Head}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=Head}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="LeftElbowSelector"
                   GroupName="Joint"
                   Grid.Row="1"
                   Grid.Column="0"
                   ToolTip="{lex:Loc LeftElbow}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowLeft}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="RightElbowSelector"
                   GroupName="Joint"
                   Grid.Row="1"
                   Grid.Column="1"
                   ToolTip="{lex:Loc RightElbow}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=ElbowRight}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="LeftHandSelector"
                   GroupName="Joint"
                   Grid.Row="2"
                   Grid.Column="0"
                   ToolTip="{lex:Loc LeftHand}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandLeft}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="RightHandSelector"
                   GroupName="Joint"
                   Grid.Row="2"
                   Grid.Column="1"
                   ToolTip="{lex:Loc RightHand}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=HandRight}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="LeftKneeSelector"
                   GroupName="Joint"
                   Grid.Row="3"
                   Grid.Column="0"
                   ToolTip="{lex:Loc LeftKnee}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeLeft}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="RightKneeSelector"
                   GroupName="Joint"
                   Grid.Row="3"
                   Grid.Column="1"
                   ToolTip="{lex:Loc RightKnee}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=KneeRight}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="LeftFootSelector"
                   GroupName="Joint"
                   Grid.Row="4"
                   Grid.Column="0"
                   ToolTip="{lex:Loc LeftFoot}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootLeft}"
+                  Checked="JointSelector_Checked"
                   />
                 <RadioButton
+                  x:Name="RightFootSelector"
                   GroupName="Joint"
                   Grid.Row="4"
                   Grid.Column="1"
                   ToolTip="{lex:Loc RightFoot}"
                   IsChecked="{Binding Joint, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource enumBooleanConverter}, ConverterParameter=FootRight}"
+                  Checked="JointSelector_Checked"
                   />
               </Grid>
             </Viewbox>
 
             <TextBlock
+              x:Name="JointTitle"
               Grid.Row="1"
               Style="{StaticResource h2}"
               Foreground="LightGray"
@@ -807,9 +826,9 @@ Version: 20150915
             <ListBox
               x:Name="FramesListBox"
               ItemsSource="{Binding Frames}"
-							VerticalAlignment="Center"
-							VerticalContentAlignment="Center"
-							BorderBrush="{x:Null}"
+              VerticalAlignment="Center"
+              VerticalContentAlignment="Center"
+              BorderBrush="{x:Null}"
               >
               <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -899,34 +918,34 @@ Version: 20150915
                       >
                       <Button
                         Click="DeleteFrameButton_Click"
-    			              ToolTip="{lex:Loc DeleteFrame}"
-    			              Width="20"
+                        ToolTip="{lex:Loc DeleteFrame}"
+                        Width="20"
                         Height="20"
-    			              FontSize="12"
-    			              Content="&#xE107;"
-    			              HorizontalAlignment="Right"
-    			              VerticalAlignment="Bottom"
-    			              Margin="0,0,5,5"
+                        FontSize="12"
+                        Content="&#xE107;"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,5,5"
                         />
                       <Button
                         Click="MoveFrameBackwardButton_Click"
-     			              ToolTip="{lex:Loc MoveFrameBackward}"
-    			              Width="20" Height="20"
-    			              FontSize="12"
-    			              Content="&#xE112;"
-    			              HorizontalAlignment="Right"
-    			              VerticalAlignment="Bottom"
-    			              Margin="0,0,5,5"
+                        ToolTip="{lex:Loc MoveFrameBackward}"
+                        Width="20" Height="20"
+                        FontSize="12"
+                        Content="&#xE112;"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,5,5"
                         />
                       <Button
                         Click="MoveFrameForwardButton_Click"
-    			              ToolTip="{lex:Loc MoveFrameForward}"
-    			              Width="20" Height="20"
-    			              FontSize="12"
-    			              Content="&#xE111;"
-    			              HorizontalAlignment="Right"
-    			              VerticalAlignment="Bottom"
-    			              Margin="0,0,5,5"
+                        ToolTip="{lex:Loc MoveFrameForward}"
+                        Width="20" Height="20"
+                        FontSize="12"
+                        Content="&#xE111;"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,5,5"
                         />
                     </StackPanel>
                   </Grid>
@@ -942,27 +961,27 @@ Version: 20150915
           <StackPanel Grid.Column="3" Orientation="Vertical" Margin="10,20">
             <Button
               ToolTip="{lex:Loc SelectPreviousFrame}"
-							FontSize="20"
-							Content="&#x2191;"
-							Width="40"
+              FontSize="20"
+              Content="&#x2191;"
+              Width="40"
               Height="40"
-							Click="SelectPreviousFrameButton_Click"
+              Click="SelectPreviousFrameButton_Click"
               />
             <Button
               ToolTip="{lex:Loc AddNewFrame}"
-							FontSize="18"
-							Content="&#xE109;"
-							Width="40"
+              FontSize="18"
+              Content="&#xE109;"
+              Width="40"
               Height="40"
-							Click="AddNewFrameButton_Click"
+              Click="AddNewFrameButton_Click"
               />
             <Button
               ToolTip="{lex:Loc SelectNextFrame}"
-							FontSize="20"
-							Content="&#x2193;"
-							Width="40"
+              FontSize="20"
+              Content="&#x2193;"
+              Width="40"
               Height="40"
-							Click="SelectNextFrameButton_Click"
+              Click="SelectNextFrameButton_Click"
               />
           </StackPanel>
 
@@ -1284,7 +1303,7 @@ Version: 20150915
     <GridSplitter
       Grid.Column="0"
       ResizeDirection="Columns"
-		  ShowsPreview="True"
+      ShowsPreview="True"
       VerticalAlignment="Stretch"
       Width="2"
       Background="Gray"
@@ -1300,13 +1319,13 @@ Version: 20150915
       >
       <Button
         Command="{Binding PlayCommand}"
-				Grid.Row="3"
-				ToolTip="{lex:Loc BeginEmulation}"
-				HorizontalAlignment="Center"
-				Margin="10"
+        Grid.Row="3"
+        ToolTip="{lex:Loc BeginEmulation}"
+        HorizontalAlignment="Center"
+        Margin="10"
         Padding="20,10"
-				FontSize="24"
-				Content="&#xE102;"
+        FontSize="24"
+        Content="&#xE102;"
         />
     </Border>
 

@@ -1,5 +1,5 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
-//File: Hotspotizer.Plugins / ISpeechRecognition.cs
+//File: Hotspotizer.Plugins / SpeechRecognitionEventArgs.cs
 //Version: 20151117
 
 using System;

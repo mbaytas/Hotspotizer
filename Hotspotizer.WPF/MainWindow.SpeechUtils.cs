@@ -35,7 +35,7 @@ namespace Hotspotizer
     public void LoadSpeechSynthesisPlugin()
    {
      Lazy<ISpeechSynthesis> plugin = PluginsCatalog.mefContainer.GetExports<ISpeechSynthesis>("SpeechSynthesis").FirstOrDefault();
-     speechSynthesis = plugin.Value;
+     speechSynthesis = (plugin != null) ? plugin.Value : null;
      if(speechSynthesis != null)
        speechSynthesis.Init();
    }
@@ -43,12 +43,12 @@ namespace Hotspotizer
     public void LoadSpeechRecognitionPlugin()
     {
       Lazy<ISpeechRecognitionKinect> plugin1 = PluginsCatalog.mefContainer.GetExports<ISpeechRecognitionKinect>("SpeechRecognitionKinect").FirstOrDefault();
-      speechRecognition = speechRecognitionKinect = plugin1?.Value;
+      speechRecognition = speechRecognitionKinect = (plugin1 != null) ? plugin1.Value : null;
 
       if (speechRecognition == null) //SpeechRecognitionKinect plugin couldn't be loaded, try to fallback to the SpeechRecognition one (which uses the default audio source as input)
       {
         Lazy<ISpeechRecognition> plugin2 = PluginsCatalog.mefContainer.GetExports<ISpeechRecognition>("SpeechRecognition").FirstOrDefault();
-        speechRecognition = plugin2?.Value;
+        speechRecognition = (plugin2 != null) ? plugin2.Value : null;
       }
 
       if (speechRecognition != null)

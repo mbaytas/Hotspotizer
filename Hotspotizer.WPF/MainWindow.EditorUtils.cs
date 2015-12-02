@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.EditorUtils.cs
-//Version: 20151011
+//Version: 20151202
 
 using HelixToolkit.Wpf;
 using System;
@@ -112,6 +112,52 @@ namespace Hotspotizer
       get { return (GestureFrame)FramesListBox.SelectedItem; }
     }
 
+    public bool CanSaveGesture
+    {
+      get
+      {
+        //TODO (???)
+        if (TheWorkspace == null) return false;
+        Gesture g = (Gesture)TheWorkspace.DataContext;
+        return (g != null) &&
+               !String.IsNullOrEmpty(g.Name)
+               && HasSelectedCommand
+               && HasSelectedJoint
+               && HasHotspotsForEachFrame
+               ;
+      }
+    }
+
+    public bool HasSelectedCommand
+    {
+      get
+      {
+        if (TheWorkspace == null) return false;
+        Gesture g = (Gesture)TheWorkspace.DataContext;
+        return (g.Command != null) && (g.Command.Count != 0) && !g.Command.Contains(Key.None);
+      }
+    }
+
+    public bool HasSelectedJoint
+    {
+      get
+      {
+        if (TheWorkspace == null) return false;
+        Gesture g = (Gesture)TheWorkspace.DataContext;
+        return (g.Joint != JointType.HipCenter);
+      }
+    }
+
+    public bool HasHotspotsForEachFrame
+    {
+      get
+      {
+        if (TheWorkspace == null) return false;
+        Gesture g = (Gesture)TheWorkspace.DataContext;
+        return !g.Frames.Any(f => f.SideCells.Count(c => c.IsHotspot) == 0);
+      }
+    }
+
     #endregion
 
     #region --- Methods ---
@@ -120,20 +166,6 @@ namespace Hotspotizer
     {
       ExGesture = null;
       CloseEditor();
-    }
-
-    public bool CanSaveGesture()
-    {
-      //TODO (???)
-      if (TheWorkspace == null)
-        return false;
-
-      Gesture g = (Gesture)TheWorkspace.DataContext;
-      return (g != null) &&
-             !String.IsNullOrEmpty(g.Name) &&
-             (g.Command != null) && (g.Command.Count != 0) && !g.Command.Contains(Key.None) &&
-             (g.Joint != JointType.HipCenter) &&
-             !g.Frames.Any(f => f.SideCells.Count(c => c.IsHotspot) == 0);
     }
 
     /// <summary>
@@ -477,6 +509,15 @@ namespace Hotspotizer
       KeysBeingPressed.Remove(k);
 
       e.Handled = true;
+    }
+
+    #endregion
+
+    #region Joint UI
+
+    private void JointSelector_Checked(object sender, RoutedEventArgs e)
+    {
+      JointTitle.Text = ((RadioButton)sender).ToolTip.ToString();
     }
 
     #endregion
