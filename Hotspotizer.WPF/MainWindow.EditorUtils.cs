@@ -2,6 +2,8 @@
 //File: MainWindow.EditorUtils.cs
 //Version: 20151202
 
+#define ALLOW_SAVING_GESTURE_WITH_ONLY_COMMAND_OR_JOINT_AND_HOTSPOTS
+
 using HelixToolkit.Wpf;
 using System;
 using System.Collections;
@@ -121,10 +123,13 @@ namespace Hotspotizer
         Gesture g = (Gesture)TheWorkspace.DataContext;
         return (g != null) &&
                !String.IsNullOrEmpty(g.Name)
-               && HasSelectedCommand
-               && HasSelectedJoint
-               && HasHotspotsForEachFrame
-               ;
+               && (HasSelectedCommand
+               #if ALLOW_SAVING_GESTURE_WITH_ONLY_COMMAND_OR_JOINT_AND_HOTSPOTS
+               ||
+               #else
+               &&
+               #endif
+               HasSelectedJointAndHotspotsForEachFrame);
       }
     }
 
@@ -136,6 +141,11 @@ namespace Hotspotizer
         Gesture g = (Gesture)TheWorkspace.DataContext;
         return (g.Command != null) && (g.Command.Count != 0) && !g.Command.Contains(Key.None);
       }
+    }
+
+    public bool HasSelectedJointAndHotspotsForEachFrame
+    {
+      get { return HasSelectedJoint && HasHotspotsForEachFrame; }
     }
 
     public bool HasSelectedJoint
