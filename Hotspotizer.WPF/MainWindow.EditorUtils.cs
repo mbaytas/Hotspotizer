@@ -142,13 +142,12 @@ namespace Hotspotizer
         Gesture g = (Gesture)TheWorkspace.DataContext;
         return (g != null) &&
                !String.IsNullOrEmpty(g.Name)
-               && (HasSelectedCommand
-               #if ALLOW_SAVING_GESTURE_WITH_NO_COMMAND_OR_JOINT_AND_HOTSPOTS
-               ||
-               #else
                &&
+               #if ALLOW_SAVING_GESTURE_WITH_NO_COMMAND_OR_JOINT_AND_HOTSPOTS
+               (HasSelectedJointAndHotspotsForEachFrame || (HasSelectedCommand && HasNotSelectedJointOrHotspotsForAnyFrame));
+               #else
+               (HasSelectedCommand && HasSelectedJointAndHotspotsForEachFrame);
                #endif
-               HasSelectedJointAndHotspotsForEachFrame);
       }
     }
 
@@ -160,6 +159,11 @@ namespace Hotspotizer
         Gesture g = (Gesture)TheWorkspace.DataContext;
         return (g.Command != null) && (g.Command.Count != 0) && !g.Command.Contains(Key.None);
       }
+    }
+
+    public bool HasNotSelectedJointOrHotspotsForAnyFrame
+    {
+      get { return !HasSelectedJoint && HasHotspotsForNoFrame; }
     }
 
     public bool HasSelectedJointAndHotspotsForEachFrame
@@ -184,6 +188,16 @@ namespace Hotspotizer
         if (TheWorkspace == null) return false;
         Gesture g = (Gesture)TheWorkspace.DataContext;
         return !g.Frames.Any(f => f.SideCells.Count(c => c.IsHotspot) == 0);
+      }
+    }
+
+    public bool HasHotspotsForNoFrame
+    {
+      get
+      {
+        if (TheWorkspace == null) return false;
+        Gesture g = (Gesture)TheWorkspace.DataContext;
+        return !g.Frames.Any(f => f.SideCells.Count(c => c.IsHotspot) != 0);
       }
     }
 
