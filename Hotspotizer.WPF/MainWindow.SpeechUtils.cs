@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 
@@ -63,26 +64,35 @@ namespace Hotspotizer
       if (speechRecognition == null)
         return;
 
-      string grammarsFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Grammars", "SRGS");
-      speechRecognition.LoadGrammar (new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Manager_en.xml"), FileMode.Open), "Manager");
-      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Editor_en.xml"), FileMode.Open), "Editor");
-      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Visualizer_en.xml"), FileMode.Open), "Visualizer");
+      try
+      {
+        string grammarsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Grammars", "SRGS");
+        speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Manager_en.xml"), FileMode.Open), "Manager");
+        speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Editor_en.xml"), FileMode.Open), "Editor");
+        speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Visualizer_en.xml"), FileMode.Open), "Visualizer");
 
-      speechRecognition.Recognized += SpeechRecognition_Recognized;
-      speechRecognition.NotRecognized += SpeechRecognition_NotRecognized;
+        speechRecognition.Recognized += SpeechRecognition_Recognized;
+        speechRecognition.NotRecognized += SpeechRecognition_NotRecognized;
 
-      /*
-      //For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model.
-      //This will prevent recognition accuracy from degrading over time.
-      speechRecognition.AcousticModelAdaptation = false;
-      */
+        /*
+        //For long recognition sessions (a few hours or more), it may be beneficial to turn off adaptation of the acoustic model.
+        //This will prevent recognition accuracy from degrading over time.
+        speechRecognition.AcousticModelAdaptation = false;
+        */
 
-      if (speechRecognitionKinect != null)
-        speechRecognitionKinect.SetInputToKinectSensor(); //if it can't find a Kinect sensor that call will fallback to default audio device for input
-      else
-        speechRecognition.SetInputToDefaultAudioDevice();
+        if (speechRecognitionKinect != null)
+          speechRecognitionKinect.SetInputToKinectSensor(); //if it can't find a Kinect sensor that call will fallback to default audio device for input
+        else
+          speechRecognition.SetInputToDefaultAudioDevice();
 
-      speechRecognition.Start();
+        speechRecognition.Start();
+      }
+      catch(Exception e)
+      {
+        speechRecognitionKinect = null;
+        speechRecognition = null;
+        MessageBox.Show(e.Message);
+      }
     }
 
     #endregion
