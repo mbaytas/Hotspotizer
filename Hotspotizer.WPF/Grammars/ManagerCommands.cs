@@ -1,4 +1,4 @@
-﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: ManagerCommands.cs
 //Version: 20151011
 

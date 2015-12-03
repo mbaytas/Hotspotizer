@@ -1,8 +1,9 @@
-﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.SpeechUtils.cs
 //Version: 20151202
 
 using Hotspotizer.Plugins;
+using SpeechLib.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,28 +36,23 @@ namespace Hotspotizer
 
     public void LoadSpeechSynthesisPlugin()
    {
-     Lazy<ISpeechSynthesis> plugin = PluginsCatalog.mefContainer.GetExports<ISpeechSynthesis>("SpeechSynthesis").FirstOrDefault();
+     Lazy<ISpeechSynthesis> plugin = PluginsCatalog.mefContainer.GetExports<ISpeechSynthesis>("SpeechLib.Synthesis").FirstOrDefault();
      speechSynthesis = (plugin != null) ? plugin.Value : null;
-     if(speechSynthesis != null)
-       speechSynthesis.Init();
    }
 
     public void LoadSpeechRecognitionPlugin()
     {
-      Lazy<ISpeechRecognitionKinect> plugin1 = PluginsCatalog.mefContainer.GetExports<ISpeechRecognitionKinect>("SpeechRecognitionKinect").FirstOrDefault();
+      Lazy<ISpeechRecognitionKinect> plugin1 = PluginsCatalog.mefContainer.GetExports<ISpeechRecognitionKinect>("SpeechLib.Recognition.KinectV1").FirstOrDefault();
       speechRecognition = speechRecognitionKinect = (plugin1 != null) ? plugin1.Value : null;
 
       if (speechRecognition == null) //SpeechRecognitionKinect plugin couldn't be loaded, try to fallback to the SpeechRecognition one (which uses the default audio source as input)
       {
-        Lazy<ISpeechRecognition> plugin2 = PluginsCatalog.mefContainer.GetExports<ISpeechRecognition>("SpeechRecognition").FirstOrDefault();
+        Lazy<ISpeechRecognition> plugin2 = PluginsCatalog.mefContainer.GetExports<ISpeechRecognition>("SpeechLib.Recognition").FirstOrDefault();
         speechRecognition = (plugin2 != null) ? plugin2.Value : null;
       }
 
       if (speechRecognition != null)
-      {
-        speechRecognition.Init();
         StartSpeechRecognition();
-      }
     }
 
     private void StartSpeechRecognition()

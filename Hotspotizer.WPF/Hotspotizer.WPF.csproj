@@ -97,6 +97,22 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SpeechLib.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpeechLib.Models.1.0.0\lib\net40\SpeechLib.Models.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SpeechLib.Recognition, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpeechLib.Recognition.1.0.0\lib\net40\SpeechLib.Recognition.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SpeechLib.Recognition.KinectV1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpeechLib.Recognition.KinectV1.1.0.0\lib\net40\SpeechLib.Recognition.KinectV1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SpeechLib.Synthesis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SpeechLib.Synthesis.1.0.0\lib\net40\SpeechLib.Synthesis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
@@ -173,6 +189,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PluginsCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -254,20 +271,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Logo.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HotSpotizer.Plugins.SpeechRecognition.WPF\HotSpotizer.Plugins.SpeechRecognition.WPF.csproj">
-      <Project>{ecc29c0e-0dc6-4f22-b52a-e259ad248779}</Project>
-      <Name>HotSpotizer.Plugins.SpeechRecognition.WPF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HotSpotizer.Plugins.SpeechSynthesis.WPF\HotSpotizer.Plugins.SpeechSynthesis.WPF.csproj">
-      <Project>{0478078f-504a-4c45-81e0-af42ab591683}</Project>
-      <Name>HotSpotizer.Plugins.SpeechSynthesis.WPF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Hotspotizer.Plugins.WPF\Hotspotizer.Plugins.WPF.csproj">
-      <Project>{2207f4cf-71e5-4b8b-9699-3b9bd514fda0}</Project>
-      <Name>Hotspotizer.Plugins.WPF</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Grammars\SRGS\SpeechGrammar_Editor_en.xml">

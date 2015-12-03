@@ -1,10 +1,9 @@
-﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
-//File: Hotspotizer.Plugins / PluginsCatalog.cs
-//Version: 20151117
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
+//File: PluginsCatalog.cs
+//Version: 20151203
 
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-
 
 namespace Hotspotizer.Plugins
 {
@@ -29,8 +28,9 @@ namespace Hotspotizer.Plugins
       //TODO: replace the following code to load plugins from a subfolder, remove specific plugin references from application project and set plugin projects to copy their DLL to a "Plugins" subfolder under the folder where the executable of the app is built
       string[] assemblies = new string[]
       {
-        "Hotspotizer.Plugins.SpeechSynthesis.dll",
-        "Hotspotizer.Plugins.SpeechRecognition.dll"
+        "SpeechLib.Synthesis.dll",
+        "SpeechLib.Recognition.dll",
+        "SpeechLib.Recognition.KinectV1.dll"
       };
 
       foreach (string s in assemblies)

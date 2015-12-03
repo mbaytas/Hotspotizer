@@ -1,4 +1,4 @@
-﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.PluginUtils.cs
 //Version: 20151117
 

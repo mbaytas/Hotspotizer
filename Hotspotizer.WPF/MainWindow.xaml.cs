@@ -1,8 +1,8 @@
-﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
+﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.xaml.cs
 //Version: 20151203
 
-//TODO: adapt code from SpeechTurtle project on Codeplex to be able to respond to MessageBoxes shown by the app (like Yes or No)
+//TODO: adapt code from SpeechTurtle project on Codeplex to be able to respond to MessageBoxes shown by the app (like Yes or No), maybe add that code to SpeechLib & respective NuGet package
 
 using Hotspotizer.Models;
 using System;
@@ -41,7 +41,7 @@ namespace Hotspotizer
     public MainWindow()
     {
       // Holla Kinect //note: must do before LoadPlugins, since the SpeechRecognition plugin's ISpeechRecognitionKinect implementation tries to start recognition feeding it with audio stream from Kinect
-      kinect = SpeechTurtle.Utils.KinectUtils.StartKinectSensor(); //GetKinectSensor(); //Kinect is also used for speech recognition if available, so starting at launch and stopping at end of app
+      kinect = SpeechLib.Recognition.KinectV1.KinectV1Utils.StartKinectSensor(); //GetKinectSensor(); //Kinect is also used for speech recognition if available, so starting at launch and stopping at end of app
 
       LoadPlugins();
       RegisterCommands();
