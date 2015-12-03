@@ -52,39 +52,42 @@ namespace Hotspotizer
 
       // Read and load if dialog returns OK
       if (openDialog.ShowDialog() == true)
+        LoadGestureCollection(openDialog.FileName);
+    }
+
+    public void LoadGestureCollection(string filename)
+    {
+      string json = File.ReadAllText(filename);
+      // DeserializeObject() does not appear to correctly deserialize Gesture objects
+      // Below is a kinda-dirty solution around that
+      List<Gesture> sourceList = JsonConvert.DeserializeObject<List<Gesture>>(json);
+      GestureCollection.Clear();
+
+      foreach (Gesture sourceGesture in sourceList)
       {
-        string json = File.ReadAllText(openDialog.FileName);
-        // DeserializeObject() does not appear to correctly deserialize Gesture objects
-        // Below is a kinda-dirty solution around that
-        List<Gesture> sourceList = JsonConvert.DeserializeObject<List<Gesture>>(json);
-        GestureCollection.Clear();
+        RemoveNoneKeys(sourceGesture.Command); //Seems somewhere at the serialization or deserialization Key.None creeps in, so remove it
 
-        foreach (Gesture sourceGesture in sourceList)
+        //copy sourceGesture to targetGesture //TODO: check why this copying is needed
+        Gesture targetGesture = new Gesture()
         {
-          RemoveNoneKeys(sourceGesture.Command); //Seems somewhere at the serialization or deserialization Key.None creeps in, so remove it
-
-          //copy sourceGesture to targetGesture //TODO: check why this copying is needed
-          Gesture targetGesture = new Gesture()
+          Name = sourceGesture.Name,
+          Command = new ObservableCollection<Key>(sourceGesture.Command),
+          Hold = sourceGesture.Hold,
+          Joint = sourceGesture.Joint
+        };
+        //copy the frames too (note: this is not the same as DeepCopyGestureFrame)
+        foreach (GestureFrame sourceFrame in sourceGesture.Frames)
+        {
+          GestureFrame targetFrame = new GestureFrame();
+          for (int i = 0; i < 400; i++)
           {
-            Name = sourceGesture.Name,
-            Command = new ObservableCollection<Key>(sourceGesture.Command),
-            Hold = sourceGesture.Hold,
-            Joint = sourceGesture.Joint
-          };
-          //copy the frames too
-          foreach (GestureFrame sourceFrame in sourceGesture.Frames)
-          {
-            GestureFrame targetFrame = new GestureFrame();
-            for (int i = 0; i < 400; i++)
-            {
-              targetFrame.FrontCells[i] = sourceFrame.FrontCells[i];
-              targetFrame.SideCells[i] = sourceFrame.SideCells[i];
-            }
-            targetGesture.Frames.Add(targetFrame);
+            targetFrame.FrontCells[i] = sourceFrame.FrontCells[i];
+            targetFrame.SideCells[i] = sourceFrame.SideCells[i];
           }
-
-          GestureCollection.Add(targetGesture);
+          targetGesture.Frames.Add(targetFrame);
         }
+
+        GestureCollection.Add(targetGesture);
       }
     }
 

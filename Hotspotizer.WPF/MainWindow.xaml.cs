@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer)
 //File: MainWindow.xaml.cs
-//Version: 20150915
+//Version: 20151203
 
 //TODO: adapt code from SpeechTurtle project on Codeplex to be able to respond to MessageBoxes shown by the app (like Yes or No)
 
@@ -9,6 +9,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,6 +22,13 @@ namespace Hotspotizer
 {
   public partial class MainWindow : Window
   {
+
+    #region --- Constants ---
+
+    public const string GESTURE_COLLECTION_LIBRARY_PATH = "Library";
+    public const string DEFAULT_GESTURE_COLLECTION = "Default.hsjson";
+
+    #endregion
 
     #region --- Fields ---
 
@@ -63,6 +72,8 @@ namespace Hotspotizer
       // Speak out about missing Kinect sensor
       if (kinect == null)
         speechSynthesis?.Speak(GlblRes.ResourceManager.GetString("KinectNotDetected", speechSynthesis.Culture)); //speech culture may not be the same as UI culture if for example only en-US voices are available
+
+      LoadDefaultGestureCollection();
     }
 
     #endregion
@@ -73,6 +84,11 @@ namespace Hotspotizer
     {
       if (kinect != null)
         kinect.Stop();
+    }
+
+    public void ExitApplication()
+    {
+      Application.Current.MainWindow.Close();
     }
 
     #endregion
@@ -120,9 +136,16 @@ namespace Hotspotizer
 
     #endregion
 
-    public void ExitApplication()
+    public void LoadDefaultGestureCollection()
     {
-      Application.Current.MainWindow.Close();
+      try
+      {
+        LoadGestureCollection(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), GESTURE_COLLECTION_LIBRARY_PATH, DEFAULT_GESTURE_COLLECTION));
+      }
+      catch
+      {
+        //ignore any errors if the Library\Default.hsjson file is missing
+      }
     }
 
     private Gesture MakeNewGesture()

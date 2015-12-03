@@ -204,7 +204,13 @@
     <None Include="Converters\Converters.cd" />
     <None Include="GUI.cd" />
     <None Include="Helpers\Helpers.cd" />
+    <None Include="Library\BigBlueButton.hsjson">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Library\Default.hsjson">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Library\PowerPoint.hsjson">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Models\Models.cd" />
