@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.SpeechUtils.cs
-//Version: 20151202
+//Version: 20151208
 
 using Hotspotizer.Plugins;
 using SpeechLib.Models;
@@ -26,7 +26,6 @@ namespace Hotspotizer
 
     public ISpeechSynthesis speechSynthesis;
     public ISpeechRecognition speechRecognition;
-    public ISpeechRecognitionKinect speechRecognitionKinect;
 
     private double SpeechRecognitionConfidenceThreshold = DEFAULT_SPEECH_RECOGNITION_CONFIDENCE_THRESHOLD;
 
@@ -43,7 +42,7 @@ namespace Hotspotizer
     public void LoadSpeechRecognitionPlugin()
     {
       Lazy<ISpeechRecognitionKinect> plugin1 = PluginsCatalog.mefContainer.GetExports<ISpeechRecognitionKinect>("SpeechLib.Recognition.KinectV1").FirstOrDefault();
-      speechRecognition = speechRecognitionKinect = (plugin1 != null) ? plugin1.Value : null;
+      speechRecognition = (plugin1 != null) ? plugin1.Value : null;
 
       if (speechRecognition == null) //SpeechRecognitionKinect plugin couldn't be loaded, try to fallback to the SpeechRecognition one (which uses the default audio source as input)
       {
@@ -76,16 +75,10 @@ namespace Hotspotizer
         speechRecognition.AcousticModelAdaptation = false;
         */
 
-        if (speechRecognitionKinect != null)
-          speechRecognitionKinect.SetInputToKinectSensor(); //if it can't find a Kinect sensor that call will fallback to default audio device for input
-        else
-          speechRecognition.SetInputToDefaultAudioDevice();
-
         speechRecognition.Start();
       }
       catch(Exception e)
       {
-        speechRecognitionKinect = null;
         speechRecognition = null;
         MessageBox.Show(e.Message);
       }
