@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.ManagerUtils.cs
-//Version: 20151203
+//Version: 20151208
 
 using System.Windows;
 using System.Windows.Controls;
@@ -49,9 +49,7 @@ namespace Hotspotizer
     public void LoadGestureCollection()
     {
       OpenFileDialog openDialog = new OpenFileDialog() { Filter = GlblRes.HotspotizerFileFilter };
-
-      // Read and load if dialog returns OK
-      if (openDialog.ShowDialog() == true)
+      if (openDialog.ShowDialog() == true) // Read and load if dialog returns OK
         LoadGestureCollection(openDialog.FileName);
     }
 
@@ -99,10 +97,13 @@ namespace Hotspotizer
     public void SaveGestureCollection()
     {
       SaveFileDialog saveDialog = new SaveFileDialog() { Filter = GlblRes.HotspotizerFileFilter };
+      if (saveDialog.ShowDialog() == true) // Write if dialog returns OK
+        SaveGestureCollection(saveDialog.FileName);
+    }
 
-      // Write if dialog returns OK
-      if (saveDialog.ShowDialog() == true)
-        File.WriteAllText(saveDialog.FileName, JsonConvert.SerializeObject(GestureCollection));
+    public void SaveGestureCollection(string filename)
+    {
+      File.WriteAllText(filename, JsonConvert.SerializeObject(GestureCollection));
     }
 
     public bool AddNewGesture()

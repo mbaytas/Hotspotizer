@@ -51,14 +51,14 @@ namespace Hotspotizer
       InitializeComponent();
       InitLocalization(); //must be called after "InitializeComponent"
 
-      DependencyPropertyDescriptor.FromProperty(Controls.HotspotGrid.ItemsSourceProperty, typeof(Controls.HotspotGrid)).
+      DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(Controls.HotspotGrid)).
         AddValueChanged(FVGrid, (s, e) =>
         {
           if (SVGrid.ItemsSource != null && FVGrid.ItemsSource != null)
             SyncEditorGrids();
         });
 
-      DependencyPropertyDescriptor.FromProperty(Controls.HotspotGrid.ItemsSourceProperty, typeof(Controls.HotspotGrid)).
+      DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, typeof(Controls.HotspotGrid)).
         AddValueChanged(SVGrid, (s, e) =>
         {
           if (SVGrid.ItemsSource != null && FVGrid.ItemsSource != null)
