@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: Models / IManager.cs
-//Version: 20151202
+//Version: 20151208
 
 using System.Collections.ObjectModel;
 
@@ -20,7 +20,7 @@ namespace Hotspotizer.Models
 
     #region --- Methods ---
 
-    bool AddNewGesture();
+    Gesture AddNewGesture();
     void CreateNewGestureCollection();
     void LoadGestureCollection();
     void SaveGestureCollection();

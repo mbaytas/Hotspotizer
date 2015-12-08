@@ -106,10 +106,10 @@ namespace Hotspotizer
       File.WriteAllText(filename, JsonConvert.SerializeObject(GestureCollection));
     }
 
-    public bool AddNewGesture()
+    public Gesture AddNewGesture()
     {
       if (!CanAddNewGesture)
-        return false; //do not add a new gesture if any currently edited gesture doesn't contain enough data to be allowed to save
+        return null; //do not add a new gesture if any currently edited gesture doesn't contain enough data to be allowed to save
 
       if (EditorVisible)
         SaveGesture(); //CanAddNewGesture has already checked if CanSaveGesture when EditorVisible
@@ -130,7 +130,7 @@ namespace Hotspotizer
       TheWorkspace.DataContext = g;
       ShowEditor();
 
-      return true;
+      return g;
     }
 
     public void EditGesture(Gesture g)
