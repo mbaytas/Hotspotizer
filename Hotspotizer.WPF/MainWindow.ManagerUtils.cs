@@ -44,6 +44,9 @@ namespace Hotspotizer
                           GlblRes.CreateNewGestureCollection, MessageBoxButton.YesNo)
           == MessageBoxResult.Yes)
         GestureCollection.Clear();
+
+      if (GestureCollectionLoaded != null)
+        GestureCollectionLoaded(this, EventArgs.Empty);
     }
 
     public void LoadGestureCollection()
@@ -86,6 +89,9 @@ namespace Hotspotizer
         }
 
         GestureCollection.Add(targetGesture);
+
+        if (GestureCollectionLoaded != null)
+          GestureCollectionLoaded(this, EventArgs.Empty);
       }
     }
 
@@ -155,6 +161,8 @@ namespace Hotspotizer
     #endregion
 
     #region --- Events ---
+
+    public event EventHandler GestureCollectionLoaded;
 
     public void EditGestureButton_Click(object sender, RoutedEventArgs e)
     {

@@ -2,13 +2,17 @@
 //File: MainWindow.SpeechUtils.cs
 //Version: 20151208
 
+using Hotspotizer.Models;
 using Hotspotizer.Plugins;
 using SpeechLib.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Speech.Recognition;
 using System.Windows;
 using System.Windows.Input;
 
@@ -19,6 +23,7 @@ namespace Hotspotizer
     #region --- Constants ---
 
     private const double DEFAULT_SPEECH_RECOGNITION_CONFIDENCE_THRESHOLD = 0.7;
+    private const char GESTURE_NAME_SPEECH_COMMAND_SEPARATOR = '-';
 
     #endregion
 
@@ -28,6 +33,8 @@ namespace Hotspotizer
     public ISpeechRecognition speechRecognition;
 
     private double SpeechRecognitionConfidenceThreshold = DEFAULT_SPEECH_RECOGNITION_CONFIDENCE_THRESHOLD;
+    private string grammarsFolder; //=null
+    private Grammar gestureCollectionGrammar; //=null
 
     #endregion
 
@@ -54,18 +61,59 @@ namespace Hotspotizer
         StartSpeechRecognition();
     }
 
-    private void LoadGrammarsForUI()
+    #region Grammars
+
+    private void LoadSpeechRecognitionGrammarsForUI() //TODO: split into separate methods and load based on current context, instead of loading all together
     {
-      string grammarsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Grammars", "SRGS");
-      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Manager_en.xml"), FileMode.Open), "Manager");
-      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Editor_en.xml"), FileMode.Open), "Editor");
-      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Visualizer_en.xml"), FileMode.Open), "Visualizer");
+      speechRecognition.Pause();
+      LoadSpeechRecognitionGrammar("SpeechGrammar_Manager_en.xml", "Manager");
+      LoadSpeechRecognitionGrammar("SpeechGrammar_Editor_en.xml", "Editor");
+      LoadSpeechRecognitionGrammar("SpeechGrammar_Visualizer_en.xml", "Visualizer");
+      speechRecognition.Resume();
     }
 
-    private void LoadGrammarsForGestureCollection()
+    private void LoadSpeechRecognitionGrammar(string filename, string name)
     {
-      //TODO
+      if (grammarsFolder == null)
+        grammarsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Grammars", "SRGS");
+
+      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, filename), FileMode.Open), name);
     }
+
+    private void LoadSpeechRecognitionGrammarForGestureCollection()
+    {
+      speechRecognition.Pause();
+      UnloadSpeechRecognitionGrammarForGestureCollection();
+      speechRecognition.LoadGrammar(gestureCollectionGrammar = CreateGrammarForGestureCollection(GestureCollection));
+      speechRecognition.Resume();
+    }
+
+    private void UnloadSpeechRecognitionGrammarForGestureCollection()
+    {
+      if (gestureCollectionGrammar != null)
+      {
+        speechRecognition.UnloadGrammar(gestureCollectionGrammar);
+        gestureCollectionGrammar = null;
+      }
+    }
+
+    public static Grammar CreateGrammarForGestureCollection(ObservableCollection<Gesture> gestures)
+    {
+      var commands = new Choices();
+      foreach (Gesture g in gestures)
+      {
+        string gestureName = g.Name;
+        string gestureSpeechCommand = g.Name.Split(GESTURE_NAME_SPEECH_COMMAND_SEPARATOR)[0].Trim(); //keep the first part only (after splitting the string) if the name of the gesture contains "-"
+        commands.Add(new SemanticResultValue(gestureSpeechCommand, g));
+      }
+
+      var gb = new GrammarBuilder { Culture = CultureInfo.GetCultureInfoByIetfLanguageTag("en") };
+      gb.Append(commands);
+
+      return new Grammar(gb);
+    }
+
+    #endregion
 
     protected void StartSpeechRecognition() //called by LoadSpeechRecognitionPlugin
     {
@@ -74,9 +122,10 @@ namespace Hotspotizer
 
       try
       {
-        LoadGrammarsForUI();
-        //LoadGrammarsForGestureCollection(); //TODO: if loaded here, need some event handler (GestureCollectionLoaded/GestureCollectionUnloaded) to unload them later on
+        LoadSpeechRecognitionGrammarsForUI();
+        LoadSpeechRecognitionGrammarForGestureCollection();
 
+        GestureCollectionLoaded += MainWindow_GestureCollectionLoaded;
         speechRecognition.Recognized += SpeechRecognition_Recognized;
         speechRecognition.NotRecognized += SpeechRecognition_NotRecognized;
 
@@ -117,6 +166,11 @@ namespace Hotspotizer
     private void SpeechRecognition_NotRecognized(object sender, EventArgs e)
     {
       //TODO: maybe show some hint about which are the supported voice commands
+    }
+
+    private void MainWindow_GestureCollectionLoaded(object sender, EventArgs e)
+    {
+      LoadSpeechRecognitionGrammarForGestureCollection(); //this will also unload the Grammar generated for the previous gesture collection
     }
 
     #endregion

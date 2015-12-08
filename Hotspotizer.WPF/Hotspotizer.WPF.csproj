@@ -100,25 +100,26 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SpeechLib.Models, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpeechLib.Models.1.5.0\lib\net40\SpeechLib.Models.dll</HintPath>
+      <HintPath>..\packages\SpeechLib.Models.1.6.0\lib\net40\SpeechLib.Models.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SpeechLib.Recognition, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpeechLib.Recognition.1.5.0\lib\net40\SpeechLib.Recognition.dll</HintPath>
+      <HintPath>..\packages\SpeechLib.Recognition.1.6.0\lib\net40\SpeechLib.Recognition.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SpeechLib.Recognition.KinectV1, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpeechLib.Recognition.KinectV1.1.5.0\lib\net40\SpeechLib.Recognition.KinectV1.dll</HintPath>
+      <HintPath>..\packages\SpeechLib.Recognition.KinectV1.1.6.0\lib\net40\SpeechLib.Recognition.KinectV1.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SpeechLib.Synthesis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SpeechLib.Synthesis.1.5.0\lib\net40\SpeechLib.Synthesis.dll</HintPath>
+      <HintPath>..\packages\SpeechLib.Synthesis.1.6.0\lib\net40\SpeechLib.Synthesis.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
@@ -156,8 +157,6 @@
     <Compile Include="Grammars\EditorCommands.cs" />
     <Compile Include="Helpers\AvailableLanguages.cs" />
     <Compile Include="Helpers\EventLogic.cs" />
-    <Compile Include="Models\IFrameManager.cs" />
-    <Compile Include="Models\IManager.cs" />
     <Compile Include="MainWindow.Commands.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="MainWindow.EditorUtils.cs" />
@@ -178,9 +177,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\GestureFrameCell.cs" />
-    <Compile Include="Models\GestureFrame.cs" />
-    <Compile Include="Models\Gesture.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -232,7 +228,6 @@
     <None Include="Library\PowerPoint.hsjson">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Models\Models.cd" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
@@ -289,7 +284,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Hotspotizer.Models\Hotspotizer.Models.csproj">
+      <Project>{a097d63e-c9d3-4de9-beb3-a2417025c87a}</Project>
+      <Name>Hotspotizer.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
