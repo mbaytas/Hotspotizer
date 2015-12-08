@@ -54,17 +54,28 @@ namespace Hotspotizer
         StartSpeechRecognition();
     }
 
-    private void StartSpeechRecognition()
+    private void LoadGrammarsForUI()
+    {
+      string grammarsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Grammars", "SRGS");
+      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Manager_en.xml"), FileMode.Open), "Manager");
+      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Editor_en.xml"), FileMode.Open), "Editor");
+      speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Visualizer_en.xml"), FileMode.Open), "Visualizer");
+    }
+
+    private void LoadGrammarsForGestureCollection()
+    {
+      //TODO
+    }
+
+    protected void StartSpeechRecognition() //called by LoadSpeechRecognitionPlugin
     {
       if (speechRecognition == null)
         return;
 
       try
       {
-        string grammarsFolder = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Grammars", "SRGS");
-        speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Manager_en.xml"), FileMode.Open), "Manager");
-        speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Editor_en.xml"), FileMode.Open), "Editor");
-        speechRecognition.LoadGrammar(new FileStream(Path.Combine(grammarsFolder, "SpeechGrammar_Visualizer_en.xml"), FileMode.Open), "Visualizer");
+        LoadGrammarsForUI();
+        //LoadGrammarsForGestureCollection(); //TODO: if loaded here, need some event handler (GestureCollectionLoaded/GestureCollectionUnloaded) to unload them later on
 
         speechRecognition.Recognized += SpeechRecognition_Recognized;
         speechRecognition.NotRecognized += SpeechRecognition_NotRecognized;
