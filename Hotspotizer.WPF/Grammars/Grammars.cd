@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Hotspotizer.EditorCommands">
+    <Position X="3" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>gYQAAAACAgA0CAAAIACAAAIAAAAAEAAIBAIAAAAIAUg=</HashCode>
+      <FileName>Grammars\EditorCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hotspotizer.ManagerCommands">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAgAAAAAAAAGACAAIAAAAAAAAAAIIAAAA=</HashCode>
+      <FileName>Grammars\ManagerCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hotspotizer.VisualizerCommands">
+    <Position X="5.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Grammars\VisualizerCommands.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

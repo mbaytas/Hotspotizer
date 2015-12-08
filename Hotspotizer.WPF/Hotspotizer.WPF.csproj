@@ -216,6 +216,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Compile Include="MainWindow.KinectUtils.cs" />
+    <None Include="Grammars\Grammars.cd" />
     <None Include="Converters\Converters.cd" />
     <None Include="GUI.cd" />
     <None Include="Helpers\Helpers.cd" />
