@@ -2,6 +2,7 @@
 //File: MainWindow.SpeechUtils.cs
 //Version: 20151209
 
+using Hotspotizer.Helpers;
 using Hotspotizer.Models;
 using Hotspotizer.Plugins;
 using SpeechLib.Models;
@@ -167,12 +168,13 @@ namespace Hotspotizer
       else if (VisualizerVisible) commands = commands_Visualizer;
       else commands = commands_Manager;
 
+      string speechCommand = e.command;
       ICommand cmd;
-      if ((e.confidence >= SpeechRecognitionConfidenceThreshold) &&
-          commands.TryGetValue(e.command, out cmd) &&
-          cmd.CanExecute(null)
-         ) //must use && to do short-circuit boolean evaluation here
-        cmd.Execute(null);
+      if (e.confidence >= SpeechRecognitionConfidenceThreshold)
+        if (!commands.TryGetValue(speechCommand, out cmd))
+          ExecuteGesture(speechCommand, VisualizerVisible); //if not a UI command, assuming its a Gesture name - if Visualizer is visible, also executing keyboard shortcut for the gesture (apart from highighting it)
+        else if (cmd.CanExecute(null))
+          cmd.Execute(null);
     }
 
     private void SpeechRecognition_NotRecognized(object sender, EventArgs e)

@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.VisualizerUtils.cs
-//Version: 20151203
+//Version: 2015120
 
 using HelixToolkit.Wpf;
 using System;
@@ -157,6 +157,20 @@ namespace Hotspotizer
     private void DisableKeyboardControl_Visualizer()
     {
       EventLogic.RemoveRoutedEventHandlers(ViewPort3D_Visualizer.CameraController, HelixToolkit.Wpf.CameraController.KeyDownEvent);
+    }
+
+    private void ExecuteGesture(string name, bool keyboardEmulation = true)
+    {
+      foreach (Gesture g in GestureCollection)
+        if (g.Name == name) //don't use StartsWith here
+          ExecuteGesture(g, keyboardEmulation);
+    }
+
+    private void ExecuteGesture(Gesture g, bool keyboardEmulation = true)
+    {
+      if (keyboardEmulation)
+        KeyboardUtils.HitKey(g);
+      HighlightGestureOnList(g);
     }
 
     #endregion

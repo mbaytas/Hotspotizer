@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.EditorUtils.cs
-//Version: 20151203
+//Version: 20151208
 
 #define ALLOW_SAVING_GESTURE_WITH_NO_COMMAND_OR_JOINT_AND_HOTSPOTS
 
@@ -211,6 +211,8 @@ namespace Hotspotizer
 
       ExGesture = null;
       CloseEditor();
+
+      LoadSpeechRecognitionGrammarForGestureCollection(); //reload the speech recognition grammar for the current gesture collection, since the gesture may have been renamed before saving
       return true;
     }
 
