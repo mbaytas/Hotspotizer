@@ -1,8 +1,8 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: VisualizerCommands.cs
-//Version: 20151011
+//Version: 20151210
 
-namespace Hotspotizer
+namespace Hotspotizer.Commands
 {
   public static class VisualizerCommands
   {

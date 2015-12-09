@@ -1,10 +1,11 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.Commands.cs
-//Version: 20151202
+//Version: 20151210
 
-using System.Windows.Input;
+using Hotspotizer.Commands;
 using Hotspotizer.Helpers;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace Hotspotizer
 {

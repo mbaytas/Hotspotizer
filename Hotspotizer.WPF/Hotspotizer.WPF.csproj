@@ -216,10 +216,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Compile Include="MainWindow.KinectUtils.cs" />
-    <None Include="Grammars\Grammars.cd" />
-    <None Include="Converters\Converters.cd" />
-    <None Include="GUI.cd" />
-    <None Include="Helpers\Helpers.cd" />
+    <None Include="Grammars\Hotspotizer.Commands.cd" />
+    <None Include="Converters\Hotspotizer.Converters.cd" />
+    <None Include="Hotspotizer.cd" />
+    <None Include="Helpers\Hotspotizer.Helpers.cd" />
     <None Include="Library\BigBlueButton.hsjson">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

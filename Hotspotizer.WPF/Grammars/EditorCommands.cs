@@ -1,8 +1,8 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: EditorCommands.cs
-//Version: 20151202
+//Version: 20151210
 
-namespace Hotspotizer
+namespace Hotspotizer.Commands
 {
   public static class EditorCommands
   {

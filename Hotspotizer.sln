@@ -20,6 +20,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3E16B4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotspotizer.Models", "Hotspotizer.Models\Hotspotizer.Models.csproj", "{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{152CFE2D-0959-4D38-9895-22EED316FC58}"
+	ProjectSection(SolutionItems) = preProject
+		Hotspotizer.WPF\Hotspotizer.cd = Hotspotizer.WPF\Hotspotizer.cd
+		Hotspotizer.WPF\Grammars\Hotspotizer.Commands.cd = Hotspotizer.WPF\Grammars\Hotspotizer.Commands.cd
+		Hotspotizer.WPF\Converters\Hotspotizer.Converters.cd = Hotspotizer.WPF\Converters\Hotspotizer.Converters.cd
+		Hotspotizer.WPF\Helpers\Hotspotizer.Helpers.cd = Hotspotizer.WPF\Helpers\Hotspotizer.Helpers.cd
+		Hotspotizer.Models\Hotspotizer.Models.cd = Hotspotizer.Models\Hotspotizer.Models.cd
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		CD_ROM|Any CPU = CD_ROM|Any CPU
