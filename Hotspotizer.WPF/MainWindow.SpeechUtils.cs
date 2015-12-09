@@ -1,6 +1,6 @@
 ﻿//Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
 //File: MainWindow.SpeechUtils.cs
-//Version: 20151208
+//Version: 20151209
 
 using Hotspotizer.Models;
 using Hotspotizer.Plugins;
@@ -83,11 +83,15 @@ namespace Hotspotizer
     private void LoadSpeechRecognitionGrammarForGestureCollection()
     {
       speechRecognition.Pause();
-      UnloadSpeechRecognitionGrammarForGestureCollection();
-      speechRecognition.LoadGrammar(gestureCollectionGrammar = CreateGrammarForGestureCollection(GestureCollection));
+      UnloadSpeechRecognitionGrammarForGestureCollection(); //unload previously loaded grammar for gesture collection, if any
+      if (GestureCollection != null)
+        speechRecognition.LoadGrammar(gestureCollectionGrammar = CreateGrammarForGestureCollection(GestureCollection));
       speechRecognition.Resume();
     }
 
+    /// <summary>
+    ///  Unload previously loaded grammar for gesture collection, if any.
+    /// </summary>
     private void UnloadSpeechRecognitionGrammarForGestureCollection()
     {
       if (gestureCollectionGrammar != null)
@@ -97,6 +101,11 @@ namespace Hotspotizer
       }
     }
 
+    /// <summary>
+    /// Creates grammar for given gesture collection.
+    /// </summary>
+    /// <param name="gestures">The gesture collection</param>
+    /// <returns></returns>
     public static Grammar CreateGrammarForGestureCollection(ObservableCollection<Gesture> gestures)
     {
       var commands = new Choices();
@@ -104,17 +113,20 @@ namespace Hotspotizer
       {
         string gestureName = g.Name;
         string gestureSpeechCommand = g.Name.Split(GESTURE_NAME_SPEECH_COMMAND_SEPARATOR)[0].Trim(); //keep the first part only (after splitting the string) if the name of the gesture contains "-"
-        commands.Add(new SemanticResultValue(gestureSpeechCommand, g));
+        commands.Add(new SemanticResultValue(gestureSpeechCommand, gestureName));
       }
 
       var gb = new GrammarBuilder { Culture = CultureInfo.GetCultureInfoByIetfLanguageTag("en") };
       gb.Append(commands);
 
-      return new Grammar(gb);
+      return new Grammar(gb) { Name = "GestureCollection" };
     }
 
     #endregion
 
+    /// <summary>
+    /// Starts the speech recognition.
+    /// </summary>
     protected void StartSpeechRecognition() //called by LoadSpeechRecognitionPlugin
     {
       if (speechRecognition == null)

@@ -47,6 +47,7 @@ namespace Hotspotizer
 
       LoadPlugins();
       RegisterCommands();
+
       GestureCollection = new ObservableCollection<Gesture>();
       InitializeComponent();
       InitLocalization(); //must be called after "InitializeComponent"
