@@ -93,7 +93,7 @@ After naming the gesture, click the “Keyboard Command” button to set the key
 
 *The “Press/Hold” toggle button next to the “Keyboard Command” button sets whether performing the gesture should trigger a single key press or hold down the keyboard button as long as the tracked limb remains in the hotspots of the gesture’s last frame.*
 
-![Setting the Keyboar Command](/_screenshots/hs_spacekey.png)
+![Setting the Keyboard Command](/_screenshots/hs_spacekey.png)
 
 *You can map your gestures to any combination of keys, not just a single key.*
 
