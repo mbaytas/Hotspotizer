@@ -1,0 +1,105 @@
+﻿<!--
+Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
+Filename: SpeechGrammar_Manager_en.xml
+Version: 20150910
+-->
+
+<grammar
+  xmlns="http://www.w3.org/2001/06/grammar"
+  tag-format="semantics/1.0"
+  version="1.0"
+  root="rootRule"
+  xml:lang="en"
+  >
+
+  <!--
+    Note: System.Speech doesn't support tag-format="semantics/1.0-literals" (Microsoft.Speech does instead),
+    so using tag-format="semantics/1.0" and instead of <tag>x</tag> using <tag>out="x"</tag>
+  -->
+
+  <rule id="rootRule">
+    <one-of>
+
+      <item>
+        <tag>out="EXIT_APPLICATION"</tag>
+        <one-of>
+          <item> exit </item>
+          <item> exit application </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="NEW_GESTURE_COLLECTION"</tag>
+        <one-of>
+          <item> new </item>
+          <item> new collection </item>
+          <item> new gesture collection </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="LOAD_GESTURE_COLLECTION"</tag>
+        <one-of>
+          <item> load </item>
+          <item> open </item>
+          <item> open collection </item>
+          <item> load collection </item>
+          <item> open gesture collection </item>
+          <item> load gesture collection </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="SAVE_GESTURE_COLLECTION"</tag>
+        <one-of>
+          <item> save </item>
+          <item> save collection </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="ADD_NEW_GESTURE"</tag>
+        <one-of>
+          <item> add </item>
+          <item> add gesture </item>
+          <item> add new gesture </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="EDIT_GESTURE"</tag>
+        <one-of>
+          <item> edit </item>
+          <item> editor </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="REMOVE_GESTURE"</tag>
+        <one-of>
+          <item> remove </item>
+          <item> remove gesture </item>
+          <item> delete </item>
+          <item> delete gesture </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="PREVIOUS_GESTURE"</tag>
+        <one-of>
+          <item> previous </item>
+          <item> select previous gesture</item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="NEXT_GESTURE"</tag>
+        <one-of>
+          <item> next </item>
+          <item> select next gesture </item>
+        </one-of>
+      </item>
+
+    </one-of>
+  </rule>
+</grammar>

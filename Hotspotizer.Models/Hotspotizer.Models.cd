@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Hotspotizer.Models.Gesture" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAIAAAAgBAAAAAIAAEBQQAkAgAAgAAABACABgAAAE=</HashCode>
+      <FileName>Gesture.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Hotspotizer.Models.GestureFrame">
+    <Position X="4.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>GestureFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Hotspotizer.Models.GestureFrameCell" BaseTypeListCollapsed="true">
+    <Position X="4.25" Y="2.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAAQAAIAAAAEAQgAAACAAAAAAQAAAEAAA=</HashCode>
+      <FileName>GestureFrameCell.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Hotspotizer.Models.IFrameManager">
+    <Position X="8" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAIAAABAAAAAAIAAAEgAAAAAAAAAAAAAAAAgAA=</HashCode>
+      <FileName>IFrameManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Hotspotizer.Models.IManager">
+    <Position X="8" Y="3.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AUAAAAABAAQAAAAAAAAgAAAAAgAAAAgAAAAAACABAAA=</HashCode>
+      <FileName>IManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

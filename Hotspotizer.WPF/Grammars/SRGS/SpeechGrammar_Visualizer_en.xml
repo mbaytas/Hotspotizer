@@ -1,0 +1,44 @@
+﻿<!--
+Project: Hotspotizer (https://github.com/mbaytas/hotspotizer, https://github.com/birbilis/hotspotizer)
+Filename: SpeechGrammar_Visualizer_en.xml
+Version: 20150910
+-->
+
+<grammar
+  xmlns="http://www.w3.org/2001/06/grammar"
+  tag-format="semantics/1.0"
+  version="1.0"
+  root="rootRule"
+  xml:lang="en"
+  >
+
+  <!--
+    Note: System.Speech doesn't support tag-format="semantics/1.0-literals" (Microsoft.Speech does instead),
+    so using tag-format="semantics/1.0" and instead of <tag>x</tag> using <tag>out="x"</tag>
+  -->
+
+  <rule id="rootRule">
+    <one-of>
+
+      <item>
+        <tag>out="PLAY"</tag>
+        <one-of>
+          <item> play </item>
+          <item> test </item>
+          <item> try </item>
+          <item> visualize </item>
+          <item> visualizer </item>
+        </one-of>
+      </item>
+
+      <item>
+        <tag>out="CLOSE_VISUALIZER"</tag>
+        <one-of>
+          <item> close </item>
+          <item> close visualizer </item>
+        </one-of>
+      </item>
+
+    </one-of>
+  </rule>
+</grammar>

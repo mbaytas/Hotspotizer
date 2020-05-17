@@ -26,7 +26,7 @@ Conversely; if my work somehow makes use of content that belongs to you (or an o
 - **Advisors:** Oğuzhan Özcan, Yücel Yemez
 - **Concept Development:** Mehmet Aydın Baytaş, Ayça Ünlüer
 - **Software Development:** Mehmet Aydın Baytaş
- 
+
 Touchless full-body gesture-sensing devices such as the Microsoft Kinect have introduced a world of possibilities to interactive computing. However, the technical understanding and programming skills required to make use of these devices left them largely out of reach for designers, hobbyists, gamers and professionals outside of computing. To lower the floor of technical skills needed to utilize the technology in custom applications and to enable rapid prototyping of gesture-based interactions, we have developed Hotspotizer.
 
 Hotspotizer allows users without computer programming skills to design, visualize, save and recall sets of custom full-body gestures. These gestures are mapped to system-wide keyboard commands which can be used to control any application that runs on the current versions of the Microsoft Windows platform.
@@ -93,7 +93,7 @@ After naming the gesture, click the “Keyboard Command” button to set the key
 
 *The “Press/Hold” toggle button next to the “Keyboard Command” button sets whether performing the gesture should trigger a single key press or hold down the keyboard button as long as the tracked limb remains in the hotspots of the gesture’s last frame.*
 
-![Setting the Keyboar Command](/_screenshots/hs_spacekey.png)
+![Setting the Keyboard Command](/_screenshots/hs_spacekey.png)
 
 *You can map your gestures to any combination of keys, not just a single key.*
 

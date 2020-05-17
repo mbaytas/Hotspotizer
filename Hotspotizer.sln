@@ -1,9 +1,33 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication", "WpfApplication\WpfApplication.csproj", "{A7419861-6777-456E-9F7E-5C21D7476664}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotspotizer.WPF", "Hotspotizer.WPF\Hotspotizer.WPF.csproj", "{A7419861-6777-456E-9F7E-5C21D7476664}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E7259BA4-5055-49C2-A490-7580BB0D13F8}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3E16B418-167A-4251-96E1-4C835E5AE3ED}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hotspotizer.Models", "Hotspotizer.Models\Hotspotizer.Models.csproj", "{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Diagrams", "Diagrams", "{152CFE2D-0959-4D38-9895-22EED316FC58}"
+	ProjectSection(SolutionItems) = preProject
+		Hotspotizer.WPF\Hotspotizer.cd = Hotspotizer.WPF\Hotspotizer.cd
+		Hotspotizer.WPF\Grammars\Hotspotizer.Commands.cd = Hotspotizer.WPF\Grammars\Hotspotizer.Commands.cd
+		Hotspotizer.WPF\Converters\Hotspotizer.Converters.cd = Hotspotizer.WPF\Converters\Hotspotizer.Converters.cd
+		Hotspotizer.WPF\Helpers\Hotspotizer.Helpers.cd = Hotspotizer.WPF\Helpers\Hotspotizer.Helpers.cd
+		Hotspotizer.Models\Hotspotizer.Models.cd = Hotspotizer.Models\Hotspotizer.Models.cd
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +49,16 @@ Global
 		{A7419861-6777-456E-9F7E-5C21D7476664}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A7419861-6777-456E-9F7E-5C21D7476664}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{A7419861-6777-456E-9F7E-5C21D7476664}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{A097D63E-C9D3-4DE9-BEB3-A2417025C87A}.SingleImage|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

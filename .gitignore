@@ -6,7 +6,6 @@
 *.sln.docstates
 
 packages/
-Resources/
 
 publish/
 
@@ -39,3 +38,6 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+.localhistory/
+.vs/
